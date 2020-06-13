@@ -1,0 +1,33 @@
+{
+  "extends": [
+    "standard", "plugin:react/recommended", "taro"
+  ],
+  "parser": "babel-eslint",
+  "plugins": ["react"],
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "Taro"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
+    "no-debugger": "off",
+    "react/prop-types": "off",
+    "react/jsx-tag-spacing": "off",
+    "import/prefer-default-export": "off",
+    "import/no-commonjs": "off",
+    "jsx-quotes": "off",
+    "react/jsx-indent-props": "off",
+    "taro/this-props-function": "off"
+  }
+}

@@ -1,3 +1,5 @@
+const path = require('path')
+
 const config = {
   projectName: 'yilian_wechat',
   date: '2020-6-13',
@@ -12,24 +14,34 @@ const config = {
   babel: {
     sourceMap: true,
     presets: [
-      ['env', {
-        modules: false
-      }]
+      [
+        'env',
+        {
+          modules: false
+        }
+      ]
     ],
     plugins: [
       'transform-decorators-legacy',
       'transform-class-properties',
       'transform-object-rest-spread',
-      ['transform-runtime', {
-        'helpers': false,
-        'polyfill': false,
-        'regenerator': true,
-        'moduleName': 'babel-runtime'
-      }]
+      [
+        'transform-runtime',
+        {
+          helpers: false,
+          polyfill: false,
+          regenerator: true,
+          moduleName: 'babel-runtime'
+        }
+      ]
     ]
   },
   plugins: [],
-  defineConstants: {
+  defineConstants: {},
+  alias: {
+    '@/utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@/components': path.resolve(__dirname, '..', 'src/components'),
+    '@/crossplatform': path.resolve(__dirname, '..', 'src/crossplatform')
   },
   mini: {
     postcss: {
@@ -59,11 +71,7 @@ const config = {
       autoprefixer: {
         enable: true,
         config: {
-          browsers: [
-            'last 3 versions',
-            'Android >= 4.1',
-            'ios >= 8'
-          ]
+          browsers: ['last 3 versions', 'Android >= 4.1', 'ios >= 8']
         }
       },
       cssModules: {
@@ -73,11 +81,12 @@ const config = {
           generateScopedName: '[name]__[local]___[hash:base64:5]'
         }
       }
-    }
+    },
+    esnextModules: ['taro-ui']
   }
 }
 
-module.exports = function (merge) {
+module.exports = function(merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))
   }
