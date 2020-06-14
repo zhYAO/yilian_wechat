@@ -4,7 +4,9 @@ import Index from './pages/index'
 import dva from './utils/dva'
 import models from './models/models'
 import { Provider } from '@tarojs/redux'
+import 'taro-ui/dist/style/index.scss'
 import './app.less'
+
 const dvaApp = dva.createApp({
   initialState: {},
   models: models

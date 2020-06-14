@@ -1,6 +1,7 @@
 import Taro, { useEffect } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
+import TabBar from '../../components/page-components/TabBar'
 import './index.less'
 
 const Index = props => {
@@ -10,7 +11,7 @@ const Index = props => {
   }, [])
   return (
     <View className="index-page">
-      <Text>正如你所见这是你的index页面</Text>
+      <TabBar />
     </View>
   )
 }
