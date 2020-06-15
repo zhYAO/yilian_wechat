@@ -70,7 +70,7 @@ export default {
   },
 
   reducers: {
-    save(state, { payload }) {
+    updateState(state, { payload }) {
       return { ...state, ...payload };
     },
   },

@@ -1,14 +1,14 @@
-import * as indexApi from './service';
+import * as mineApi from './service';
 
 export default {
-  namespace: 'index',
+  namespace: 'mine',
   state: {
       keai:'测试数据666'
   },
 
   effects: {
     * effectsDemo(_, { call, put }) {
-      const { status, data } = yield call(indexApi.demo, {});
+      const { status, data } = yield call(mineApi.demo, {});
       if (status === 'ok') {
         yield put({ type: 'save',
           payload: {

@@ -1,11 +1,12 @@
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
-import Index from './pages/index'
+import Index from './pages/home/index'
 import dva from './utils/dva'
 import models from './models/models'
 import { Provider } from '@tarojs/redux'
 import 'taro-ui/dist/style/index.scss'
 import './app.less'
+import './styles/base.less'
 
 const dvaApp = dva.createApp({
   initialState: {},
@@ -14,12 +15,43 @@ const dvaApp = dva.createApp({
 const store = dvaApp.getStore()
 class App extends Component {
   config = {
-    pages: ['pages/index/index'],
+    pages: [
+      'pages/home/index',
+      'pages/company/index',
+      'pages/trends/index',
+      'pages/discover/index',
+      'pages/mine/index'
+    ],
     window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationStyle: 'custom'
+    },
+    tabBar: {
+      custom: true,
+      color: '#000000',
+      selectedColor: '#000000',
+      backgroundColor: '#000000',
+      list: [
+        {
+          pagePath: 'pages/home/index',
+          text: '首页'
+        },
+        {
+          pagePath: 'pages/company/index',
+          text: '公司'
+        },
+        {
+          pagePath: 'pages/trends/index',
+          text: '动态'
+        },
+        {
+          pagePath: 'pages/discover/index',
+          text: '发现'
+        },
+        {
+          pagePath: 'pages/mine/index',
+          text: '我的'
+        }
+      ]
     }
   }
   componentDidMount() {}

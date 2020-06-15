@@ -1,0 +1,22 @@
+{
+  "home": {
+    "name": "首页",
+    "path": "/pages/home/index"
+  },
+  "company": {
+    "name": "公司",
+    "path": "/pages/company/index"
+  },
+  "trends": {
+    "name": "动态",
+    "path": "/pages/trends/index"
+  },
+  "discover": {
+    "name": "发现",
+    "path": "/pages/discover/index"
+  },
+  "mine": {
+    "name": "我的",
+    "path": "/pages/mine/index"
+  }
+}
