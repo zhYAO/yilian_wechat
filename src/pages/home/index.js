@@ -1,5 +1,5 @@
 import Taro, { useEffect } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtSearchBar } from 'taro-ui'
 import './index.less'
@@ -33,6 +33,25 @@ const Index = props => {
           <Text className="search__desc">搜索你想要的</Text>
         </View>
       </View>
+
+      <Swiper
+        className="test-h"
+        indicatorColor="#999"
+        indicatorActiveColor="#333"
+        circular
+        indicatorDots
+        autoplay
+      >
+        <SwiperItem>
+          <View className="demo-text-1">1</View>
+        </SwiperItem>
+        <SwiperItem>
+          <View className="demo-text-2">2</View>
+        </SwiperItem>
+        <SwiperItem>
+          <View className="demo-text-3">3</View>
+        </SwiperItem>
+      </Swiper>
     </View>
   )
 }
