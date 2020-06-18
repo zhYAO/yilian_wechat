@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "yilian_wechat",
   "description": "易连小程序",
-  "appid": "touristappid",
+  "appid": "wx8ebd1e65f92c361c",
   "setting": {
     "urlCheck": true,
     "es6": false,

@@ -1,8 +1,8 @@
 import Taro, { useEffect } from '@tarojs/taro'
 import { AtTabBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { switchTab } from '../crossplatform/apiservice/navigate'
-import pagejumplist from '../configuration/pagejumplist.json'
+import { switchTab } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 
 const tabList = [
   { title: '首页', path: 'home' },

@@ -39,9 +39,12 @@ const config = {
   plugins: [],
   defineConstants: {},
   alias: {
-    '@/utils': path.resolve(__dirname, '..', 'src/utils'),
-    '@/components': path.resolve(__dirname, '..', 'src/components'),
-    '@/crossplatform': path.resolve(__dirname, '..', 'src/crossplatform')
+    '@utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@components': path.resolve(__dirname, '..', 'src/components'),
+    '@crossplatform': path.resolve(__dirname, '..', 'src/crossplatform'),
+    '@configuration': path.resolve(__dirname, '..', 'src/configuration'),
+    '@static': path.resolve(__dirname, '..', 'src/static'),
+    '@images': path.resolve(__dirname, '..', 'src/static/images')
   },
   mini: {
     postcss: {

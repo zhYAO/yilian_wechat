@@ -1,14 +1,14 @@
 import Taro, { useEffect } from '@tarojs/taro'
 import { View, Text, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtSearchBar } from 'taro-ui'
+import RecommendPart from '@components/page-components/recommend-part'
 import './index.less'
 
 const Index = props => {
   const {
     dispatch,
     common: { navBarPaddingTop },
-    home: { searchData }
+    home: { searchData, bannerList, recommendCardList }
   } = props
 
   useEffect(() => {
@@ -25,8 +25,14 @@ const Index = props => {
     })
   }
 
+  const handleImgJump = url => {
+    // 点击banner跳转
+    console.log(url, 'banner jump to url')
+  }
+
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+      {/* 头部搜索栏 */}
       <View className="container__search">
         <View className="container__search__btn">
           <View className="search__icon"></View>
@@ -34,24 +40,32 @@ const Index = props => {
         </View>
       </View>
 
+      {/* banner */}
       <Swiper
-        className="test-h"
+        className="banner"
         indicatorColor="#999"
         indicatorActiveColor="#333"
         circular
         indicatorDots
-        autoplay
       >
-        <SwiperItem>
-          <View className="demo-text-1">1</View>
-        </SwiperItem>
-        <SwiperItem>
-          <View className="demo-text-2">2</View>
-        </SwiperItem>
-        <SwiperItem>
-          <View className="demo-text-3">3</View>
-        </SwiperItem>
+        {bannerList.map(item => {
+          return (
+            <SwiperItem className="banner__item" key={item.id}>
+              <Image
+                className="banner__item__img"
+                src={item.picUrl}
+                mode="widthFix"
+                onClick={() => handleImgJump(item.url)}
+              />
+            </SwiperItem>
+          )
+        })}
       </Swiper>
+
+      {/* 推荐公司列表 */}
+      <RecommendPart title={'小易推荐'} extraText={'更多'} cardList={recommendCardList} />
+      
+      {/* 推荐产品 */}
     </View>
   )
 }
