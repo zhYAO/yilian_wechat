@@ -1,11 +1,15 @@
+@searchHeight: 88px;
+
 .container {
   &__search {
     display: flex;
     align-items: center;
-    height: 88px;
+    width: 100%;
+    height: @searchHeight;
     // 188px 是小程序按钮的宽度
     padding-right: calc(188px + 24px);
     padding-left: 24px;
+    box-sizing: border-box;
     &__btn {
       display: flex;
       align-items: center;

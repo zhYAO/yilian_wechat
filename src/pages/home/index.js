@@ -1,6 +1,7 @@
 import Taro, { useEffect } from '@tarojs/taro'
 import { View, Text, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
+import CompanyPart from '@components/page-components/company-part'
 import RecommendPart from '@components/page-components/recommend-part'
 import './index.less'
 
@@ -8,12 +9,8 @@ const Index = props => {
   const {
     dispatch,
     common: { navBarPaddingTop },
-    home: { searchData, bannerList, recommendCardList }
+    home: { searchData, bannerList, companyCardList, recommendCardList }
   } = props
-
-  useEffect(() => {
-    console.log(props)
-  }, [])
 
   const handleChange = val => {
     console.log(val, 'searchVal')
@@ -63,9 +60,10 @@ const Index = props => {
       </Swiper>
 
       {/* 推荐公司列表 */}
-      <RecommendPart title={'小易推荐'} extraText={'更多'} cardList={recommendCardList} />
+      <CompanyPart title={'小易推荐'} extraText={'更多'} cardList={companyCardList} />
       
       {/* 推荐产品 */}
+      <RecommendPart title={'推荐产品'} cardList={recommendCardList} />
     </View>
   )
 }

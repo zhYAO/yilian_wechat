@@ -1,25 +1,32 @@
 import Taro from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import { AtList, AtListItem } from 'taro-ui'
+import { View, Text, ScrollView } from '@tarojs/components'
 import RecommendCard from '@components/page-components/recommend-card'
+import './index.less'
 
-const RecommendPart = props => {
-  const { title, extraText, cardList } = props
+const CompanyPart = props => {
+  const { title, cardList } = props
 
   return (
-    <View>
-      <AtListItem title={title} extraText={extraText} arrow="right" />
-      {cardList.map(item => {
-        return <RecommendCard key={item.id} data={item} />
-      })}
+    <View className="container">
+      <View className="container__title">
+        <Text>{title}</Text>
+      </View>
+      <ScrollView className="list">
+        {cardList.map(item => {
+          return (
+            <View className="list__card">
+              <RecommendCard data={item} />
+            </View>
+          )
+        })}
+      </ScrollView>
     </View>
   )
 }
 
-RecommendPart.defaultProps = {
+CompanyPart.defaultProps = {
   title: '',
-  extraText: '',
   cardList: []
 }
 
-export default RecommendPart
+export default CompanyPart

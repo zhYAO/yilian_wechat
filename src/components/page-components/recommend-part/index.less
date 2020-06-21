@@ -1,0 +1,22 @@
+.container {
+  padding-bottom: 80px;
+  &__title {
+    display: flex;
+    justify-content: center;
+    text {
+      padding-bottom: 16px;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  &__card {
+    flex-basis: 50%;
+    box-sizing: border-box;
+    &:nth-last-of-type(2n + 1) {
+      padding-right: 20px;
+    }
+  }
+}
