@@ -11,7 +11,7 @@ const CompanyPart = props => {
       <View className="container__title">
         <Text>{title}</Text>
       </View>
-      <ScrollView className="list">
+      <View className="list">
         {cardList.map(item => {
           return (
             <View className="list__card">
@@ -19,7 +19,7 @@ const CompanyPart = props => {
             </View>
           )
         })}
-      </ScrollView>
+      </View>
     </View>
   )
 }
