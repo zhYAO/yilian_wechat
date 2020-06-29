@@ -3,6 +3,7 @@ import { View, Text, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyPart from '@components/page-components/company-part'
 import RecommendPart from '@components/page-components/recommend-part'
+import SearchPart from '@components/page-components/search-part'
 import './index.less'
 
 const Index = props => {
@@ -30,12 +31,7 @@ const Index = props => {
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
       {/* 头部搜索栏 */}
-      <View className="container__search">
-        <View className="container__search__btn">
-          <View className="search__icon"></View>
-          <Text className="search__desc">搜索你想要的</Text>
-        </View>
-      </View>
+      <SearchPart />
 
       {/* banner */}
       <Swiper
