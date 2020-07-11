@@ -1,52 +1,52 @@
 .card {
-  display: flex;
-  align-items: center;
   width: 100%;
-  padding: 20px;
+  padding: 0 40px;
   box-sizing: border-box;
+  &__container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+  }
   &__img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
+    flex-basis: 200px;
   }
   &__content {
     display: flex;
-    justify-content: space-between;
-    flex: 1;
-    padding: 0 20px 20px;
-    border-bottom: 1px solid #ccc;
-    &__left {
+    flex-direction: column;
+    padding: 20px 20px 0 24px;
+    &__name {
+      font-size: 32px;
+      font-weight: bold;
+      color: rgba(72, 74, 89, 1);
+    }
+    &__desc {
+      font-size: 26px;
+      color: rgba(56, 56, 58, 0.7);
+      margin-top: 13px;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      // white-space: nowrap;
+    }
+    &__cards {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-between;
+      margin-top: 33px;
     }
-    .left__name {
-
+    &__card {
+      padding: 10px;
+      background: rgba(241, 241, 241, 1);
+      border-radius: 6px;
+      margin-right: 20px;
+      font-size: 17px;
+      color: rgba(0, 0, 0, 0.7);
     }
-    .left__desc {
-      font-size: 18px;
-      margin: 10px 0;
-    }
-    .left__cards {
-      display: flex;
-      font-size: 22px;
-      .left__card {
-        margin-right: 16px;
-        padding: 10px 20px;
-        border-radius: 30px;
-        background-color: #ddd;
-      }
-    }
-    &__right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: space-between;
-      font-size: 22px;
-      .right__label {
-        color: red;
-      }
+    &__area {
+      font-size: 21px;
+      color: rgba(56, 56, 58, 0.7);
     }
   }
-
 }

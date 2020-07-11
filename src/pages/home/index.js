@@ -56,8 +56,11 @@ const Index = props => {
       </Swiper>
 
       {/* 推荐公司列表 */}
-      <CompanyPart title={'小易推荐'} extraText={'更多'} cardList={companyCardList} />
-      
+      <CompanyPart title={'小易推荐'} extraText={'>>更多'} cardList={companyCardList} />
+
+      {/* 热门产品 */}
+      <RecommendPart title={'推荐产品'} cardList={recommendCardList} />
+
       {/* 推荐产品 */}
       <RecommendPart title={'推荐产品'} cardList={recommendCardList} />
     </View>

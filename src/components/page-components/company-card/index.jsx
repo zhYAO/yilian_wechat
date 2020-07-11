@@ -7,24 +7,21 @@ const CompanyCard = props => {
 
   return (
     <View key={data.id} className="card">
-      <Image className="card__img" src={data.picUrl} />
-      <View className="card__content">
-        <View className="card__content__left">
-          <Text className="left__name">{data.companyName}</Text>
-          <Text className="left__desc">{data.desc}</Text>
-          <View className="left__cards">
+      <View className="card__container">
+        <Image className="card__img" src={data.picUrl} mode="aspectFill" />
+        <View className="card__content">
+          <Text className="card__content__name">{data.companyName}</Text>
+          <Text className="card__content__desc">{data.desc}</Text>
+          <View className="card__content__cards">
             {data.cards.map(cardItem => {
               return (
-                <View key={cardItem.id} className="left__card">
-                  <Text className="card__text">{cardItem.text}</Text>
+                <View key={cardItem.id} className="card__content__card">
+                  {cardItem.text}
                 </View>
               )
             })}
           </View>
-        </View>
-        <View className="card__content__right">
-          {data.label && <Text className="right__label">{data.label}</Text>}
-          <Text className="right__area">{data.area}</Text>
+          <View className="card__content__area">{data.area}</View>
         </View>
       </View>
     </View>

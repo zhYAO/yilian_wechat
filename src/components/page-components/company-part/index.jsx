@@ -1,14 +1,14 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtList, AtListItem } from 'taro-ui'
 import CompanyCard from '@components/page-components/company-card'
+import CustomNavigator from '@components/page-components/custom-navigator'
 
 const CompanyPart = props => {
   const { title, extraText, cardList } = props
 
   return (
     <View>
-      <AtListItem title={title} extraText={extraText} arrow="right" />
+      <CustomNavigator title={title} extraText={extraText} />
       {cardList.map(item => {
         return <CompanyCard key={item.id} data={item} />
       })}
