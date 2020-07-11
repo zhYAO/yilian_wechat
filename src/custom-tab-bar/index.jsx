@@ -5,11 +5,11 @@ import { switchTab } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 
 const tabList = [
-  { title: '首页', path: 'home' },
-  { title: '公司', path: 'company' },
-  { title: '动态', path: 'trends' },
-  { title: '发现', path: 'discover' },
-  { title: '我的', path: 'mine' }
+  { title: '首页', path: 'home',image: require('@static/images/tabbar/tabs_home.png') },
+  { title: '公司', path: 'company',image: require('@static/images/tabbar/tabs_company.png') },
+  { title: '动态', path: 'trends',image: require('@static/images/tabbar/tabs_trends.png') },
+  { title: '发现', path: 'discover',image: require('@static/images/tabbar/tabs_discover.png') },
+  { title: '我的', path: 'mine',image: require('@static/images/tabbar/tabs_mine.png') }
 ]
 
 const TabBar = props => {

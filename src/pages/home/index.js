@@ -3,6 +3,7 @@ import { View, Text, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyPart from '@components/page-components/company-part'
 import RecommendPart from '@components/page-components/recommend-part'
+import HotProducts from '@components/page-components/hot-products'
 import SearchPart from '@components/page-components/search-part'
 import './index.less'
 
@@ -59,10 +60,10 @@ const Index = props => {
       <CompanyPart title={'小易推荐'} extraText={'>>更多'} cardList={companyCardList} />
 
       {/* 热门产品 */}
-      <RecommendPart title={'推荐产品'} cardList={recommendCardList} />
+      <HotProducts title={'热门产品'} />
 
       {/* 推荐产品 */}
-      <RecommendPart title={'推荐产品'} cardList={recommendCardList} />
+      {/* <RecommendPart title={'推荐产品'} cardList={recommendCardList} /> */}
     </View>
   )
 }

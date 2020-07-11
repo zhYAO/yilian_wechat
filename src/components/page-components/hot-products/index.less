@@ -1,0 +1,28 @@
+.container {
+  &__cards {
+    display: flex;
+    padding: 0 20px;
+    &__hot {
+      width: 306px;
+      height: 294px;
+      margin-right: 14px;
+      image {
+        width: 100%;
+        height: 294px;
+      }
+    }
+    &__right {
+      display: inline-flex;
+      flex-direction: column;
+      width: 388px;
+      height: 294px;
+      image {
+        width: 100%;
+        height: 140px;
+        &:last-of-type {
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+}

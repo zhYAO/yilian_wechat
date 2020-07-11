@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Text, ScrollView } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import RecommendCard from '@components/page-components/recommend-card'
 import './index.less'
 
