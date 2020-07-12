@@ -3,16 +3,10 @@ import { View, Text, Image } from '@tarojs/components'
 import './index.less'
 
 const SeachPart = props => {
+  const { children } = props
   return (
     <View className="search">
-      <View className="search__local">
-        <Image
-          className="search__local__image"
-          src={require('@static/images/home/local.png')}
-          mode="aspectFill"
-        ></Image>
-        <Text className="search__local__area">上海</Text>
-      </View>
+      {children}
       <View className="search__btn">
         <Image
           className="search__icon"

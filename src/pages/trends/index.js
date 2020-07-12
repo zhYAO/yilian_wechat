@@ -1,31 +1,36 @@
-import Taro,{useEffect} from '@tarojs/taro';
-import { View,Text } from '@tarojs/components';
-import { connect } from '@tarojs/redux';
-import './index.less';
+import Taro from '@tarojs/taro'
+import { View } from '@tarojs/components'
+import { AtIcon } from 'taro-ui'
+import { connect } from '@tarojs/redux'
+import SearchPart from '@components/page-components/search-part'
+import FocusCard from '@components/page-components/focus-card'
+import CustomNavigator from '@components/page-components/custom-navigator'
+import './index.less'
 
-const Trends = props =>{
-    const {trends,loading} = props;
-      useEffect(() => {
-        console.log(props)
-      }, [])
-    return (
-           <View className="trends-page">
-             <Text>正如你所见这是你的trends页面</Text>
-           </View>
-           )
+const Trends = props => {
+  const {
+    common: { navBarPaddingTop },
+    trends: { focusCardsList }
+  } = props
+
+  return (
+    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+      {/* 头部搜索栏 */}
+      <SearchPart>
+        <AtIcon value="add-circle" size="20" color="#333"></AtIcon>
+      </SearchPart>
+
+      {/* 推荐关注 */}
+      <CustomNavigator title="推荐关注" />
+      <View>
+        {focusCardsList.map(item => {
+          return <FocusCard item={item} />
+        })}
+      </View>
+    </View>
+  )
 }
-Trends.config = {
-  navigationBarTitleText: 'trends'
-}
-//全局样式继承 你可以关掉
-Trends.options = {
-  addGlobalClass: true
-}
-export default connect(
-    ({
-    trends,
-    loading
-    })=>({
-    trends,
-    loading
+export default connect(({ common, trends }) => ({
+  common,
+  trends
 }))(Trends)

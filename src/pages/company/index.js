@@ -1,31 +1,37 @@
-import Taro,{useEffect} from '@tarojs/taro';
-import { View,Text } from '@tarojs/components';
-import { connect } from '@tarojs/redux';
-import './index.less';
+import Taro, { useEffect } from '@tarojs/taro'
+import { View, Text } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
+import CompanyCategory from '@components/page-components/company-category'
+import CustomNavigator from '@components/page-components/custom-navigator'
+import CompanyCard from '@components/page-components/company-card'
+import './index.less'
 
-const Company = props =>{
-    const {company,loading} = props;
-      useEffect(() => {
-        console.log(props)
-      }, [])
-    return (
-           <View className="company-page">
-             <Text>正如你所见这是你的company页面</Text>
-           </View>
-           )
-}
-Company.config = {
-  navigationBarTitleText: 'company'
-}
-//全局样式继承 你可以关掉
-Company.options = {
-  addGlobalClass: true
-}
-export default connect(
-    ({
-    company,
+const Company = props => {
+  const {
+    company: { companyCategoryList, companyCardList },
     loading
-    })=>({
-    company,
-    loading
+  } = props
+
+  useEffect(() => {
+    console.log(props, 'company')
+  }, [])
+
+  return (
+    <View className="company-page">
+      <CustomNavigator title="公司分类" extraText=">>排序" />
+      {/* 公司分类 */}
+      <CompanyCategory list={companyCategoryList} />
+
+      <CustomNavigator title="所有公司" />
+      {/* 所有公司 */}
+      {companyCardList.map(item => {
+        return <CompanyCard key={item.id} data={item} />
+      })}
+    </View>
+  )
+}
+
+export default connect(({ company, loading }) => ({
+  company,
+  loading
 }))(Company)

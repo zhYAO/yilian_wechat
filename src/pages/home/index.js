@@ -32,7 +32,16 @@ const Index = props => {
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
       {/* 头部搜索栏 */}
-      <SearchPart />
+      <SearchPart className="search">
+        <View className="search__local">
+          <Image
+            className="search__local__image"
+            src={require('@static/images/home/local.png')}
+            mode="aspectFill"
+          ></Image>
+          <Text className="search__local__area">上海</Text>
+        </View>
+      </SearchPart>
 
       {/* banner */}
       <Swiper
