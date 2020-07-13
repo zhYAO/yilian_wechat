@@ -3,18 +3,18 @@ import { View, Image } from '@tarojs/components'
 import './index.less'
 
 const FocusCard = props => {
-  const { item } = props
+  const { card } = props
 
   return (
     <View className="container">
-      <Image className="container__img" src={item.src} />
+      <Image className="container__img" src={card.src} />
       <View className="container__content">
-        <Text className="container__content__title">{item.title}</Text>
-        <Text className="container__content__intro">{item.intro}</Text>
+        <Text className="container__content__title">{card.title}</Text>
+        <Text className="container__content__intro">{card.intro}</Text>
         <View className="container__content__labels">
-          {item.labels &&
-            item.labels.length > 0 &&
-            item.labels.map(item => <View className="labels__item">{item}</View>)}
+          {card.labels &&
+            card.labels.length > 0 &&
+            card.labels.map(item => <View className="labels__item">{item}</View>)}
         </View>
       </View>
       <View className="container__btn">
@@ -25,7 +25,7 @@ const FocusCard = props => {
 }
 
 FocusCard.defaultProps = {
-  item: {}
+  card: {}
 }
 
 export default FocusCard
