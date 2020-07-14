@@ -24,7 +24,7 @@ const Trends = props => {
       <CustomNavigator title="推荐关注" />
       <View>
         {focusCardsList.map(item => {
-          return <FocusCard item={item} />
+          return <FocusCard card={item} />
         })}
       </View>
     </View>
