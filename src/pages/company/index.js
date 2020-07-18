@@ -9,7 +9,8 @@ import './index.less'
 const Company = props => {
   const {
     company: { companyCategoryList, companyCardList },
-    loading
+    loading,
+    common: { navBarPaddingTop }
   } = props
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const Company = props => {
   }, [])
 
   return (
-    <View className="company-page">
+    <View className="company-page" style={{ paddingTop: navBarPaddingTop + 'px' }}>
       <CustomNavigator title="公司分类" extraText=">>排序" />
       {/* 公司分类 */}
       <CompanyCategory list={companyCategoryList} />
@@ -31,7 +32,8 @@ const Company = props => {
   )
 }
 
-export default connect(({ company, loading }) => ({
+export default connect(({ common, company, loading }) => ({
+  common,
   company,
   loading
 }))(Company)

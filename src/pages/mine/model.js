@@ -1,27 +1,35 @@
-import * as mineApi from './service';
+import * as mineApi from './service'
 
 export default {
   namespace: 'mine',
   state: {
-      keai:'测试数据666'
+    pageTitle: 'eLink',
+    userInfo: {
+      score: 100,
+      dynamicNum: 1,
+      focusNum: 1,
+      CollectionNum: 1,
+      fansNum: 1,
+    },
   },
 
   effects: {
-    * effectsDemo(_, { call, put }) {
-      const { status, data } = yield call(mineApi.demo, {});
+    *effectsDemo(_, { call, put }) {
+      const { status, data } = yield call(mineApi.demo, {})
       if (status === 'ok') {
-        yield put({ type: 'save',
+        yield put({
+          type: 'save',
           payload: {
-            topData: data,
-          } });
+            topData: data
+          }
+        })
       }
-    },
+    }
   },
 
   reducers: {
     save(state, { payload }) {
-      return { ...state, ...payload };
-    },
-  },
-
-};
+      return { ...state, ...payload }
+    }
+  }
+}

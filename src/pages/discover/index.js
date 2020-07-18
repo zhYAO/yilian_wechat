@@ -1,31 +1,82 @@
-import Taro,{useEffect} from '@tarojs/taro';
-import { View,Text } from '@tarojs/components';
-import { connect } from '@tarojs/redux';
-import './index.less';
+import Taro from '@tarojs/taro'
+import { View, Swiper, SwiperItem } from '@tarojs/components'
+import { AtTabs, AtTabsPane } from 'taro-ui'
+import { connect } from '@tarojs/redux'
+import SearchPart from '@components/page-components/search-part'
+import JobCard from '@components/page-components/job-card'
+import VideoCard from '@components/page-components/video-card'
+import CommentCard from '@components/page-components/comment-card'
+import './index.less'
 
-const Discover = props =>{
-    const {discover,loading} = props;
-      useEffect(() => {
-        console.log(props)
-      }, [])
-    return (
-           <View className="discover-page">
-             <Text>正如你所见这是你的discover页面</Text>
-           </View>
-           )
+const Discover = props => {
+  const {
+    dispatch,
+    common: { navBarPaddingTop },
+    discover: { bannerList, current, tabList, jobList, videoList, comentCardList }
+  } = props
+
+  const handleClick = value => {
+    dispatch({
+      type: 'discover/updateState',
+      payload: {
+        current: value
+      }
+    })
+  }
+
+  return (
+    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+      {/* 头部搜索栏 */}
+      <SearchPart></SearchPart>
+
+      {/* banner */}
+      <Swiper className="banner" circular>
+        {bannerList.map(item => {
+          return (
+            <SwiperItem className="banner__item" key={item.id}>
+              <Image
+                className="banner__item__img"
+                src={item.picUrl}
+                mode="widthFix"
+                onClick={() => handleImgJump(item.url)}
+              />
+            </SwiperItem>
+          )
+        })}
+      </Swiper>
+
+      {/* tab */}
+      <AtTabs current={current} tabList={tabList} onClick={handleClick}>
+        <AtTabsPane current={current} index={0}>
+          <View className="tab__item">
+            {jobList.map(item => (
+              <JobCard card={item} />
+            ))}
+          </View>
+        </AtTabsPane>
+        <AtTabsPane current={current} index={1}>
+          <View className="tab__item tab__video">
+            {videoList.map(item => (
+              <View className="tab__item__card">
+                <VideoCard card={item} />
+              </View>
+            ))}
+          </View>
+        </AtTabsPane>
+        <AtTabsPane current={current} index={2}>
+          <View className="tab__item">
+            {comentCardList.map(item => (
+              <View className="tab__item__comment">
+                <CommentCard card={item} />
+              </View>
+            ))}
+          </View>
+        </AtTabsPane>
+      </AtTabs>
+    </View>
+  )
 }
-Discover.config = {
-  navigationBarTitleText: 'discover'
-}
-//全局样式继承 你可以关掉
-Discover.options = {
-  addGlobalClass: true
-}
-export default connect(
-    ({
-    discover,
-    loading
-    })=>({
-    discover,
-    loading
+export default connect(({ common, discover }) => ({
+  common,
+  discover
 }))(Discover)
