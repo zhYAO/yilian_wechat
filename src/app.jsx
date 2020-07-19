@@ -56,7 +56,7 @@ class App extends Component {
     subpackages: [
       {
         root: 'subpackages',
-        pages: ['pages/search-page/index']
+        pages: ['pages/search-page/index', 'pages/my-info/index']
       }
     ]
   }

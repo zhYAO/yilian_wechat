@@ -2,6 +2,8 @@ import Taro from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import MineNavigator from '@components/page-components/mine-navigator'
+import { navigateTo } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
 const Mine = props => {
@@ -17,6 +19,12 @@ const Mine = props => {
     loading
   } = props
 
+  const handleNavigate = pageUrl => {
+    navigateTo({
+      url: `${pagejumplist[pageUrl].path}`
+    })
+  }
+
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
       <View className="container__pageTitle">{pageTitle}</View>
@@ -31,7 +39,9 @@ const Mine = props => {
           ></Image>
           <View className="info__name">{nickname || '没得法士大夫'}</View>
           <View className="info__score">我的积分 {score}</View>
-          <View className="info__myInfo">我的资料</View>
+          <View className="info__myInfo" onClick={() => handleNavigate('my-info')}>
+            我的资料
+          </View>
         </View>
         <View className="container__user__options">
           <View className="options__item">

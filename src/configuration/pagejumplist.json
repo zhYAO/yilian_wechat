@@ -22,5 +22,9 @@
   "search-page": {
     "name": "搜索页面",
     "path": "/subpackages/pages/search-page/index"
+  },
+  "my-info": {
+    "name": "我的资料",
+    "path": "/subpackages/pages/my-info/index"
   }
 }
