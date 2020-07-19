@@ -5,6 +5,8 @@ import CompanyPart from '@components/page-components/company-part'
 import RecommendPart from '@components/page-components/recommend-part'
 import HotProducts from '@components/page-components/hot-products'
 import SearchPart from '@components/page-components/search-part'
+import { navigateTo } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
 const Index = props => {
@@ -14,13 +16,9 @@ const Index = props => {
     home: { searchData, bannerList, companyCardList, recommendCardList }
   } = props
 
-  const handleChange = val => {
-    console.log(val, 'searchVal')
-    dispatch({
-      type: 'home/updateState',
-      payload: {
-        searchData: val
-      }
+  const handleClick = () => {
+    navigateTo({
+      url: `${pagejumplist['search-page'].path}`
     })
   }
 
@@ -32,7 +30,7 @@ const Index = props => {
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
       {/* 头部搜索栏 */}
-      <SearchPart className="search">
+      <SearchPart className="search" onNavTo={handleClick}>
         <View className="search__local">
           <Image
             className="search__local__image"

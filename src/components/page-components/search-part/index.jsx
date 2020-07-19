@@ -3,11 +3,11 @@ import { View, Text, Image } from '@tarojs/components'
 import './index.less'
 
 const SeachPart = props => {
-  const { children } = props
+  const { children, onNavTo } = props
   return (
     <View className="search">
       {children}
-      <View className="search__btn">
+      <View className="search__btn" onClick={onNavTo}>
         <Image
           className="search__icon"
           src={require('@static/images/home/search.png')}
@@ -17,6 +17,10 @@ const SeachPart = props => {
       </View>
     </View>
   )
+}
+
+SeachPart.defaultProps = {
+  onNavTo: () => {}
 }
 
 export default SeachPart

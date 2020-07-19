@@ -52,7 +52,13 @@ class App extends Component {
           text: '我的'
         }
       ]
-    }
+    },
+    subpackages: [
+      {
+        root: 'subpackages',
+        pages: ['pages/search-page/index']
+      }
+    ]
   }
   componentDidMount() {}
   componentDidShow() {}
