@@ -26,5 +26,13 @@
   "my-info": {
     "name": "我的资料",
     "path": "/subpackages/pages/my-info/index"
+  },
+  "recommend-list-page": {
+    "name": "公司推荐列表",
+    "path": "/subpackages/pages/recommend-list-page/index"
+  },
+  "company-detail": {
+    "name": "公司主页详情",
+    "path": "/subpackages/pages/company-detail/index"
   }
 }

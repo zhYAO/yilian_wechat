@@ -1,12 +1,20 @@
 import Taro from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
+import { navigateTo } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
 const CompanyCard = props => {
   const { data } = props
 
+  const handleJumpCompany = () => {
+    navigateTo({
+      url: `${pagejumplist['company-detail'].path}`
+    })
+  }
+
   return (
-    <View key={data.id} className="card">
+    <View key={data.id} className="card" onClick={handleJumpCompany}>
       <View className="card__container">
         <Image className="card__img" src={data.picUrl} mode="aspectFill" />
         <View className="card__content">
