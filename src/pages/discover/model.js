@@ -47,18 +47,21 @@ export default {
     ],
     videoList: [
       {
+        id: 0,
         title: '杭州宝信科技有限公司',
         src:
           'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
         desc: '杭州宝信科技有限公司'
       },
       {
+        id: 1,
         title: '杭州宝信科技有限公司',
         src:
           'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
         desc: '杭州宝信科技有限公司'
       },
       {
+        id: 2,
         title: '杭州宝信科技有限公司',
         src:
           'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
@@ -79,7 +82,7 @@ export default {
         zanNum: 100
       },
       {
-        id: 0,
+        id: 1,
         src:
           'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
         name: '默默',
@@ -96,7 +99,7 @@ export default {
         zanNum: 100
       },
       {
-        id: 0,
+        id: 2,
         src:
           'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
         name: '默默',
@@ -111,7 +114,7 @@ export default {
         zanNum: 100
       },
       {
-        id: 0,
+        id: 3,
         src:
           'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
         name: '默默',
@@ -126,7 +129,7 @@ export default {
         zanNum: 100
       },
       {
-        id: 0,
+        id: 4,
         src:
           'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
         name: '默默',

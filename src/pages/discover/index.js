@@ -50,14 +50,14 @@ const Discover = props => {
         <AtTabsPane current={current} index={0}>
           <View className="tab__item">
             {jobList.map(item => (
-              <JobCard card={item} />
+              <JobCard key={item.id} card={item} />
             ))}
           </View>
         </AtTabsPane>
         <AtTabsPane current={current} index={1}>
           <View className="tab__item tab__video">
             {videoList.map(item => (
-              <View className="tab__item__card">
+              <View key={item.id} className="tab__item__card">
                 <VideoCard card={item} />
               </View>
             ))}
@@ -66,7 +66,7 @@ const Discover = props => {
         <AtTabsPane current={current} index={2}>
           <View className="tab__item">
             {comentCardList.map(item => (
-              <View className="tab__item__comment">
+              <View key={item.id} className="tab__item__comment">
                 <CommentCard card={item} />
               </View>
             ))}
