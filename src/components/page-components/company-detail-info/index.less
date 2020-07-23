@@ -2,7 +2,7 @@
   &__item {
     padding-bottom: 20px;
     margin: 20px 20px 0 20px;
-    border-bottom: 1px solid #E2E2E2;
+    border-bottom: 1px solid #e2e2e2;
     &__title {
       display: flex;
       align-items: center;
@@ -22,6 +22,48 @@
       font-size: 21px;
       color: rgba(153, 153, 153, 1);
       line-height: 27px;
+    }
+    &__list {
+      display: flex;
+      flex-direction: column;
+      .list__item {
+        &__title {
+          font-size: 21px;
+          color: #999999;
+        }
+        &__desc {
+          font-size: 25px;
+          color: #000000;
+        }
+      }
+    }
+    &__video {
+      display: flex;
+      justify-content: center;
+      .video {
+        width: 576px;
+        height: 167px;
+        background: rgba(241, 241, 241, 1);
+      }
+    }
+    &__card {
+      display: flex;
+      justify-content: space-between;
+      .card__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &__img {
+          width:100px;
+          height:100px;
+          background:rgba(241,241,241,1);
+          margin-bottom: 13px;
+        }
+        &__name {
+          font-size:21px;
+          color:rgba(153,153,153,1);
+        }
+      }
     }
   }
 }
