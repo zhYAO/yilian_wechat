@@ -9,6 +9,7 @@ import recommendListPage from '../subpackages/pages/recommend-list-page/model'
 import companyDetail from '../subpackages/pages/company-detail/model'
 import classDetails from '../subpackages/pages/class-details/model'
 import friendList from '../subpackages/pages/friend-list/model'
+import personalHomepage from '../subpackages/pages/personal-homepage/model'
 
 export default [
   common,
@@ -21,5 +22,6 @@ export default [
   recommendListPage,
   companyDetail,
   classDetails,
-  friendList
+  friendList,
+  personalHomepage
 ]

@@ -46,5 +46,9 @@
   "friend-list": {
     "name": "分类明细",
     "path": "/subpackages/pages/friend-list/index"
+  },
+  "personal-homepage": {
+    "name": "分类明细",
+    "path": "/subpackages/pages/personal-homepage/index"
   }
 }
