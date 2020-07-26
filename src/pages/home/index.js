@@ -31,14 +31,14 @@ const Index = props => {
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
       {/* 头部搜索栏 */}
       <SearchPart className="search" onNavTo={handleClick}>
-        <View className="search__local">
+        {/* <View className="search__local">
           <Image
             className="search__local__image"
             src={require('@static/images/home/local.png')}
             mode="aspectFill"
           ></Image>
           <Text className="search__local__area">上海</Text>
-        </View>
+        </View> */}
       </SearchPart>
 
       {/* banner */}

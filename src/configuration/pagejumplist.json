@@ -34,5 +34,9 @@
   "company-detail": {
     "name": "公司主页详情",
     "path": "/subpackages/pages/company-detail/index"
+  },
+  "product-detail": {
+    "name": "商品详情",
+    "path": "/subpackages/pages/product-detail/index"
   }
 }
