@@ -50,5 +50,9 @@
   "personal-homepage": {
     "name": "分类明细",
     "path": "/subpackages/pages/personal-homepage/index"
+  },
+  "job-detail": {
+    "name": "分类明细",
+    "path": "/subpackages/pages/job-detail/index"
   }
 }
