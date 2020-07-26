@@ -6,6 +6,8 @@ import SearchPart from '@components/page-components/search-part'
 import FocusCard from '@components/page-components/focus-card'
 import CustomNavigator from '@components/page-components/custom-navigator'
 import CommentCard from '@components/page-components/comment-card'
+import { navigateTo } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
 const Trends = props => {
@@ -14,15 +16,21 @@ const Trends = props => {
     trends: { focusCardsList, comentCardList }
   } = props
 
+  const handleClick = () => {
+    navigateTo({
+      url: `${pagejumplist['friend-list'].path}`
+    })
+  }
+
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
       {/* 头部搜索栏 */}
       <SearchPart>
-        <AtIcon value="add-circle" size="20" color="#333"></AtIcon>
+        <AtIcon value="add-circle" size="20" color="#333" onClick={handleClick}></AtIcon>
       </SearchPart>
 
       {/* 推荐关注 */}
-      <CustomNavigator title="推荐关注" />
+      <CustomNavigator title="推荐关注" extraText={'>>更多'} rightClick={handleClick} />
       <View>
         {focusCardsList.map(item => {
           return <FocusCard card={item} />

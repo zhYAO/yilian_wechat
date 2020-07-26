@@ -9,18 +9,15 @@ if (!dirName) {
   process.exit(0);
 }
 // 页面模版
-const indexTep = `import Taro,{useEffect} from '@tarojs/taro';
+const indexTep = `import Taro from '@tarojs/taro';
 import { View,Text } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
 import './index.less';
 
 const ${titleCase(dirName)} = props =>{
     const {${dirName},loading} = props;
-      useEffect(() => {
-        console.log(props)
-      }, [])
     return (
-           <View className="${dirName}-page">
+           <View className="container">
              <Text>正如你所见这是你的${dirName}页面</Text>
            </View>
            )

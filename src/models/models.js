@@ -7,6 +7,8 @@ import common from './common'
 import searchPage from '../subpackages/pages/search-page/model'
 import recommendListPage from '../subpackages/pages/recommend-list-page/model'
 import companyDetail from '../subpackages/pages/company-detail/model'
+import classDetails from '../subpackages/pages/class-details/model'
+import friendList from '../subpackages/pages/friend-list/model'
 
 export default [
   common,
@@ -17,5 +19,7 @@ export default [
   trends,
   searchPage,
   recommendListPage,
-  companyDetail
+  companyDetail,
+  classDetails,
+  friendList
 ]

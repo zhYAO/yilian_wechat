@@ -38,5 +38,13 @@
   "product-detail": {
     "name": "商品详情",
     "path": "/subpackages/pages/product-detail/index"
+  },
+  "class-details": {
+    "name": "分类明细",
+    "path": "/subpackages/pages/class-details/index"
+  },
+  "friend-list": {
+    "name": "分类明细",
+    "path": "/subpackages/pages/friend-list/index"
   }
 }

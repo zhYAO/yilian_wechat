@@ -61,7 +61,9 @@ class App extends Component {
           'pages/my-info/index',
           'pages/recommend-list-page/index',
           'pages/company-detail/index',
-          'pages/product-detail/index'
+          'pages/product-detail/index',
+          'pages/class-details/index',
+          'pages/friend-list/index'
         ]
       }
     ]
