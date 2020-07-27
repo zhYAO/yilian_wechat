@@ -127,11 +127,11 @@ export default {
   },
 
   effects: {
-    *effectsDemo(_, { call, put }) {
-      const { status, data } = yield call(companyApi.demo, {})
-      if (status === 'ok') {
+    *effectsCompanyList(_, { call, put }) {
+      const { data } = yield call(companyApi.companyList, {})
+      if (data) {
         yield put({
-          type: 'save',
+          type: 'updateState',
           payload: {
             topData: data
           }
@@ -141,7 +141,7 @@ export default {
   },
 
   reducers: {
-    save(state, { payload }) {
+    updateState(state, { payload }) {
       return { ...state, ...payload }
     }
   }

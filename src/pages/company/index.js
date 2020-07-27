@@ -1,5 +1,5 @@
 import Taro, { useEffect } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyCategory from '@components/page-components/company-category'
 import CustomNavigator from '@components/page-components/custom-navigator'
@@ -8,6 +8,7 @@ import './index.less'
 
 const Company = props => {
   const {
+    dispatch,
     company: { companyCategoryList, companyCardList },
     loading,
     common: { navBarPaddingTop }
@@ -15,6 +16,10 @@ const Company = props => {
 
   useEffect(() => {
     console.log(props, 'company')
+
+    dispatch({
+      type: 'company/effectsCompanyList'
+    })
   }, [])
 
   return (

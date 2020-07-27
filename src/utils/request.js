@@ -1,5 +1,5 @@
 import axios from 'taro-axios'
-const baseURL = ``
+const baseURL = `http://106.54.202.8:8080/e-link-api`
 const service = axios.create({
   baseURL: baseURL,
   withCredentials: true,
