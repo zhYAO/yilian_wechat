@@ -1,17 +1,37 @@
-import axios from 'taro-axios'
-const baseURL = `http://106.54.202.8:8080/e-link-api`
-const service = axios.create({
-  baseURL: baseURL,
-  withCredentials: true,
-  timeout: 10000
-})
-service.interceptors.response.use(
-  response => {
-    return response.data
-  },
-  error => {
-    return Promise.reject(error)
-  }
-)
+import Taro from '@tarojs/taro'
+// import { noConsole } from '../config'
 
-export default service
+const baseUrl = `http://106.54.202.8:8080/e-link-api`
+
+export default (options = { method: 'GET', data: {} }) => {
+  // if (!noConsole) {
+  //   console.log(
+  //     `${new Date().toLocaleString()}【 M=${options.url} 】P=${JSON.stringify(options.data)}`
+  //   )
+  // }
+  return Taro.request({
+    url: baseUrl + options.url,
+    data: options.data,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: options.method.toUpperCase()
+  }).then(res => {
+    const { statusCode, data } = res
+    // if (statusCode >= 200 && statusCode < 300) {
+    //   // if (!noConsole) {
+    //   //   console.log(`${new Date().toLocaleString()}【 M=${options.url} 】【接口响应：】`, res.data)
+    //   // }
+    //   if (data.status !== 'ok') {
+    //     Taro.showToast({
+    //       title: `${res.data.error.message}~` || res.data.error.code,
+    //       icon: 'none',
+    //       mask: true
+    //     })
+    //   }
+    return data
+    // } else {
+    //   throw new Error(`网络请求错误，状态码${statusCode}`)
+    // }
+  })
+}

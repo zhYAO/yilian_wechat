@@ -16,20 +16,20 @@ const CompanyCard = props => {
   return (
     <View key={data.id} className="card" onClick={handleJumpCompany}>
       <View className="card__container">
-        <Image className="card__img" src={data.picUrl} mode="aspectFill" />
+        <Image className="card__img" src={data.logoPath} mode="aspectFill" />
         <View className="card__content">
-          <Text className="card__content__name">{data.companyName}</Text>
-          <Text className="card__content__desc">{data.desc}</Text>
+          <Text className="card__content__name">{data.name}</Text>
+          <Text className="card__content__desc">{data.theme}</Text>
           <View className="card__content__cards">
-            {data.cards.map(cardItem => {
+            {data.labels.map((cardItem, index) => {
               return (
-                <View key={cardItem.id} className="card__content__card">
-                  {cardItem.text}
+                <View key={index} className="card__content__card">
+                  {cardItem}
                 </View>
               )
             })}
           </View>
-          <View className="card__content__area">{data.area}</View>
+          <View className="card__content__area">{data.registerAddress}</View>
         </View>
       </View>
     </View>

@@ -11,6 +11,7 @@
     width: 200px;
     height: 200px;
     flex-basis: 200px;
+    flex-shrink: 0;
   }
   &__content {
     display: flex;
@@ -29,11 +30,13 @@
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
-      // white-space: nowrap;
     }
     &__cards {
       display: flex;
+      flex-wrap: wrap;
+      overflow: hidden;
       margin-top: 33px;
+      max-height: 40px;
     }
     &__card {
       padding: 10px;
@@ -42,6 +45,7 @@
       margin-right: 20px;
       font-size: 17px;
       color: rgba(0, 0, 0, 0.7);
+      white-space: nowrap;
     }
     &__area {
       font-size: 21px;

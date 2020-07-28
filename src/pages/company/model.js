@@ -3,6 +3,9 @@ import * as companyApi from './service'
 export default {
   namespace: 'company',
   state: {
+    pageSize: 10,
+    page: 0,
+    hasNextPage: true,
     companyCategoryList: [
       {
         id: 1,
@@ -53,87 +56,35 @@ export default {
         title: 'AR'
       }
     ],
-    companyCardList: [
-      {
-        id: 1,
-        picUrl:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        companyName: '商汤科技有限公司',
-        desc: '专注于计算机视觉和深度学习',
-        label: '最新',
-        area: '北京, 2014年',
-        cards: [
-          {
-            id: 1,
-            text: '图像视觉'
-          },
-          {
-            id: 2,
-            text: '机器人'
-          },
-          {
-            id: 3,
-            text: '大数据'
-          }
-        ]
-      },
-      {
-        id: 2,
-        picUrl:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        companyName: '商汤科技有限公司',
-        desc: '专注于计算机视觉和深度学习原创技术研发',
-        label: '最新',
-        area: '北京, 2014年',
-        cards: [
-          {
-            id: 1,
-            text: '图像视觉'
-          },
-          {
-            id: 2,
-            text: '机器人'
-          },
-          {
-            id: 3,
-            text: '大数据'
-          }
-        ]
-      },
-      {
-        id: 3,
-        picUrl:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        companyName: '商汤科技有限公司',
-        desc: '专注于计算机视觉和深度学习原创技术研发',
-        label: '最新',
-        area: '北京, 2014年',
-        cards: [
-          {
-            id: 1,
-            text: '图像视觉'
-          },
-          {
-            id: 2,
-            text: '机器人'
-          },
-          {
-            id: 3,
-            text: '大数据'
-          }
-        ]
-      }
-    ],
+    companyCardList: []
   },
 
   effects: {
-    *effectsCompanyList(_, { call, put }) {
-      const { data } = yield call(companyApi.companyList, {})
+    *effectsCompanyList({ payload }, { call, put, select }) {
+      const { companyCardList, pageSize, page } = yield select(state => state.company)
+      const { data } = yield call(companyApi.companyList, { ...payload })
       if (data) {
+        const { records } = data
         yield put({
           type: 'updateState',
           payload: {
-            topData: data
+            companyCardList: companyCardList.concat(records),
+            page: page + 1
+          }
+        })
+        if (records.length < pageSize) {
+          yield put({
+            type: 'updateState',
+            payload: {
+              hasNextPage: false
+            }
+          })
+        }
+      } else {
+        yield put({
+          type: 'updateState',
+          payload: {
+            hasNextPage: false
           }
         })
       }
