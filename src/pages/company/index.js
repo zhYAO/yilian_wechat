@@ -2,7 +2,8 @@ import Taro, { useEffect } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import { AtNavBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
+import { navigateBack, navigateTo } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 import CompanyCategory from '@components/page-components/company-category'
 import CustomNavigator from '@components/page-components/custom-navigator'
 import CompanyCard from '@components/page-components/company-card'
@@ -47,6 +48,12 @@ const Company = props => {
     })
   }
 
+  const rightClick = () => {
+    navigateTo({
+      url: `${pagejumplist['class-sort'].path}`
+    })
+  }
+
   return (
     <ScrollView
       className="container"
@@ -56,7 +63,7 @@ const Company = props => {
     >
       <AtNavBar onClickLeftIcon={handleBack} title="ELink" leftIconType="chevron-left" />
 
-      <CustomNavigator title="公司分类" extraText=">>排序" />
+      <CustomNavigator title="公司分类" extraText=">>排序" rightClick={rightClick} />
 
       {/* 公司分类 */}
       <CompanyCategory list={companyCategoryList} />

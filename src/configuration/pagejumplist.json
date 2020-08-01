@@ -58,5 +58,9 @@
   "my-focus": {
     "name": "我的关注",
     "path": "/subpackages/pages/my-focus/index"
+  },
+  "class-sort": {
+    "name": "分类排序",
+    "path": "/subpackages/pages/class-sort/index"
   }
 }

@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #F1F1F1;
+  &__content {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    &__img {
+      width: 102px;
+      height: 102px;
+      background-color: #f1f1f1;
+    }
+    &__text {
+      display: flex;
+      flex-direction: column;
+      margin-left: 12px;
+      .text__name {
+        font-size: 24px;
+        font-weight: bold;
+        color: rgba(72, 74, 89, 1);
+      }
+      .text__desc {
+        font-size: 18px;
+        color: rgba(56, 56, 58, 0.7);
+        margin-top: 18px;
+      }
+    }
+  }
+  &__options {
+    display: flex;
+    &__arrow {
+      margin-left: 20px;
+    }
+  }
+}
