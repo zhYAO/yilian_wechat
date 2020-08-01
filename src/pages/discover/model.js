@@ -13,61 +13,8 @@ export default {
         url: 'www.baidu.com'
       }
     ],
-    jobList: [
-      {
-        id: 0,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        jobTitle: '产品经理',
-        place: '算法部',
-        area: '杭州宝信科技有限公司',
-        city: '上海',
-        time: '刚刚发布'
-      },
-      {
-        id: 1,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        jobTitle: '产品经理',
-        place: '算法部',
-        area: '杭州宝信科技有限公司',
-        city: '上海',
-        time: '刚刚发布'
-      },
-      {
-        id: 2,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        jobTitle: '产品经理',
-        place: '算法部',
-        area: '杭州宝信科技有限公司',
-        city: '上海',
-        time: '刚刚发布'
-      }
-    ],
-    videoList: [
-      {
-        id: 0,
-        title: '杭州宝信科技有限公司',
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        desc: '杭州宝信科技有限公司'
-      },
-      {
-        id: 1,
-        title: '杭州宝信科技有限公司',
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        desc: '杭州宝信科技有限公司'
-      },
-      {
-        id: 2,
-        title: '杭州宝信科技有限公司',
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        desc: '杭州宝信科技有限公司'
-      }
-    ],
+    jobList: [],
+    videoList: [],
     comentCardList: [
       {
         id: 0,
@@ -147,13 +94,26 @@ export default {
   },
 
   effects: {
-    *effectsDemo(_, { call, put }) {
-      const { status, data } = yield call(discoverApi.demo, {})
-      if (status === 'ok') {
+    *effectsPositionList({ payload }, { call, put, select }) {
+      const { jobList } = yield select(state => state.discover)
+      const { data } = yield call(discoverApi.positionList, { ...payload })
+      if (data) {
         yield put({
-          type: 'save',
+          type: 'updateState',
           payload: {
-            topData: data
+            jobList: jobList.concat(data)
+          }
+        })
+      }
+    },
+    *effectsVideoList({ payload }, { call, put, select }) {
+      const { videoList } = yield select(state => state.discover)
+      const { data } = yield call(discoverApi.videoList, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            videoList: videoList.concat(data)
           }
         })
       }
@@ -161,9 +121,6 @@ export default {
   },
 
   reducers: {
-    save(state, { payload }) {
-      return { ...state, ...payload }
-    },
     updateState(state, { payload }) {
       return { ...state, ...payload }
     }

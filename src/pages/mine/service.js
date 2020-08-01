@@ -1,9 +1,9 @@
 import Request from '../../utils/request';
 
-export const demo = (data) => {
+export const userHomepage = (data) => {
   return Request({
-    url: '路径',
-    method: 'POST',
+    url: '/user/homepage',
+    method: 'GET',
     data,
   });
 };

@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro'
+import Taro, { useEffect } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import MineNavigator from '@components/page-components/mine-navigator'
@@ -8,20 +8,40 @@ import './index.less'
 
 const Mine = props => {
   const {
+    dispatch,
     common: {
       userInfo: { nickname, userAventor },
       navBarPaddingTop
     },
     mine: {
       pageTitle,
-      userInfo: { score, dynamicNum, focusNum, CollectionNum, fansNum }
+      userInfo: {
+        name,
+        integral,
+        dynamicCount,
+        attentionCount,
+        favoriteCount,
+        fansCount,
+        companyId
+      }
     },
     loading
   } = props
 
-  const handleNavigate = pageUrl => {
+  useEffect(() => {
+    getUserInfo()
+  }, [])
+
+  const handleNavigate = (pageUrl, parmas) => {
     navigateTo({
-      url: `${pagejumplist[pageUrl].path}`
+      url: `${pagejumplist[pageUrl].path}${parmas ? parmas : ''}`
+    })
+  }
+
+  const getUserInfo = () => {
+    dispatch({
+      type: 'mine/effectsLabelList',
+      payload: {}
     })
   }
 
@@ -37,32 +57,35 @@ const Mine = props => {
               'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180'
             }
           ></Image>
-          <View className="info__name">{nickname || '没得法士大夫'}</View>
-          <View className="info__score">我的积分 {score}</View>
+          <View className="info__name">{name || nickname || '没得法士大夫'}</View>
+          <View className="info__score">我的积分 {integral}</View>
           <View className="info__myInfo" onClick={() => handleNavigate('my-info')}>
             我的资料
           </View>
         </View>
         <View className="container__user__options">
           <View className="options__item">
-            <View className="options__item__num">{dynamicNum}</View>
+            <View className="options__item__num">{dynamicCount}</View>
             <View className="options__item__name">动态</View>
           </View>
           <View className="options__item" onClick={() => handleNavigate('my-focus')}>
-            <View className="options__item__num">{focusNum}</View>
+            <View className="options__item__num">{attentionCount}</View>
             <View className="options__item__name">关注</View>
           </View>
           <View className="options__item">
-            <View className="options__item__num">{CollectionNum}</View>
+            <View className="options__item__num">{favoriteCount}</View>
             <View className="options__item__name">收藏</View>
           </View>
           <View className="options__item">
-            <View className="options__item__num">{fansNum}</View>
+            <View className="options__item__num">{fansCount}</View>
             <View className="options__item__name">粉丝</View>
           </View>
         </View>
         <View className="container__user__card">
-          <View className="card__item" onClick={() => handleNavigate('company-detail')}>
+          <View
+            className="card__item"
+            onClick={() => handleNavigate('company-detail', `?id=${companyId}`)}
+          >
             <Image
               className="card__item__img"
               src="https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"

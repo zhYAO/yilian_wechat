@@ -36,7 +36,9 @@ const CommentCard = props => {
           <View className="content__intro">{card.content}</View>
         </View>
         <View className="container__top__options" onClick={onShow}>
-          <AtIcon value="list" size="30" color="#F77E03"></AtIcon>
+          <View className="options__item"></View>
+          <View className="options__item"></View>
+          <View className="options__item"></View>
         </View>
       </View>
 

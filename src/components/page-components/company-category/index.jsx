@@ -18,8 +18,8 @@ const CompanyCategory = props => {
       <View className="container__grid">
         {list.map(item => (
           <View className="container__grid__item" key={item.id} onClick={handleClick}>
-            <Image className="item__icon" src={item.src} />
-            <Text className="item__title">{item.title}</Text>
+            <Image className="item__icon" src={item.imgPath} />
+            <Text className="item__title">{item.label}</Text>
           </View>
         ))}
       </View>

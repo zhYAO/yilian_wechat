@@ -1,17 +1,17 @@
-import Request from '../../utils/request';
+import Request from '../../utils/request'
 
-export const companyList = (data) => {
+export const companyList = data => {
   return Request({
-    url: '/company/list',
+    url: '/company/label',
     method: 'GET',
-    data,
-  });
-};
+    data
+  })
+}
 
-// export const companyList = (data) => {
-//   return Request({
-//     url: '路径',
-//     method: 'POST',
-//     data,
-//   });
-// };
+export const labelUserList = data => {
+  return Request({
+    url: '/label/user/list',
+    method: 'GET',
+    data
+  })
+}

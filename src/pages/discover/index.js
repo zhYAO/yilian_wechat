@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro'
+import Taro, { useEffect } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import { AtTabs, AtTabsPane } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -15,12 +15,31 @@ const Discover = props => {
     discover: { bannerList, current, tabList, jobList, videoList, comentCardList }
   } = props
 
+  useEffect(() => {
+    getPositionList()
+    getVideoList()
+  }, [])
+
   const handleClick = value => {
     dispatch({
       type: 'discover/updateState',
       payload: {
         current: value
       }
+    })
+  }
+
+  const getPositionList = () => {
+    dispatch({
+      type: 'discover/effectsPositionList',
+      payload: {}
+    })
+  }
+
+  const getVideoList = () => {
+    dispatch({
+      type: 'discover/effectsVideoList',
+      payload: {}
     })
   }
 

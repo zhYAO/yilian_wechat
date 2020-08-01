@@ -1,9 +1,9 @@
 import Request from '../../utils/request';
 
-export const demo = (data) => {
+export const dynamicList = (data) => {
   return Request({
-    url: '路径',
-    method: 'POST',
+    url: '/dynamic/list',
+    method: 'GET',
     data,
   });
 };

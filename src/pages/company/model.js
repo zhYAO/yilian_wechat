@@ -64,15 +64,14 @@ export default {
       const { companyCardList, pageSize, page } = yield select(state => state.company)
       const { data } = yield call(companyApi.companyList, { ...payload })
       if (data) {
-        const { records } = data
         yield put({
           type: 'updateState',
           payload: {
-            companyCardList: companyCardList.concat(records),
+            companyCardList: companyCardList.concat(data),
             page: page + 1
           }
         })
-        if (records.length < pageSize) {
+        if (data.length < pageSize) {
           yield put({
             type: 'updateState',
             payload: {
@@ -85,6 +84,18 @@ export default {
           type: 'updateState',
           payload: {
             hasNextPage: false
+          }
+        })
+      }
+    },
+    *effectsLabelList({ payload }, { call, put, select }) {
+      const { userId } = yield select(state => state.common.userInfo)
+      const { data } = yield call(companyApi.labelUserList, { ...payload, userId })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            companyCategoryList: data
           }
         })
       }

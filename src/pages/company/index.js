@@ -18,6 +18,7 @@ const Company = props => {
 
   useEffect(() => {
     getList()
+    getLabel()
   }, [])
 
   const handleBack = () => {
@@ -34,6 +35,16 @@ const Company = props => {
         }
       })
     }
+  }
+
+  const getLabel = () => {
+    dispatch({
+      type: 'company/effectsLabelList',
+      payload: {
+        pageSize,
+        page
+      }
+    })
   }
 
   return (

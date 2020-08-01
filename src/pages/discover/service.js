@@ -1,9 +1,17 @@
 import Request from '../../utils/request';
 
-export const demo = (data) => {
+export const positionList = (data) => {
   return Request({
-    url: '路径',
-    method: 'POST',
+    url: 'found/position',
+    method: 'GET',
+    data,
+  });
+};
+
+export const videoList = (data) => {
+  return Request({
+    url: 'found/video',
+    method: 'GET',
     data,
   });
 };

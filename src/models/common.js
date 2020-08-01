@@ -16,7 +16,7 @@ export default {
     tabbarIndex: 0,
     navBarPaddingTop: 22,
     navBarHeight: 44,
-    userInfo: Taro.getStorageSync('user_info') ? Taro.getStorageSync('user_info') : ''
+    userInfo: Taro.getStorageSync('user_info') ? Taro.getStorageSync('user_info') : { userId: 777 }
   },
 
   effects: {},

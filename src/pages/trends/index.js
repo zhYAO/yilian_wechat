@@ -1,5 +1,5 @@
-import Taro from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import Taro, { useEffect } from '@tarojs/taro'
+import { View, ScrollView } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import SearchPart from '@components/page-components/search-part'
@@ -12,9 +12,14 @@ import './index.less'
 
 const Trends = props => {
   const {
+    dispatch,
     common: { navBarPaddingTop },
-    trends: { focusCardsList, comentCardList }
+    trends: { focusCardsList, comentCardList, hasNextPage, pageSize, page }
   } = props
+
+  useEffect(() => {
+    getList()
+  }, [])
 
   const handleClick = () => {
     navigateTo({
@@ -22,8 +27,25 @@ const Trends = props => {
     })
   }
 
+  const getList = () => {
+    if (hasNextPage) {
+      dispatch({
+        type: 'trends/effectsDynamicList',
+        payload: {
+          pageSize,
+          page
+        }
+      })
+    }
+  }
+
   return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+    <ScrollView
+      className="container"
+      style={{ paddingTop: navBarPaddingTop + 'px' }}
+      onScrollToLower={getList}
+      scrollY
+    >
       {/* 头部搜索栏 */}
       <SearchPart>
         <AtIcon value="add-circle" size="20" color="#333" onClick={handleClick}></AtIcon>
@@ -48,7 +70,7 @@ const Trends = props => {
           )
         })}
       </View>
-    </View>
+    </ScrollView>
   )
 }
 export default connect(({ common, trends }) => ({

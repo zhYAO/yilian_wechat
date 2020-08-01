@@ -5,22 +5,47 @@ export default {
   state: {
     pageTitle: 'eLink',
     userInfo: {
-      score: 100,
-      dynamicNum: 1,
-      focusNum: 1,
-      CollectionNum: 1,
-      fansNum: 1,
-    },
+      id: 857,
+      name: '天宇.陈',
+      theme: 'e14pkz',
+      sex: 0,
+      weChat: 'v49cqe',
+      mobile: '18091214382',
+      email: '乐驹.姜@yahoo.com',
+      companyId: 1,
+      companyName: '天宇.陈',
+      job: 'b21i68',
+      labels: [
+        {
+          id: 654,
+          createTime: '2020-07-27 22:31:24',
+          createUser: 'sbabz5',
+          updateTime: '2020-07-27 22:31:24',
+          updateUser: 'meei13',
+          imgPath: 'r9zozt',
+          label: 'h0s04h',
+          sortNo: 578,
+          type: 896
+        }
+      ],
+      dynamicCount: 28,
+      attentionCount: 77,
+      favoriteCount: 884,
+      fansCount: 872,
+      integral: 93
+    }
   },
 
   effects: {
-    *effectsDemo(_, { call, put }) {
-      const { status, data } = yield call(mineApi.demo, {})
-      if (status === 'ok') {
+    *effectsLabelList({ payload }, { call, put, select }) {
+      const { userId } = yield select(state => state.common.userInfo)
+      const { data } = yield call(mineApi.userHomepage, { ...payload, userId })
+      console.log(data, 'datadatadata')
+      if (data) {
         yield put({
-          type: 'save',
+          type: 'updateState',
           payload: {
-            topData: data
+            userInfo: data
           }
         })
       }
