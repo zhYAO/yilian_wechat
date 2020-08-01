@@ -15,15 +15,15 @@ const JobCard = props => {
 
   return (
     <View className="container" onClick={handleClick}>
-      <Image className="container__img" src={card.src}></Image>
+      <Image className="container__img" src={card.imgPath}></Image>
       <View className="container__content">
-        <View className="container__content__title">{card.jobTitle}</View>
-        <View className="container__content__place">{card.place}</View>
-        <View className="container__content__area">{card.area}</View>
+        <View className="container__content__title">{card.jobDescription}</View>
+        <View className="container__content__place">{card.department}</View>
+        <View className="container__content__area">{card.name}</View>
       </View>
       <View className="container__right">
-        <View className="container__right__date">{card.time}</View>
-        <View className="container__right__city">{card.city}</View>
+        <View className="container__right__date">{card.updateTime}</View>
+        <View className="container__right__city">{card.workplace}</View>
       </View>
     </View>
   )

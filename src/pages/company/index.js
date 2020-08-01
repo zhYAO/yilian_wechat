@@ -17,8 +17,6 @@ const Company = props => {
   } = props
 
   useEffect(() => {
-    console.log(props, 'company')
-
     getList()
   }, [])
 
@@ -27,7 +25,6 @@ const Company = props => {
   }
 
   const getList = () => {
-    console.log(page, 'pagepage')
     if (hasNextPage) {
       dispatch({
         type: 'company/effectsCompanyList',

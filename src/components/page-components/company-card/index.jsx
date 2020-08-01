@@ -9,7 +9,7 @@ const CompanyCard = props => {
 
   const handleJumpCompany = () => {
     navigateTo({
-      url: `${pagejumplist['company-detail'].path}`
+      url: `${pagejumplist['company-detail'].path}?id=${data.id}`
     })
   }
 

@@ -62,7 +62,7 @@ const Mine = props => {
           </View>
         </View>
         <View className="container__user__card">
-          <View className="card__item">
+          <View className="card__item" onClick={() => handleNavigate('company-detail')}>
             <Image
               className="card__item__img"
               src="https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"
@@ -83,7 +83,7 @@ const Mine = props => {
             ></Image>
             <View className="card__item__text">我的收藏</View>
           </View>
-          <View className="card__item">
+          <View className="card__item" onClick={() => handleNavigate('my-focus')}>
             <Image
               className="card__item__img"
               src="https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"

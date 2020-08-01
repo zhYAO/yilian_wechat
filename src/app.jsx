@@ -23,7 +23,8 @@ class App extends Component {
       'pages/mine/index'
     ],
     window: {
-      navigationStyle: 'custom'
+      navigationStyle: 'custom',
+      navigationBarTextStyle: 'black'
     },
     tabBar: {
       custom: true,

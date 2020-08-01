@@ -7,10 +7,10 @@ const VideoCard = props => {
 
   return (
     <View className="container">
-      <Image className="container__video" src={card.src} />
+      <Image className="container__video" src={card.imgPath} />
       <View className="container__content">
-        <View className="container__content__title">{card.title}</View>
-        <View className="container__content__desc">{card.desc}</View>
+        <View className="container__content__title">{card.companyName}</View>
+        <View className="container__content__desc">{card.name}</View>
       </View>
     </View>
   )

@@ -9,22 +9,23 @@ import CommentCard from '@components/page-components/comment-card'
 import CompanyDetailInfo from '@components/page-components/company-detail-info'
 import './index.less'
 
-const CompanyDetail = props => {
-  const {
-    dispatch,
-    common: {
-      navBarPaddingTop,
-      userInfo: { nickname, userAventor }
-    },
-    companyDetail: { current, tabList, jobList, videoList, comentCardList },
-    loading
-  } = props
+class CompanyDetail extends Taro.Component {
+  constructor(props) {
+    super(props)
+    this.data = {}
+  }
 
-  const handleBack = () => {
+  componentWillMount() {
+    const { id } = this.$router.params
+    this.getCompanyDetail(id)
+  }
+
+  handleBack = () => {
     navigateBack()
   }
 
-  const handleClick = value => {
+  handleClick = value => {
+    const { dispatch } = this.props
     dispatch({
       type: 'companyDetail/updateState',
       payload: {
@@ -33,63 +34,100 @@ const CompanyDetail = props => {
     })
   }
 
-  return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="有限公司" leftIconType="chevron-left" />
+  getCompanyDetail = id => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'companyDetail/effectsDetail',
+      payload: {
+        id
+      }
+    })
+  }
 
-      <View className="container__user">
-        <View className="container__user__info">
-          <Image
-            className="info__aventor"
-            src={
-              userAventor ||
-              'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180'
-            }
-          ></Image>
-          <View className="info__name">{nickname || '没得法士大夫'}</View>
-          <View className="info__score">专注于计算机视觉和深度学习原创技术研究</View>
-          <View className="info__labels">
-            <View className="info__labels__item">图像</View>
-            <View className="info__labels__item">大数据</View>
-            <View className="info__labels__item">机器人</View>
+  render() {
+    const {
+      common: {
+        navBarPaddingTop,
+        userInfo: { nickname, userAventor }
+      },
+      companyDetail: {
+        current,
+        tabList,
+        companyDetail,
+        customerList,
+        dynamicList,
+        positionList,
+        productList
+      },
+      loading
+    } = this.props
+
+    return (
+      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+        <AtNavBar
+          onClickLeftIcon={this.handleBack}
+          title={companyDetail.name}
+          leftIconType="chevron-left"
+        />
+
+        <View className="container__user">
+          <View className="container__user__info">
+            <Image
+              className="info__aventor"
+              src={
+                userAventor ||
+                'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180'
+              }
+            ></Image>
+            <View className="info__name">{companyDetail.name}</View>
+            <View className="info__score">{companyDetail.profile}</View>
+            <View className="info__labels">
+              {companyDetail.labels.map((item, index) => {
+                return index < 3 ? (
+                  <View key={index} className="info__labels__item">
+                    {item}
+                  </View>
+                ) : null
+              })}
+            </View>
+            <View className="info__area">{companyDetail.address}</View>
           </View>
-          <View className="info__area">北京 2014</View>
         </View>
-      </View>
 
-      {/* tab */}
-      <AtTabs current={current} tabList={tabList} onClick={handleClick}>
-        <AtTabsPane current={current} index={0}>
-          <CompanyDetailInfo />
-        </AtTabsPane>
-        <AtTabsPane current={current} index={1}>
-          <View className="tab__item">
-            {jobList.map(item => (
-              <JobCard key={item.id} card={item} />
-            ))}
-          </View>
-        </AtTabsPane>
-        <AtTabsPane current={current} index={2}>
-          <View className="tab__item tab__video">
-            {videoList.map(item => (
-              <View key={item.id} className="tab__item__card">
-                <VideoCard card={item} />
-              </View>
-            ))}
-          </View>
-        </AtTabsPane>
-        <AtTabsPane current={current} index={3}>
-          <View className="tab__item">
-            {comentCardList.map(item => (
-              <View key={item.id} className="tab__item__comment">
-                <CommentCard card={item} />
-              </View>
-            ))}
-          </View>
-        </AtTabsPane>
-      </AtTabs>
-    </View>
-  )
+        {/* tab */}
+        <AtTabs current={current} tabList={tabList} onClick={this.handleClick}>
+          <AtTabsPane current={current} index={0}>
+            <CompanyDetailInfo companyDetail={companyDetail} customerList={customerList} />
+          </AtTabsPane>
+          <AtTabsPane current={current} index={1}>
+            <View className="tab__item tab__video">
+              {productList.map(item => (
+                <View key={item.id} className="tab__item__card">
+                  <VideoCard card={item} />
+                </View>
+              ))}
+            </View>
+          </AtTabsPane>
+          <AtTabsPane current={current} index={2}>
+            <View className="tab__item">
+              {positionList.map(item => (
+                <JobCard key={item.id} card={item} />
+              ))}
+            </View>
+          </AtTabsPane>
+          <AtTabsPane current={current} index={3}>
+            <View className="tab__item">
+              {dynamicList.map(item => (
+                <View key={item.id} className="tab__item__comment">
+                  <CommentCard card={item} />
+                </View>
+              ))}
+            </View>
+          </AtTabsPane>
+        </AtTabs>
+      </View>
+    )
+  }
 }
 
 export default connect(({ common, companyDetail, loading }) => ({

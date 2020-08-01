@@ -41,7 +41,7 @@ export default connect(
 // less文件模版
 const lessTep = `
 
-.${dirName}-page {
+.container {
 }
 `;
 

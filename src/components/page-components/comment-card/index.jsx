@@ -30,10 +30,10 @@ const CommentCard = props => {
         <Image className="container__top__img" src={card.src} onClick={handleClick} />
         <View className="container__top__content">
           <View className="content__desc">
-            <View className="content__name">{card.name}</View>
-            <View className="content__date">{card.date}</View>
+            <View className="content__name">{card.publisher}</View>
+            <View className="content__date">{card.createTime}</View>
           </View>
-          <View className="content__intro">{card.intro}</View>
+          <View className="content__intro">{card.content}</View>
         </View>
         <View className="container__top__options" onClick={onShow}>
           <AtIcon value="list" size="30" color="#F77E03"></AtIcon>
@@ -41,7 +41,7 @@ const CommentCard = props => {
       </View>
 
       {/* 底部操作组件 */}
-      <CommonOptions shareNum={card.shareNum} commentNum={card.commentNum} zanNum={card.zanNum} />
+      <CommonOptions shareNum={card.forwardCount} commentNum={card.commentCount} zanNum={card.fabulousCount} />
 
       <AtActionSheet isOpened={isOpened} cancelText="取消" onCancel={onCancel} onClose={onCancel}>
         <AtActionSheetItem>关注作者</AtActionSheetItem>
