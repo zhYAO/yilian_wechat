@@ -54,5 +54,9 @@
   "job-detail": {
     "name": "分类明细",
     "path": "/subpackages/pages/job-detail/index"
+  },
+  "my-focus": {
+    "name": "我的关注",
+    "path": "/subpackages/pages/my-focus/index"
   }
 }

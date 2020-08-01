@@ -11,6 +11,7 @@ import classDetails from '../subpackages/pages/class-details/model'
 import friendList from '../subpackages/pages/friend-list/model'
 import personalHomepage from '../subpackages/pages/personal-homepage/model'
 import jobDetail from '../subpackages/pages/job-detail/model'
+import myFocus from '../subpackages/pages/my-focus/model'
 
 export default [
   common,
@@ -25,5 +26,6 @@ export default [
   classDetails,
   friendList,
   personalHomepage,
-  jobDetail
+  jobDetail,
+  myFocus
 ]

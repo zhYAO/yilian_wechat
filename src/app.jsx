@@ -65,7 +65,8 @@ class App extends Component {
           'pages/class-details/index',
           'pages/friend-list/index',
           'pages/personal-homepage/index',
-          'pages/job-detail/index'
+          'pages/job-detail/index',
+          'pages/my-focus/index'
         ]
       }
     ]

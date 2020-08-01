@@ -48,7 +48,7 @@ const Mine = props => {
             <View className="options__item__num">{dynamicNum}</View>
             <View className="options__item__name">动态</View>
           </View>
-          <View className="options__item">
+          <View className="options__item" onClick={() => handleNavigate('my-focus')}>
             <View className="options__item__num">{focusNum}</View>
             <View className="options__item__name">关注</View>
           </View>
