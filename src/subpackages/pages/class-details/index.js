@@ -6,27 +6,48 @@ import JobCard from '@components/page-components/job-card'
 import { connect } from '@tarojs/redux'
 import './index.less'
 
-const ClassDetails = props => {
-  const {
-    classDetails: { jobList },
-    loading,
-    common: { navBarPaddingTop }
-  } = props
+class ClassDetails extends Taro.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-  const handleBack = () => {
+  componentWillMount() {
+    const { id } = this.$router.params
+    this.getCompanyDetail(id)
+  }
+
+  handleBack = () => {
     navigateBack()
   }
 
-  return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="智能驾驶" leftIconType="chevron-left" />
-      <View className="container__list">
-        {jobList.map(item => (
-          <JobCard key={item.id} card={item} />
-        ))}
+  getCompanyDetail = id => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'classDetails/effectsCompanyList',
+      payload: {
+        id
+      }
+    })
+  }
+
+  render() {
+    const {
+      classDetails: { jobList },
+      loading,
+      common: { navBarPaddingTop }
+    } = this.props
+    return (
+      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+        <AtNavBar onClickLeftIcon={this.handleBack} title="智能驾驶" leftIconType="chevron-left" />
+        <View className="container__list">
+          {jobList.map(item => (
+            <JobCard key={item.id} card={item} />
+          ))}
+        </View>
       </View>
-    </View>
-  )
+    )
+  }
 }
 
 export default connect(({ common, classDetails, loading }) => ({

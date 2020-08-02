@@ -7,9 +7,9 @@ import './index.less'
 const CompanyCategory = props => {
   const { list } = props
 
-  const handleClick = () => {
+  const handleClick = id => {
     navigateTo({
-      url: `${pagejumplist['class-details'].path}`
+      url: `${pagejumplist['class-details'].path}?id=${id}`
     })
   }
 
@@ -17,7 +17,13 @@ const CompanyCategory = props => {
     <View className="container">
       <View className="container__grid">
         {list.map(item => (
-          <View className="container__grid__item" key={item.id} onClick={handleClick}>
+          <View
+            className="container__grid__item"
+            key={item.id}
+            onClick={() => {
+              handleClick(item.id)
+            }}
+          >
             <Image className="item__icon" src={item.imgPath} />
             <Text className="item__title">{item.label}</Text>
           </View>

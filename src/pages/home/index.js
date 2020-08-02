@@ -7,6 +7,7 @@ import HotProducts from '@components/page-components/hot-products'
 import SearchPart from '@components/page-components/search-part'
 import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
+import wxLogin from '@utils/wxLogin'
 import './index.less'
 
 const Index = props => {
@@ -15,6 +16,12 @@ const Index = props => {
     common: { navBarPaddingTop },
     home: { searchData, bannerList, companyCardList, recommendCardList }
   } = props
+
+  useEffect(() => {
+    wxLogin.doLogin().then(() => {
+      // this.getUserInfo()
+    })
+  }, [])
 
   const handleClick = () => {
     navigateTo({

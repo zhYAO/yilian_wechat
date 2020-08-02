@@ -4,7 +4,7 @@ import { AtFloatLayout, AtTextarea } from 'taro-ui'
 import './index.less'
 
 const SharePop = props => {
-  const { isOpened, onClose } = props
+  const { isOpened = false, onClose } = props
   const [shareText, setShareText] = useState('')
 
   const handleClose = () => {

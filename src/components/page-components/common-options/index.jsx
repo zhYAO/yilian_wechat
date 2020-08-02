@@ -38,7 +38,7 @@ const CommonOptions = props => {
           <View className="container__option__text">赞 {zanNum}</View>
         </View>
       </View>
-      <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} />
+      {/* <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} /> */}
     </View>
   )
 }
