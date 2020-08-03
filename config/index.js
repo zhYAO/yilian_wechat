@@ -44,7 +44,9 @@ const config = {
     '@crossplatform': path.resolve(__dirname, '..', 'src/crossplatform'),
     '@configuration': path.resolve(__dirname, '..', 'src/configuration'),
     '@static': path.resolve(__dirname, '..', 'src/static'),
-    '@images': path.resolve(__dirname, '..', 'src/static/images')
+    '@images': path.resolve(__dirname, '..', 'src/static/images'),
+    '@models': path.resolve(__dirname, '..', 'src/models'),
+    '@service': path.resolve(__dirname, '..', 'src/service')
   },
   mini: {
     postcss: {

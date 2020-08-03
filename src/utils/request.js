@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro'
+import { getStorageSync } from '@crossplatform/apiservice/storage'
 // import { noConsole } from '../config'
 
 const baseUrl = `http://106.54.202.8:8080/e-link-api`
@@ -12,8 +13,9 @@ export default (options = { method: 'GET', data: {} }) => {
   return Taro.request({
     url: baseUrl + options.url,
     data: options.data,
-    headers: {
-      'Content-Type': 'application/json'
+    header: {
+      'Content-Type': 'application/json',
+      token: getStorageSync('token')
     },
     method: options.method.toUpperCase()
   }).then(res => {

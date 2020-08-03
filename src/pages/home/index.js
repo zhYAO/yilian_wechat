@@ -13,14 +13,19 @@ import './index.less'
 const Index = props => {
   const {
     dispatch,
-    common: { navBarPaddingTop },
+    common: { navBarPaddingTop, token },
     home: { searchData, bannerList, companyCardList, recommendCardList }
   } = props
 
   useEffect(() => {
-    wxLogin.doLogin().then(() => {
-      // this.getUserInfo()
-    })
+    if (!token) {
+      wxLogin.doLogin().then(({ openId, token }) => {
+        dispatch({
+          type: 'common/effectsUpdate',
+          payload: { openId, token }
+        })
+      })
+    }
   }, [])
 
   const handleClick = () => {

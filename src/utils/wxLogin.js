@@ -1,9 +1,9 @@
-import { login } from '../crossplatform/apiservice/login'
-import { wxLoginRequest } from '../service/login-controller'
-// import { getSystemInfo } from '../crossplatform/apiservice/systemInfo'
-// import { setStorageSync } from '../crossplatform/apiservice/storage'
+import { setStorageSync } from '@crossplatform/apiservice/storage'
+import { login } from '@crossplatform/apiservice/login'
+import { wxLoginRequest } from '@service/login-controller'
+// import { getSystemInfo } from '@crossplatform/apiservice/systemInfo'
 // import { getArchiveInfoRequest } from '../service/user-info-controller'
-import { showToast } from '../crossplatform/apiservice/toast'
+import { showToast } from '@crossplatform/apiservice/toast'
 
 const wxLogin = {
   doLogin: () => {
@@ -17,19 +17,11 @@ const wxLogin = {
     login().then(({ code }) => {
       if (code) {
         wxLoginRequest({ code }).then(({ data = {} } = {}) => {
-          const { openId, userId, mobile, access_token: accessToken } = data.data || {}
-          wxLogin.props.updateUserState({
-            userId,
-            openId,
-            mobile,
-            accessToken
-          })
-          if (userId) {
-            // 存在anthUserId
-            wxLogin.tryGetUserInfo({ id: userId, resolve })
-          } else if (openId) {
-            // 不存在
-            resolve()
+          const { miniOpenid: openId, token } = data || {}
+          if (openId) {
+            setStorageSync('openId', openId)
+            setStorageSync('token', token)
+            resolve({ openId, token })
           } else {
             showToast({
               title: '网络走丢了'
@@ -44,14 +36,6 @@ const wxLogin = {
         resolve()
       }
     })
-  },
-  tryGetUserInfo: ({ id, resolve }) => {
-    const { role } = wxLogin.props
-    if (role == 'company') {
-      wxLogin.getBUserInfo({ id, resolve })
-    } else {
-      wxLogin.getCUserInfo({ id, resolve })
-    }
   },
   getCUserInfo: ({ id, resolve }) => {
     wxLogin.props.getZhichuUserInfo({ userId: id }).then(({ zhichuUserId }) => {
@@ -92,7 +76,7 @@ const wxLogin = {
       wxLogin.props.updateCompany()
     }
     resolve()
-  },
+  }
   // setPhoneModal: () => {
   //   getSystemInfo({
   //     success: res => {

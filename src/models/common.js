@@ -1,25 +1,37 @@
-import Taro from '@tarojs/taro'
+import { getStorageSync } from '@crossplatform/apiservice/storage'
+import { getSystemInfo } from '@crossplatform/apiservice/systemInfo'
 
 export default {
   namespace: 'common',
   state: {
-    access_token: Taro.getStorageSync('access_token'),
-    // mobile: Taro.getStorageSync('user_info') ? Taro.getStorageSync('user_info').mobile : '',
-    // nickname: Taro.getStorageSync('user_info') ? Taro.getStorageSync('user_info').nickname : '',
-    // new_user: Taro.getStorageSync('user_info') ? Taro.getStorageSync('user_info').new_user : '',
-    // is_has_buy_card: Taro.getStorageSync('user_info')
-    //   ? Taro.getStorageSync('user_info').is_has_buy_card
+    access_token: getStorageSync('access_token'),
+    token: getStorageSync('token') || '',
+    openId: getStorageSync('openId') || '',
+    // mobile: getStorageSync('user_info') ? getStorageSync('user_info').mobile : '',
+    // nickname: getStorageSync('user_info') ? getStorageSync('user_info').nickname : '',
+    // new_user: getStorageSync('user_info') ? getStorageSync('user_info').new_user : '',
+    // is_has_buy_card: getStorageSync('user_info')
+    //   ? getStorageSync('user_info').is_has_buy_card
     //   : '',
-    // erroMessage: Taro.getStorageSync('user_info')
-    //   ? Taro.getStorageSync('user_info').erroMessage
+    // erroMessage: getStorageSync('user_info')
+    //   ? getStorageSync('user_info').erroMessage
     //   : '',
     tabbarIndex: 0,
     navBarPaddingTop: 22,
     navBarHeight: 44,
-    userInfo: Taro.getStorageSync('user_info') ? Taro.getStorageSync('user_info') : { userId: 777 }
+    userInfo: getStorageSync('user_info') ? getStorageSync('user_info') : { userId: 777 }
   },
 
-  effects: {},
+  effects: {
+    *effectsUpdate({ payload }, { call, put }) {
+      yield put({
+        type: 'updateState',
+        payload: {
+          ...payload
+        }
+      })
+    }
+  },
 
   reducers: {
     updateState(state, { payload }) {
@@ -28,7 +40,7 @@ export default {
   },
   subscriptions: {
     init({ dispatch }) {
-      Taro.getSystemInfo({}).then(res => {
+      getSystemInfo({}).then(res => {
         dispatch({
           type: 'updateState',
           payload: {
