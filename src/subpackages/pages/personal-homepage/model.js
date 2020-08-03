@@ -4,8 +4,8 @@ export default {
   namespace: 'personalHomepage',
   state: {
     userInfo: {
-      userAventor: '',
-      nickname: ''
+      avatarUrl: '',
+      nickName: ''
     },
     comentCardList: [
       {

@@ -9,7 +9,7 @@ import './index.less'
 const PersonalHomepage = props => {
   const {
     personalHomepage: {
-      userInfo: { userAventor, nickname },
+      userInfo: { avatarUrl, nickName },
       comentCardList
     },
     loading,
@@ -29,11 +29,11 @@ const PersonalHomepage = props => {
           <Image
             className="info__aventor"
             src={
-              userAventor ||
+              avatarUrl ||
               'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180'
             }
           ></Image>
-          <View className="info__name">{nickname || '没得法士大夫'}</View>
+          <View className="info__name">{nickName || '没得法士大夫'}</View>
           <View className="info__score">专注于计算机视觉和深度学习原创技术研究</View>
           <View className="info__labels">
             <View className="info__labels__item">图像</View>

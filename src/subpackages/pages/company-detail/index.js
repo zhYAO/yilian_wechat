@@ -48,7 +48,7 @@ class CompanyDetail extends Taro.Component {
     const {
       common: {
         navBarPaddingTop,
-        userInfo: { nickname, userAventor }
+        userInfo: { nickName, avatarUrl }
       },
       companyDetail: {
         current,
@@ -75,7 +75,7 @@ class CompanyDetail extends Taro.Component {
             <Image
               className="info__aventor"
               src={
-                userAventor ||
+                avatarUrl ||
                 'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180'
               }
             ></Image>

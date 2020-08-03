@@ -11,7 +11,7 @@ const MyInfo = props => {
     loading,
     common: {
       navBarPaddingTop,
-      userInfo: { nickname, userAventor }
+      userInfo: { nickName, avatarUrl }
     }
   } = props
 
@@ -27,7 +27,7 @@ const MyInfo = props => {
         <Image
           className="container__header__img"
           src={
-            userAventor ||
+            avatarUrl ||
             'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180'
           }
         />
