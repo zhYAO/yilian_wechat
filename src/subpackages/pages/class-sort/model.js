@@ -8,8 +8,7 @@ export default {
 
   effects: {
     *effectsLabelList({ payload }, { call, put, select }) {
-      const { userId } = yield select(state => state.common.userInfo)
-      const { data } = yield call(classSortApi.labelUserList, { ...payload, userId })
+      const { data } = yield call(classSortApi.labelUserList, { ...payload })
       if (data) {
         yield put({
           type: 'updateState',
@@ -20,8 +19,7 @@ export default {
       }
     },
     *effectsChangeSort({ payload }, { call, put, select }) {
-      const { userId } = yield select(state => state.common.userInfo)
-      const { data } = yield call(classSortApi.changeSort, { ...payload, userId })
+      const { data } = yield call(classSortApi.changeSort, { ...payload })
       if (data) {
         yield put({
           type: 'updateState',

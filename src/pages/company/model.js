@@ -89,8 +89,7 @@ export default {
       }
     },
     *effectsLabelList({ payload }, { call, put, select }) {
-      const { userId } = yield select(state => state.common.userInfo)
-      const { data } = yield call(companyApi.labelUserList, { ...payload, userId })
+      const { data } = yield call(companyApi.labelUserList, { ...payload })
       if (data) {
         yield put({
           type: 'updateState',

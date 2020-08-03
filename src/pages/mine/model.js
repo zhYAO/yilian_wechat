@@ -38,8 +38,7 @@ export default {
 
   effects: {
     *effectsLabelList({ payload }, { call, put, select }) {
-      const { userId } = yield select(state => state.common.userInfo)
-      const { data } = yield call(mineApi.userHomepage, { ...payload, userId })
+      const { data } = yield call(mineApi.userHomepage, { ...payload })
       console.log(data, 'datadatadata')
       if (data) {
         yield put({

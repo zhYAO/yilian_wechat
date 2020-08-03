@@ -19,7 +19,7 @@ export default {
     tabbarIndex: 0,
     navBarPaddingTop: 22,
     navBarHeight: 44,
-    userInfo: getStorageSync('user_info') ? getStorageSync('user_info') : { userId: 777 }
+    userInfo: getStorageSync('user_info') ? getStorageSync('user_info') : {}
   },
 
   effects: {
