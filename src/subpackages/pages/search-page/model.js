@@ -9,13 +9,14 @@ export default {
   },
 
   effects: {
-    *effectsDemo(_, { call, put }) {
-      const { status, data } = yield call(search - pageApi.demo, {})
-      if (status === 'ok') {
+    *effectsSearch({ payload }, { call, put, select }) {
+      const { searchVal } = yield select(state => state.searchPage)
+      const { data } = yield call(searchpageApi.search, { name: searchVal })
+      if (data) {
         yield put({
-          type: 'save',
+          type: 'updateState',
           payload: {
-            topData: data
+            searchVal: ''
           }
         })
       }

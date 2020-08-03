@@ -42,6 +42,18 @@ export default {
           }
         })
       }
+    },
+    *effectsActivityList({ payload }, { call, put, select }) {
+      const { comentCardList } = yield select(state => state.discover)
+      const { data } = yield call(discoverApi.activityList, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            comentCardList: comentCardList.concat(data)
+          }
+        })
+      }
     }
   },
 

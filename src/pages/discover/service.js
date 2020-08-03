@@ -15,3 +15,11 @@ export const videoList = (data) => {
     data,
   });
 };
+
+export const activityList = (data) => {
+  return Request({
+    url: '/found/activity',
+    method: 'GET',
+    data,
+  });
+};

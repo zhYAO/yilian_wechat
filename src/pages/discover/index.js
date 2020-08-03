@@ -18,6 +18,7 @@ const Discover = props => {
   useEffect(() => {
     getPositionList()
     getVideoList()
+    getActivityList()
   }, [])
 
   const handleClick = value => {
@@ -39,6 +40,13 @@ const Discover = props => {
   const getVideoList = () => {
     dispatch({
       type: 'discover/effectsVideoList',
+      payload: {}
+    })
+  }
+
+  const getActivityList = () => {
+    dispatch({
+      type: 'discover/effectsActivityList',
       payload: {}
     })
   }

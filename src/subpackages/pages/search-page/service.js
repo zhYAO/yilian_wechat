@@ -1,9 +1,9 @@
 import Request from '../../../utils/request';
 
-export const demo = (data) => {
+export const search = (data) => {
   return Request({
-    url: '路径',
-    method: 'POST',
+    url: '/search/',
+    method: 'GET',
     data,
   });
 };

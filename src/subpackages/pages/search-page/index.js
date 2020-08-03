@@ -29,10 +29,8 @@ const SearchPage = props => {
   const handleActionClick = () => {
     console.log('开始搜索')
     dispatch({
-      type: 'searchPage/updateState',
-      payload: {
-        searchVal: ''
-      }
+      type: 'searchPage/effectsSearch',
+      payload: {}
     })
   }
 
