@@ -3,9 +3,12 @@ import * as searchpageApi from './service'
 export default {
   namespace: 'searchPage',
   state: {
+    current: 0,
+    tabList: [{ title: '公司' }, { title: '产品' }, { title: '动态' }],
     searchVal: '',
     searchRecord: ['搜索词1', '搜索词1', '搜索词1', '搜索词1', '搜索词1'],
-    hotRecord: ['搜索词1', '搜索词1', '搜索词1']
+    hotRecord: ['搜索词1', '搜索词1', '搜索词1'],
+    searchData: null
   },
 
   effects: {
@@ -16,7 +19,8 @@ export default {
         yield put({
           type: 'updateState',
           payload: {
-            searchVal: ''
+            searchVal: '',
+            searchData: data
           }
         })
       }
