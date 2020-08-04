@@ -1,5 +1,5 @@
 import Taro, { useEffect } from '@tarojs/taro'
-import { View, ScrollView } from '@tarojs/components'
+import { View, ScrollView, Block } from '@tarojs/components'
 import { AtIcon, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import SearchPart from '@components/page-components/search-part'
@@ -96,13 +96,17 @@ const Trends = props => {
       </SearchPart>
 
       {/* 推荐关注 */}
-      <CustomNavigator title="推荐关注" extraText={'>>更多'} rightClick={handleClick} />
-      <View>
-        {focusCardsList.map(item => {
-          return <FocusCard card={item} />
-        })}
-      </View>
-      <View className="container__gap"></View>
+      {focusCardsList && focusCardsList.length > 0 && (
+        <Block>
+          <CustomNavigator title="推荐关注" extraText={'>>更多'} rightClick={handleClick} />
+          <View>
+            {focusCardsList.map(item => {
+              return <FocusCard card={item} />
+            })}
+          </View>
+          <View className="container__gap"></View>
+        </Block>
+      )}
 
       {/* 评论卡片 */}
       <View className="container__comment">
