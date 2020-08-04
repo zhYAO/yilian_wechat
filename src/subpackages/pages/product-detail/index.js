@@ -4,6 +4,7 @@ import { AtNavBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import CustomNavigator from '@components/page-components/custom-navigator'
+import CommonOptions from '@components/page-components/common-options'
 import './index.less'
 
 const ProductDetail = props => {
@@ -39,42 +40,8 @@ const ProductDetail = props => {
 
       <View className="container__gap"></View>
 
-      <View className="container__bottom">
-        <View className="container__bottom__options">
-          <View className="options__item">
-            <Image
-              className="options__item__icon"
-              src={require('@static/images/common/share.png')}
-              mode="aspectFit"
-            ></Image>
-            <View className="options__item__name">转发 100</View>
-          </View>
-          <View className="options__item">
-            <Image
-              className="options__item__icon"
-              src={require('@static/images/common/discuss.png')}
-              mode="aspectFit"
-            ></Image>
-            <View className="options__item__name">评论 100</View>
-          </View>
-          <View className="options__item">
-            <Image
-              className="options__item__icon"
-              src={require('@static/images/common/star.png')}
-              mode="aspectFit"
-            ></Image>
-            <View className="options__item__name">收藏 100</View>
-          </View>
-          <View className="options__item">
-            <Image
-              className="options__item__icon"
-              src={require('@static/images/common/zan.png')}
-              mode="aspectFit"
-            ></Image>
-            <View className="options__item__name">赞 100</View>
-          </View>
-        </View>
-      </View>
+      {/* 底部操作组件 */}
+      <CommonOptions shareNum={100} commentNum={100} zanNum={100} />
     </View>
   )
 }

@@ -1,27 +1,17 @@
 import Taro, { useState } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { AtIcon, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import CommonOptions from '@components/page-components/common-options'
 import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
 const CommentCard = props => {
-  const { card } = props
-  const [isOpened, setIsOpened] = useState(false)
+  const { card, handleShowAction, handleSharePopShow } = props
 
   const handleClick = () => {
     navigateTo({
       url: `${pagejumplist['personal-homepage'].path}`
     })
-  }
-
-  const onShow = () => {
-    setIsOpened(true)
-  }
-
-  const onCancel = () => {
-    setIsOpened(false)
   }
 
   return (
@@ -35,7 +25,7 @@ const CommentCard = props => {
           </View>
           <View className="content__intro">{card.content}</View>
         </View>
-        <View className="container__top__options" onClick={onShow}>
+        <View className="container__top__options" onClick={handleShowAction}>
           <View className="options__item"></View>
           <View className="options__item"></View>
           <View className="options__item"></View>
@@ -43,13 +33,12 @@ const CommentCard = props => {
       </View>
 
       {/* 底部操作组件 */}
-      <CommonOptions shareNum={card.forwardCount} commentNum={card.commentCount} zanNum={card.fabulousCount} />
-
-      <AtActionSheet isOpened={isOpened} cancelText="取消" onCancel={onCancel} onClose={onCancel}>
-        <AtActionSheetItem>关注作者</AtActionSheetItem>
-        <AtActionSheetItem>收藏动态</AtActionSheetItem>
-        <AtActionSheetItem>举报</AtActionSheetItem>
-      </AtActionSheet>
+      <CommonOptions
+        shareNum={card.forwardCount}
+        commentNum={card.commentCount}
+        zanNum={card.fabulousCount}
+        handleSharePopShow={handleSharePopShow}
+      />
     </View>
   )
 }

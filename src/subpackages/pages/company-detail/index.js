@@ -1,12 +1,13 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtNavBar, AtTabs, AtTabsPane } from 'taro-ui'
+import { AtNavBar, AtTabs, AtTabsPane, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import JobCard from '@components/page-components/job-card'
 import VideoCard from '@components/page-components/video-card'
 import CommentCard from '@components/page-components/comment-card'
 import CompanyDetailInfo from '@components/page-components/company-detail-info'
+import SharePop from '@components/page-components/share-pop'
 import './index.less'
 
 class CompanyDetail extends Taro.Component {
@@ -44,6 +45,46 @@ class CompanyDetail extends Taro.Component {
     })
   }
 
+  onShow = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'companyDetail/updateState',
+      payload: {
+        actionSheetOpen: true
+      }
+    })
+  }
+
+  onCancel = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'companyDetail/updateState',
+      payload: {
+        actionSheetOpen: false
+      }
+    })
+  }
+
+  handleSharePopShow = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'companyDetail/updateState',
+      payload: {
+        isShareOpened: true
+      }
+    })
+  }
+
+  handleSharePopClose = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'companyDetail/updateState',
+      payload: {
+        isShareOpened: false
+      }
+    })
+  }
+
   render() {
     const {
       common: {
@@ -57,7 +98,9 @@ class CompanyDetail extends Taro.Component {
         customerList,
         dynamicList,
         positionList,
-        productList
+        productList,
+        actionSheetOpen,
+        isShareOpened
       },
       loading
     } = this.props
@@ -119,12 +162,29 @@ class CompanyDetail extends Taro.Component {
             <View className="tab__item">
               {dynamicList.map(item => (
                 <View key={item.id} className="tab__item__comment">
-                  <CommentCard card={item} />
+                  <CommentCard
+                    card={item}
+                    handleShowAction={this.onShow}
+                    handleSharePopShow={this.handleSharePopShow}
+                  />
                 </View>
               ))}
             </View>
           </AtTabsPane>
         </AtTabs>
+
+        <AtActionSheet
+          isOpened={actionSheetOpen}
+          cancelText="取消"
+          onCancel={this.onCancel}
+          onClose={this.onCancel}
+        >
+          <AtActionSheetItem>关注作者</AtActionSheetItem>
+          <AtActionSheetItem>收藏动态</AtActionSheetItem>
+          <AtActionSheetItem>举报</AtActionSheetItem>
+        </AtActionSheet>
+
+        <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />
       </View>
     )
   }

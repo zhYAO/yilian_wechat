@@ -10,6 +10,8 @@ export default {
     dynamicList: [],
     positionList: [],
     productList: [],
+    actionSheetOpen: false,
+    isShareOpened: false,
   },
 
   effects: {
