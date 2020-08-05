@@ -7,3 +7,11 @@ export const userHomepage = (data) => {
     data,
   });
 };
+
+export const userModify = (data) => {
+  return Request({
+    url: '/user/modify',
+    method: 'POST',
+    data,
+  });
+};

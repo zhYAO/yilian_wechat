@@ -43,8 +43,15 @@ const Mine = props => {
 
   const getUserInfo = () => {
     dispatch({
-      type: 'mine/effectsLabelList',
+      type: 'mine/effectsUserInfo',
       payload: {}
+    })
+  }
+
+  const setUserInfo = ({ nickName: name, gender: sex }) => {
+    dispatch({
+      type: 'mine/effectsUserModify',
+      payload: { name, sex }
     })
   }
 
@@ -62,6 +69,7 @@ const Mine = props => {
     if (currentTarget.userInfo) {
       const userInfo = currentTarget.userInfo
       setStorageSync('userInfo', userInfo)
+
       dispatch({
         type: 'common/effectsUpdate',
         payload: { userInfo }
@@ -71,6 +79,7 @@ const Mine = props => {
           type: 'common/effectsUpdate',
           payload: { openId, token }
         })
+        setUserInfo(userInfo)
       })
     }
   }

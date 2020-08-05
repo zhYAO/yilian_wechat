@@ -34,12 +34,11 @@ const ClassSort = props => {
     let targetIndex = 0
     if (type === 'add') {
       targetIndex = index - 1 < 0 ? classList.length - 1 : index - 1
-      targetLabelId = classList[targetIndex].id
+      targetLabelId = classList[targetIndex].labelId
     } else if (type === 'minus') {
       targetIndex = index + 1 > classList.length - 1 ? 0 : index + 1
-      targetLabelId = classList[targetIndex].id
+      targetLabelId = classList[targetIndex].labelId
     }
-    console.log(targetIndex, 'targetIndextargetIndex')
     dispatch({
       type: 'classSort/effectsChangeSort',
       payload: {

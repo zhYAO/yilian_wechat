@@ -8,8 +8,19 @@ export default {
   },
 
   effects: {
-    *effectsLabelList({ payload }, { call, put, select }) {
+    *effectsUserInfo({ payload }, { call, put, select }) {
       const { data } = yield call(mineApi.userHomepage, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            userInfo: data
+          }
+        })
+      }
+    },
+    *effectsUserModify({ payload }, { call, put, select }) {
+      const { data } = yield call(mineApi.userModify, { ...payload })
       if (data) {
         yield put({
           type: 'updateState',

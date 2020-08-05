@@ -19,7 +19,7 @@ const CommentCard = props => {
         <View
           className="container__options__arrow"
           onClick={() => {
-            handleChangeSort(card.id, index, 'add')
+            handleChangeSort(card.labelId, index, 'add')
           }}
         >
           <AtIcon value="chevron-up" size="30" color="#333"></AtIcon>
@@ -27,7 +27,7 @@ const CommentCard = props => {
         <View
           className="container__options__arrow"
           onClick={() => {
-            handleChangeSort(card.id, index, 'minus')
+            handleChangeSort(card.labelId, index, 'minus')
           }}
         >
           <AtIcon value="chevron-down" size="30" color="#333"></AtIcon>

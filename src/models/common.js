@@ -4,7 +4,7 @@ import { getSystemInfo } from '@crossplatform/apiservice/systemInfo'
 export default {
   namespace: 'common',
   state: {
-    access_token: getStorageSync('access_token'),
+    access_token: getStorageSync('access_token') || '',
     token: getStorageSync('token') || '',
     openId: getStorageSync('openId') || '',
     // mobile: getStorageSync('user_info') ? getStorageSync('user_info').mobile : '',
