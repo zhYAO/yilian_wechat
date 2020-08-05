@@ -20,20 +20,18 @@ export default {
       }
     },
     *effectsUserModify({ payload }, { call, put, select }) {
-      const { data } = yield call(mineApi.userModify, { ...payload })
-      if (data) {
+      const { code } = yield call(mineApi.userModify, { ...payload })
+      if (code === '0000') {
         yield put({
-          type: 'updateState',
-          payload: {
-            userInfo: data
-          }
+          type: 'effectsUserInfo',
+          payload: {}
         })
       }
     }
   },
 
   reducers: {
-    save(state, { payload }) {
+    updateState(state, { payload }) {
       return { ...state, ...payload }
     }
   }
