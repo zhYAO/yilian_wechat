@@ -62,5 +62,17 @@
   "class-sort": {
     "name": "分类排序",
     "path": "/subpackages/pages/class-sort/index"
+  },
+  "common-edit": {
+    "name": "公共编辑页面",
+    "path": "/subpackages/pages/common-edit/index"
+  },
+  "industry-label": {
+    "name": "选择所处行业",
+    "path": "/subpackages/pages/industry-label/index"
+  },
+  "my-favorite": {
+    "name": "我的收藏",
+    "path": "/subpackages/pages/my-favorite/index"
   }
 }

@@ -9,7 +9,7 @@ const JobCard = props => {
 
   const handleClick = () => {
     navigateTo({
-      url: `${pagejumplist['job-detail'].path}`
+      url: `${pagejumplist['job-detail'].path}?id=${card.id}`
     })
   }
 

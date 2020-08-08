@@ -1,4 +1,5 @@
 import * as jobDetailApi from './service'
+import { positionDetailRequest } from '@service/company-controller'
 
 export default {
   namespace: 'jobDetail',
@@ -7,11 +8,11 @@ export default {
   },
 
   effects: {
-    *effectsDemo(_, { call, put }) {
-      const { status, data } = yield call(jobDetailApi.demo, {})
+    *effectsPositionDetail({ payload }, { call, put }) {
+      const { status, data } = yield call(positionDetailRequest, { ...payload })
       if (status === 'ok') {
         yield put({
-          type: 'save',
+          type: 'updateState',
           payload: {
             topData: data
           }

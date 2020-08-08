@@ -68,7 +68,10 @@ class App extends Component {
           'pages/personal-homepage/index',
           'pages/job-detail/index',
           'pages/my-focus/index',
-          'pages/class-sort/index'
+          'pages/class-sort/index',
+          'pages/common-edit/index',
+          'pages/industry-label/index',
+          'pages/my-favorite/index',
         ]
       }
     ]

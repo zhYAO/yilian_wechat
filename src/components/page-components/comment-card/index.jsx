@@ -8,16 +8,16 @@ import './index.less'
 const CommentCard = props => {
   const { card, handleShowAction, handleSharePopShow } = props
 
-  const handleClick = () => {
+  const handleClick = (id) => {
     navigateTo({
-      url: `${pagejumplist['personal-homepage'].path}`
+      url: `${pagejumplist['personal-homepage'].path}?id=${id}`
     })
   }
 
   return (
     <View className="container">
       <View className="container__top">
-        <Image className="container__top__img" src={card.src} onClick={handleClick} />
+        <Image className="container__top__img" src={card.src} onClick={() => handleClick(card.id)} />
         <View className="container__top__content">
           <View className="content__desc">
             <View className="content__name">{card.publisher}</View>

@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro'
+import Taro, { useEffect } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
 import { AtNavBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -9,24 +9,43 @@ import './index.less'
 const RecommendListPage = props => {
   const {
     common: { navBarPaddingTop },
-    recommendListPage: { companyCardList },
+    recommendListPage: { companyCardList, pageSize, page, hasNextPage },
     loading
   } = props
+
+  useEffect(() => {
+    getList()
+  }, [])
 
   const handleBack = () => {
     navigateBack()
   }
 
+  const getList = () => {
+    if (hasNextPage) {
+      dispatch({
+        type: 'company/effectsCompanyList',
+        payload: {
+          pageSize,
+          page
+        }
+      })
+    }
+  }
+
   return (
-    <View className="recommendListPage-page" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+    <ScrollView
+      className="container"
+      style={{ paddingTop: navBarPaddingTop + 'px' }}
+      onScrollToLower={getList}
+      scrollY
+    >
       <AtNavBar onClickLeftIcon={handleBack} title="小易推荐" leftIconType="chevron-left" />
 
-      <ScrollView>
-        {companyCardList.map(item => {
-          return <CompanyCard key={item.id} data={item} />
-        })}
-      </ScrollView>
-    </View>
+      {companyCardList.map(item => {
+        return <CompanyCard key={item.id} data={item} />
+      })}
+    </ScrollView>
   )
 }
 

@@ -1,5 +1,5 @@
 import Taro, { useEffect } from '@tarojs/taro'
-import { View, Text, Swiper, SwiperItem } from '@tarojs/components'
+import { View, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyPart from '@components/page-components/company-part'
 import RecommendPart from '@components/page-components/recommend-part'
@@ -14,7 +14,7 @@ const Index = props => {
   const {
     dispatch,
     common: { navBarPaddingTop, token },
-    home: { searchData, bannerList, companyCardList, recommendCardList }
+    home: { bannerList, companyCardList, recommendCardList }
   } = props
 
   useEffect(() => {
@@ -26,6 +26,8 @@ const Index = props => {
         })
       })
     }
+    getBanner()
+    getRecommend()
   }, [])
 
   const handleClick = () => {
@@ -37,6 +39,20 @@ const Index = props => {
   const handleImgJump = url => {
     // 点击banner跳转
     console.log(url, 'banner jump to url')
+  }
+
+  const getBanner = () => {
+    dispatch({
+      type: 'home/effectsBannerList',
+      payload: {}
+    })
+  }
+
+  const getRecommend = () => {
+    dispatch({
+      type: 'home/effectsRecommend',
+      payload: {}
+    })
   }
 
   return (
@@ -66,9 +82,9 @@ const Index = props => {
             <SwiperItem className="banner__item" key={item.id}>
               <Image
                 className="banner__item__img"
-                src={item.picUrl}
+                src={item.imgPath}
                 mode="widthFix"
-                onClick={() => handleImgJump(item.url)}
+                onClick={() => handleImgJump(item.jumpPath)}
               />
             </SwiperItem>
           )
@@ -76,7 +92,9 @@ const Index = props => {
       </Swiper>
 
       {/* 推荐公司列表 */}
-      <CompanyPart title={'小易推荐'} extraText={'>>更多'} cardList={companyCardList} />
+      {companyCardList.length > 0 && (
+        <CompanyPart title={'小易推荐'} extraText={'>>更多'} cardList={companyCardList} />
+      )}
 
       {/* 热门产品 */}
       <HotProducts title={'热门产品'} />

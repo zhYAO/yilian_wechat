@@ -1,9 +1,9 @@
 import Request from '../../../utils/request';
 
-export const demo = (data) => {
+export const getOtherInfo = (data) => {
   return Request({
-    url: '路径',
-    method: 'POST',
+    url: `/user/other-page/${data.id}`,
+    method: 'GET',
     data,
   });
 };

@@ -13,6 +13,9 @@ import personalHomepage from '../subpackages/pages/personal-homepage/model'
 import jobDetail from '../subpackages/pages/job-detail/model'
 import myFocus from '../subpackages/pages/my-focus/model'
 import classSort from '../subpackages/pages/class-sort/model'
+import commonEdit from '../subpackages/pages/common-edit/model'
+import industryLabel from '../subpackages/pages/industry-label/model'
+import myFavorite from '../subpackages/pages/my-favorite/model'
 
 export default [
   common,
@@ -29,5 +32,8 @@ export default [
   personalHomepage,
   jobDetail,
   myFocus,
-  classSort
+  classSort,
+  commonEdit,
+  industryLabel,
+  myFavorite
 ]

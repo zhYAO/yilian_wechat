@@ -58,7 +58,7 @@ export default {
     * effectsDemo(_, { call, put }) {
       const { status, data } = yield call(${dirName}Api.demo, {});
       if (status === 'ok') {
-        yield put({ type: 'save',
+        yield put({ type: 'updateState',
           payload: {
             topData: data,
           } });

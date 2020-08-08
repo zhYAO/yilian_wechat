@@ -1,8 +1,9 @@
-import Taro from '@tarojs/taro'
-import { View, Image } from '@tarojs/components'
-import { AtNavBar, AtList, AtListItem } from 'taro-ui'
+import Taro, { useState } from '@tarojs/taro'
+import { View, Image, Button } from '@tarojs/components'
+import { AtNavBar, AtList, AtListItem, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
+import { navigateBack, navigateTo } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
 const MyInfo = props => {
@@ -12,11 +13,45 @@ const MyInfo = props => {
     common: {
       navBarPaddingTop,
       userInfo: { nickName, avatarUrl }
+    },
+    mine: {
+      pageTitle,
+      userInfo: {
+        name = '',
+        sex = '',
+        email = '',
+        weChat = '',
+        mobile = '',
+        companyName = '',
+        job = '',
+        theme = '',
+        labels = []
+      }
     }
   } = props
 
+  const [isOpened, setIsOpened] = useState(false)
+
   const handleBack = () => {
     navigateBack()
+  }
+
+  const handleJump = (url, params) => {
+    navigateTo({
+      url: `${pagejumplist[url].path}?${params}`
+    })
+  }
+
+  const handleGender = gender => {
+    return gender === 1 ? '男' : '女'
+  }
+
+  const handleIndustry = labels => {
+    return labels.map(item => item)
+  }
+
+  const handleOpen = () => {
+    setIsOpened(!isOpened)
   }
 
   return (
@@ -34,24 +69,71 @@ const MyInfo = props => {
       </View>
 
       <View className="container__list">
-        <AtListItem title="昵称" extraText="莫林莫林" arrow="right" />
-        <AtListItem title="性别" extraText="男" arrow="right" />
-        <AtListItem title="微信号" extraText="Sandy" arrow="right" />
-        <AtListItem title="绑定手机号" extraText="13376225066" arrow="right" />
-        <AtListItem title="邮箱" extraText="3468748857@qq.com" arrow="right" />
-        <AtListItem title="公司" extraText="上海科技有限公司" arrow="right" />
-        <AtListItem title="职位" extraText="UI设计师" arrow="right" />
+        <AtListItem
+          title="昵称"
+          extraText={name}
+          arrow="right"
+          onClick={() => handleJump('common-edit', `key=name&value=${name}`)}
+        />
+        <AtListItem title="性别" extraText={handleGender(sex)} arrow="right" />
+        <AtListItem
+          title="微信号"
+          extraText={weChat}
+          arrow="right"
+          onClick={() => handleJump('common-edit', `key=weChat&value=${weChat}`)}
+        />
+        <AtListItem
+          title="绑定手机号"
+          extraText={mobile}
+          arrow="right"
+          onClick={() => handleJump('common-edit', `key=mobile&value=${mobile}`)}
+        />
+        <AtListItem
+          title="邮箱"
+          extraText={email}
+          arrow="right"
+          onClick={() => handleJump('common-edit', `key=email&value=${email}`)}
+        />
+        <AtListItem title="公司" extraText={companyName} arrow="right" />
+        <AtListItem
+          title="职位"
+          extraText={job}
+          arrow="right"
+          onClick={() => handleJump('common-edit', `key=job&value=${job}`)}
+        />
       </View>
 
       <View className="container__list">
-        <AtListItem title="关注领域" arrow="right" />
-        <AtListItem title="座右铭" extraText="世上本没有路，走的人多了，也变成了路" arrow="right" />
+        <AtListItem
+          title="关注领域"
+          arrow="right"
+          onClick={() => handleJump('industry-label')}
+          extraText={handleIndustry(labels)}
+        />
+        <AtListItem
+          title="座右铭"
+          extraText={theme}
+          arrow="right"
+          onClick={() => handleJump('common-edit', `key=theme&value=${theme}`)}
+        />
       </View>
+
+      {/* <AtActionSheet isOpened={isOpened} onClose={handleOpen} onCancel={handleOpen}>
+        <AtActionSheetItem>
+          <Button openType="getPhoneNumber" onGetphonenumber="getPhoneNumber">
+            获取微信绑定手机号
+          </Button>
+        </AtActionSheetItem>
+        <AtActionSheetItem onClick={() => handleJump('common-edit', `key=mobile&value=${mobile}`)}>
+          手动填写手机号
+        </AtActionSheetItem>
+      </AtActionSheet> */}
     </View>
   )
 }
-export default connect(({ common, myInfo, loading }) => ({
+export default connect(({ common, myInfo, loading, mine }) => ({
   common,
   myInfo,
-  loading
+  loading,
+  mine
 }))(MyInfo)
