@@ -1,19 +1,20 @@
 import * as productDetailApi from './service'
+import { productDetailRequest } from '@service/company-controller'
 
 export default {
   namespace: 'productDetail',
   state: {
-    keai: '测试数据666'
+    detail: {}
   },
 
   effects: {
-    *effectsDemo(_, { call, put }) {
-      const { status, data } = yield call(productDetailApi.demo, {})
-      if (status === 'ok') {
+    *effectsDetail({ payload }, { call, put }) {
+      const { data } = yield call(productDetailRequest, { ...payload })
+      if (data) {
         yield put({
-          type: 'save',
+          type: 'updateState',
           payload: {
-            topData: data
+            detail: data
           }
         })
       }

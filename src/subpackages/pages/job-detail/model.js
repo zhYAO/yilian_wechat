@@ -4,17 +4,17 @@ import { positionDetailRequest } from '@service/company-controller'
 export default {
   namespace: 'jobDetail',
   state: {
-    keai: '测试数据666'
+    detail: {}
   },
 
   effects: {
     *effectsPositionDetail({ payload }, { call, put }) {
-      const { status, data } = yield call(positionDetailRequest, { ...payload })
-      if (status === 'ok') {
+      const { data } = yield call(positionDetailRequest, { ...payload })
+      if (data) {
         yield put({
           type: 'updateState',
           payload: {
-            topData: data
+            detail: data
           }
         })
       }

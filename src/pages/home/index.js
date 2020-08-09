@@ -1,5 +1,5 @@
 import Taro, { useEffect } from '@tarojs/taro'
-import { View, Swiper, SwiperItem } from '@tarojs/components'
+import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyPart from '@components/page-components/company-part'
 import RecommendPart from '@components/page-components/recommend-part'
@@ -14,7 +14,7 @@ const Index = props => {
   const {
     dispatch,
     common: { navBarPaddingTop, token },
-    home: { bannerList, companyCardList, recommendCardList }
+    home: { bannerList, companyCardList, hotList, pageSize, page, hasNextPage }
   } = props
 
   useEffect(() => {
@@ -28,6 +28,7 @@ const Index = props => {
     }
     getBanner()
     getRecommend()
+    getHotList()
   }, [])
 
   const handleClick = () => {
@@ -55,8 +56,25 @@ const Index = props => {
     })
   }
 
+  const getHotList = () => {
+    if (hasNextPage) {
+      dispatch({
+        type: 'home/effectsHot',
+        payload: {
+          pageSize,
+          page
+        }
+      })
+    }
+  }
+
   return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+    <ScrollView
+      className="container"
+      style={{ paddingTop: navBarPaddingTop + 'px' }}
+      onScrollToLower={getHotList}
+      scrollY
+    >
       {/* 头部搜索栏 */}
       <SearchPart className="search" onNavTo={handleClick}>
         {/* <View className="search__local">
@@ -97,11 +115,11 @@ const Index = props => {
       )}
 
       {/* 热门产品 */}
-      <HotProducts title={'热门产品'} />
+      <HotProducts title={'热门产品'} hotList={hotList} />
 
       {/* 推荐产品 */}
       {/* <RecommendPart title={'推荐产品'} cardList={recommendCardList} /> */}
-    </View>
+    </ScrollView>
   )
 }
 //全局样式继承 你可以关掉

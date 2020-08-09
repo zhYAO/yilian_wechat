@@ -111,6 +111,11 @@ class CompanyDetail extends Taro.Component {
         />
 
         <View className="container__user">
+          <Image
+            className="container__user__bg"
+            src={require('@static/images/common/bg.png')}
+            mode="aspectFit"
+          />
           <View className="container__user__info">
             <Image className="info__aventor" src={companyDetail.logoPath}></Image>
             <View className="info__name">{companyDetail.name}</View>

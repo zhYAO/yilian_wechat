@@ -16,18 +16,22 @@ const CompanyCategory = props => {
   return (
     <View className="container">
       <View className="container__grid">
-        {list.map(item => (
-          <View
-            className="container__grid__item"
-            key={item.id}
-            onClick={() => {
-              handleClick(item.id)
-            }}
-          >
-            <Image className="item__icon" src={item.imgPath} />
-            <Text className="item__title">{item.label}</Text>
-          </View>
-        ))}
+        {list.map((item, index) => {
+          if (index < 8) {
+            return (
+              <View
+                className="container__grid__item"
+                key={item.id}
+                onClick={() => {
+                  handleClick(item.id)
+                }}
+              >
+                <Image className="item__icon" src={item.imgPath} />
+                <Text className="item__title">{item.label}</Text>
+              </View>
+            )
+          }
+        })}
       </View>
     </View>
   )

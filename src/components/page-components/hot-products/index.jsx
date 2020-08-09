@@ -6,11 +6,11 @@ import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
 const HotProducts = props => {
-  const { title } = props
+  const { title, hotList = [] } = props
 
-  const handleClick = () => {
+  const handleClick = id => {
     navigateTo({
-      url: `${pagejumplist['product-detail'].path}`
+      url: `${pagejumplist['product-detail'].path}?id=${id}`
     })
   }
 
@@ -18,13 +18,17 @@ const HotProducts = props => {
     <View className="container">
       <CustomNavigator title={title} />
       <View className="container__cards">
-        <View className="container__cards__hot" onClick={handleClick}>
-          <Image src={require('@static/images/home/hot_products_1.png')} mode="aspectFill" />
-        </View>
-        <View className="container__cards__right">
-          <Image src={require('@static/images/home/hot_products_2.png')} mode="aspectFill" />
-          <Image src={require('@static/images/home/hot_products_3.png')} mode="aspectFill" />
-        </View>
+        {hotList.map(item => {
+          return (
+            <View
+              key={item.id}
+              className="container__cards__hot"
+              onClick={() => handleClick(item.id)}
+            >
+              <Image src={item.imgPath} mode="aspectFit" />
+            </View>
+          )
+        })}
       </View>
     </View>
   )

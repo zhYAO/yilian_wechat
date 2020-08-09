@@ -90,6 +90,11 @@ const Mine = props => {
       {!!nickName && (
         <Block>
           <View className="container__user">
+            <Image
+              className="container__user__bg"
+              src={require('@static/images/common/bg.png')}
+              mode="aspectFit"
+            />
             <View className="container__user__info">
               <Image className="info__aventor" src={avatarUrl}></Image>
               <View className="info__name">{name || nickName || '没得法士大夫'}</View>

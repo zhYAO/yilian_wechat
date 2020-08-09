@@ -1,12 +1,16 @@
 import * as indexApi from './service'
-import { bannerListRequest, companyRecommendRequest } from '@service/info-controller'
+import { bannerListRequest, companyRecommendRequest, hotRequest } from '@service/info-controller'
 
 export default {
   namespace: 'home',
   state: {
+    pageSize: 10,
+    page: 0,
+    hasNextPage: true,
     bannerList: [],
     companyCardList: [],
-    recommendCardList: []
+    recommendCardList: [],
+    hotList: []
   },
 
   effects: {
@@ -29,6 +33,34 @@ export default {
           type: 'updateState',
           payload: {
             companyCardList: companyCardList.concat(data.records || [])
+          }
+        })
+      }
+    },
+    *effectsHot({ payload }, { call, put, select }) {
+      const { hotList, pageSize, page } = yield select(state => state.home)
+      const { data } = yield call(hotRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            hotList: hotList.concat(data),
+            page: page + 1
+          }
+        })
+        if (data.length < pageSize) {
+          yield put({
+            type: 'updateState',
+            payload: {
+              hasNextPage: false
+            }
+          })
+        }
+      } else {
+        yield put({
+          type: 'updateState',
+          payload: {
+            hasNextPage: false
           }
         })
       }

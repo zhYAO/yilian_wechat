@@ -21,3 +21,14 @@ export const labelListRequest = ({ id }) => {
     data: {}
   })
 }
+
+/**
+ * 产品详情
+ */
+export const productDetailRequest = ({ id }) => {
+  return Request({
+    url: `/company-product/detail/${id}`,
+    method: 'GET',
+    data: {}
+  })
+}

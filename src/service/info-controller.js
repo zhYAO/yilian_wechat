@@ -21,3 +21,14 @@ export const companyRecommendRequest = (data) => {
     data
   })
 }
+
+/**
+ * 本月热门
+ */
+export const hotRequest = (data) => {
+  return Request({
+    url: '/company-product/hot/month',
+    method: 'GET',
+    data
+  })
+}

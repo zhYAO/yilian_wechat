@@ -70,6 +70,14 @@ const CompanyDetailInfo = props => {
         </View>
         <View className="container__item__file"></View>
       </View>
+
+      <View className="container__bottom">
+        <Image className="container__bottom__img" src={require('@static/images/common/share__active.png')} />
+        <View className="container__bottom__btn">
+          <View className="btn">急速沟通</View>
+          <View className="btn">+ 关注</View>
+        </View>
+      </View>
     </View>
   )
 }

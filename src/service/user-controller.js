@@ -58,3 +58,59 @@ export const favoriteListRequest = data => {
     data
   })
 }
+
+/**
+ * 点赞
+ */
+export const fabulousRequest = ({ id, type }) => {
+  return Request({
+    url: '/user/fabulous',
+    method: 'POST',
+    data: {
+      foreignId: id,
+      type
+    }
+  })
+}
+
+/**
+ * 取消点赞
+ */
+export const fabulousRemoveRequest = ({ id, type }) => {
+  return Request({
+    url: '/user/fabulous/disable',
+    method: 'POST',
+    data: {
+      foreignId: id,
+      type
+    }
+  })
+}
+
+/**
+ * 收藏
+ */
+export const favoriteRequest = ({ id, type }) => {
+  return Request({
+    url: '/user/favorite',
+    method: 'POST',
+    data: {
+      foreignId: id,
+      type
+    }
+  })
+}
+
+/**
+ * 取消收藏
+ */
+export const favoriteRemoveRequest = ({ id, type }) => {
+  return Request({
+    url: '/user/favorite/remove',
+    method: 'POST',
+    data: {
+      foreignId: id,
+      type
+    }
+  })
+}
