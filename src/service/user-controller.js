@@ -3,26 +3,22 @@ import Request from '../utils/request'
 /**
  * 关注作者
  */
-export const attentionRequest = ({ id }) => {
+export const attentionRequest = data => {
   return Request({
     url: '/user/attention',
     method: 'POST',
-    data: {
-      userId: id
-    }
+    data
   })
 }
 
 /**
  * 取消关注作者
  */
-export const attentionRemoveRequest = ({ id }) => {
+export const attentionRemoveRequest = data => {
   return Request({
     url: '/user/attention/remove',
     method: 'POST',
-    data: {
-      userId: id
-    }
+    data
   })
 }
 
@@ -62,55 +58,43 @@ export const favoriteListRequest = data => {
 /**
  * 点赞
  */
-export const fabulousRequest = ({ foreignId, type }) => {
+export const fabulousRequest = data => {
   return Request({
     url: '/user/fabulous',
     method: 'POST',
-    data: {
-      foreignId,
-      type
-    }
+    data
   })
 }
 
 /**
  * 取消点赞
  */
-export const fabulousRemoveRequest = ({ foreignId, type }) => {
+export const fabulousRemoveRequest = data => {
   return Request({
     url: '/user/fabulous/disable',
     method: 'POST',
-    data: {
-      foreignId,
-      type
-    }
+    data
   })
 }
 
 /**
  * 收藏
  */
-export const favoriteRequest = ({ foreignId, type }) => {
+export const favoriteRequest = data => {
   return Request({
     url: '/user/favorite',
     method: 'POST',
-    data: {
-      foreignId,
-      type
-    }
+    data
   })
 }
 
 /**
  * 取消收藏
  */
-export const favoriteRemoveRequest = ({ foreignId, type }) => {
+export const favoriteRemoveRequest = data => {
   return Request({
     url: '/user/favorite/remove',
     method: 'POST',
-    data: {
-      foreignId,
-      type
-    }
+    data
   })
 }

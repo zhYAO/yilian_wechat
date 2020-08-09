@@ -13,12 +13,13 @@ import './index.less'
 class CompanyDetail extends Taro.Component {
   constructor(props) {
     super(props)
-    this.data = {}
+    this.data = {
+      itemActive: {}
+    }
   }
 
   componentWillMount() {
-    const { id } = this.$router.params
-    this.getCompanyDetail(id)
+    this.getCompanyDetail()
   }
 
   handleBack = () => {
@@ -35,7 +36,8 @@ class CompanyDetail extends Taro.Component {
     })
   }
 
-  getCompanyDetail = id => {
+  getCompanyDetail = () => {
+    const { id } = this.$router.params
     const { dispatch } = this.props
     dispatch({
       type: 'companyDetail/effectsDetail',
@@ -45,13 +47,16 @@ class CompanyDetail extends Taro.Component {
     })
   }
 
-  onShow = () => {
+  onShow = item => {
     const { dispatch } = this.props
     dispatch({
       type: 'companyDetail/updateState',
       payload: {
         actionSheetOpen: true
       }
+    })
+    this.setState({
+      itemActive: item
     })
   }
 
@@ -86,23 +91,82 @@ class CompanyDetail extends Taro.Component {
   }
 
   handleZanClick = (foreignId, isFabulous) => {
-    if(!isFabulous) {
+    if (!isFabulous) {
       dispatch({
-        type: 'trends/effectsfabulous',
+        type: 'companyDetail/effectsfabulous',
         payload: {
           foreignId,
           type: 'USER'
         }
+      }).then(() => {
+        this.getCompanyDetail()
       })
     } else {
       dispatch({
-        type: 'trends/effectsfabulousRemove',
+        type: 'companyDetail/effectsfabulousRemove',
         payload: {
           foreignId,
           type: 'USER'
         }
+      }).then(() => {
+        this.getCompanyDetail()
       })
     }
+    this.onCancel()
+  }
+
+  handleAttentionClick = () => {
+    const { isFabulous, foreignId } = this.state.itemActive
+    const { dispatch } = this.props
+    if (!isFabulous) {
+      dispatch({
+        type: 'companyDetail/effectsAttention',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        this.getCompanyDetail()
+      })
+    } else {
+      dispatch({
+        type: 'companyDetail/effectsAttentionRemove',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        this.getCompanyDetail()
+      })
+    }
+    this.onCancel()
+  }
+
+  handleFavoriteClick = () => {
+    const { isFavorite, foreignId } = this.state.itemActive
+    const { dispatch } = this.props
+    if (!isFavorite) {
+      dispatch({
+        type: 'companyDetail/effectsfavorite',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        this.getCompanyDetail()
+      })
+    } else {
+      dispatch({
+        type: 'companyDetail/effectsfavoriteRemove',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        this.getCompanyDetail()
+      })
+    }
+    this.onCancel()
   }
 
   render() {
@@ -117,7 +181,8 @@ class CompanyDetail extends Taro.Component {
         positionList,
         productList,
         actionSheetOpen,
-        isShareOpened
+        isShareOpened,
+        isAttention
       },
       loading
     } = this.props
@@ -180,7 +245,7 @@ class CompanyDetail extends Taro.Component {
                 <View key={item.id} className="tab__item__comment">
                   <CommentCard
                     card={item}
-                    handleShowAction={this.onShow}
+                    handleShowAction={() => this.onShow(item)}
                     handleSharePopShow={this.handleSharePopShow}
                     handleZanClick={() => this.handleZanClick(item.foreignId, item.isFabulous)}
                     isFabulous={item.isFabulous}
@@ -197,9 +262,13 @@ class CompanyDetail extends Taro.Component {
           onCancel={this.onCancel}
           onClose={this.onCancel}
         >
-          <AtActionSheetItem>关注作者</AtActionSheetItem>
-          <AtActionSheetItem>收藏动态</AtActionSheetItem>
-          <AtActionSheetItem>举报</AtActionSheetItem>
+          <AtActionSheetItem onClick={this.handleAttentionClick}>
+            {isAttention ? '取消关注' : '关注作者'}
+          </AtActionSheetItem>
+          <AtActionSheetItem onClick={this.handleFavoriteClick}>
+            {isFavorite ? '取消收藏' : '收藏动态'}
+          </AtActionSheetItem>
+          {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
         </AtActionSheet>
 
         <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />

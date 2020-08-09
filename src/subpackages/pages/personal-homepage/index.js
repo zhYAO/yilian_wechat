@@ -10,7 +10,9 @@ import './index.less'
 class PersonalHomepage extends Taro.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      itemActive: {}
+    }
   }
 
   componentDidMount() {
@@ -30,32 +32,16 @@ class PersonalHomepage extends Taro.Component {
     })
   }
 
-  handleAttention = () => {
-    const {
-      dispatch,
-      personalHomepage: { isAttention }
-    } = this.props
-    const { id } = this.$router.params
-    if (isAttention) {
-      dispatch({
-        type: 'personalHomepage/effectsAttentionRemove',
-        payload: { id }
-      })
-    } else {
-      dispatch({
-        type: 'personalHomepage/effectsAttention',
-        payload: { id }
-      })
-    }
-  }
-
-  onShow = () => {
+  onShow = item => {
     const { dispatch } = this.props
     dispatch({
-      type: 'personalHomepage/updateState',
+      type: 'companyDetail/updateState',
       payload: {
         actionSheetOpen: true
       }
+    })
+    this.setState({
+      itemActive: item
     })
   }
 
@@ -108,6 +94,62 @@ class PersonalHomepage extends Taro.Component {
         }
       })
     }
+    this.onCancel()
+    this.getCompanyDetail()
+  }
+
+  handleAttentionClick = () => {
+    const { isFabulous, foreignId } = this.state.itemActive
+    const { dispatch } = this.props
+    if (!isFabulous) {
+      dispatch({
+        type: 'personalHomepage/effectsAttention',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        this.getInfo()
+      })
+    } else {
+      dispatch({
+        type: 'personalHomepage/effectsAttentionRemove',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        this.getInfo()
+      })
+    }
+    this.onCancel()
+  }
+
+  handleFavoriteClick = () => {
+    const { isFavorite, foreignId } = this.state.itemActive
+    const { dispatch } = this.props
+    if (!isFavorite) {
+      dispatch({
+        type: 'personalHomepage/effectsfavorite',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        this.getInfo()
+      })
+    } else {
+      dispatch({
+        type: 'personalHomepage/effectsfavoriteRemove',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        this.getInfo()
+      })
+    }
+    this.onCancel()
   }
 
   render() {
@@ -170,7 +212,7 @@ class PersonalHomepage extends Taro.Component {
                 <View className="list__item">
                   <CommentCard
                     card={item}
-                    handleShowAction={this.onShow}
+                    handleShowAction={() => this.onShow(item)}
                     handleSharePopShow={this.handleSharePopShow}
                     handleZanClick={() => this.handleZanClick(item.foreignId, item.isFabulous)}
                     isFabulous={item.isFabulous}
@@ -181,7 +223,7 @@ class PersonalHomepage extends Taro.Component {
           </View>
         </View>
 
-        <View className="container__bottom" onClick={this.handleAttention}>
+        <View className="container__bottom" onClick={this.handleAttentionClick}>
           <View className="container__bottom__btn">{isAttention ? '已关注' : '+ 关注'}</View>
         </View>
 
@@ -191,9 +233,13 @@ class PersonalHomepage extends Taro.Component {
           onCancel={this.onCancel}
           onClose={this.onCancel}
         >
-          <AtActionSheetItem>关注作者</AtActionSheetItem>
-          <AtActionSheetItem>收藏动态</AtActionSheetItem>
-          <AtActionSheetItem>举报</AtActionSheetItem>
+          <AtActionSheetItem onClick={this.handleAttentionClick}>
+            {isAttention ? '取消关注' : '关注作者'}
+          </AtActionSheetItem>
+          <AtActionSheetItem onClick={this.handleFavoriteClick}>
+            {isFavorite ? '取消收藏' : '收藏动态'}
+          </AtActionSheetItem>
+          {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
         </AtActionSheet>
 
         <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />

@@ -1,5 +1,12 @@
 import * as companyDetailApi from './service'
-import { fabulousRequest, fabulousRemoveRequest } from '@service/user-controller'
+import {
+  fabulousRequest,
+  fabulousRemoveRequest,
+  attentionRequest,
+  attentionRemoveRequest,
+  favoriteRequest,
+  favoriteRemoveRequest
+} from '@service/user-controller'
 
 export default {
   namespace: 'companyDetail',
@@ -17,7 +24,7 @@ export default {
 
   effects: {
     *effectsDetail({ payload }, { call, put }) {
-      const { status, data } = yield call(companyDetailApi.detail, { ...payload })
+      const { data } = yield call(companyDetailApi.detail, { ...payload })
       if (data) {
         const { companyDetail, customerList, dynamicList, positionList, productList } = data
         yield put({
@@ -44,6 +51,42 @@ export default {
     },
     *effectsfabulousRemove({ payload }, { call, put }) {
       const { data } = yield call(fabulousRemoveRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsAttention({ payload }, { call, put }) {
+      const { data } = yield call(attentionRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsAttentionRemove({ payload }, { call, put }) {
+      const { data } = yield call(attentionRemoveRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsfavorite({ payload }, { call, put }) {
+      const { data } = yield call(favoriteRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsfavoriteRemove({ payload }, { call, put }) {
+      const { data } = yield call(favoriteRemoveRequest, { ...payload })
       if (data) {
         yield put({
           type: 'updateState',

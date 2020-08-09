@@ -1,4 +1,4 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useEffect, useState } from '@tarojs/taro'
 import { View, ScrollView, Block } from '@tarojs/components'
 import { AtIcon, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -22,9 +22,13 @@ const Trends = props => {
       pageSize,
       page,
       actionSheetOpen,
-      isShareOpened
+      isShareOpened,
+      isAttention,
+      isFavorite
     }
   } = props
+
+  const [itemActive, setItemActive] = useState({})
 
   useEffect(() => {
     getList()
@@ -36,18 +40,21 @@ const Trends = props => {
     })
   }
 
-  const getList = () => {
+  const getList = (isReset = false) => {
     if (hasNextPage) {
       dispatch({
         type: 'trends/effectsDynamicList',
         payload: {
           pageSize,
-          page
+          page,
+          isReset
         }
       })
     }
   }
-  const onShow = () => {
+
+  const onShow = item => {
+    setItemActive(item)
     dispatch({
       type: 'trends/updateState',
       payload: {
@@ -84,7 +91,7 @@ const Trends = props => {
   }
 
   const handleZanClick = (foreignId, isFabulous) => {
-    if(!isFabulous) {
+    if (!isFabulous) {
       dispatch({
         type: 'trends/effectsfabulous',
         payload: {
@@ -101,6 +108,55 @@ const Trends = props => {
         }
       })
     }
+  }
+
+  const handleAttentionClick = () => {
+    const { isFabulous, foreignId } = itemActive
+    if (!isFabulous) {
+      dispatch({
+        type: 'trends/effectsAttention',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        getList(true)
+      })
+    } else {
+      dispatch({
+        type: 'trends/effectsAttentionRemove',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      }).then(() => {
+        getList(true)
+      })
+    }
+    onCancel()
+  }
+
+  const handleFavoriteClick = () => {
+    const { isFavorite, foreignId } = itemActive
+    if (!isFavorite) {
+      dispatch({
+        type: 'trends/effectsfavorite',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      })
+    } else {
+      dispatch({
+        type: 'trends/effectsfavoriteRemove',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      })
+    }
+    onCancel()
+    getList(true)
   }
 
   return (
@@ -135,7 +191,7 @@ const Trends = props => {
             <View className="container__comment__item">
               <CommentCard
                 card={item}
-                handleShowAction={onShow}
+                handleShowAction={() => onShow(item)}
                 handleSharePopShow={handleSharePopShow}
                 handleZanClick={() => handleZanClick(item.foreignId, item.isFabulous)}
                 isFabulous={item.isFabulous}
@@ -151,9 +207,13 @@ const Trends = props => {
         onCancel={onCancel}
         onClose={onCancel}
       >
-        <AtActionSheetItem>关注作者</AtActionSheetItem>
-        <AtActionSheetItem>收藏动态</AtActionSheetItem>
-        <AtActionSheetItem>举报</AtActionSheetItem>
+        <AtActionSheetItem onClick={handleAttentionClick}>
+          {isAttention ? '取消关注' : '关注作者'}
+        </AtActionSheetItem>
+        <AtActionSheetItem onClick={handleFavoriteClick}>
+          {isFavorite ? '取消收藏' : '收藏动态'}
+        </AtActionSheetItem>
+        {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
       </AtActionSheet>
 
       <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} />

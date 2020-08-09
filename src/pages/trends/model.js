@@ -1,5 +1,12 @@
 import * as trendsApi from './service'
-import {fabulousRequest, fabulousRemoveRequest} from '@service/user-controller'
+import {
+  fabulousRequest,
+  fabulousRemoveRequest,
+  attentionRequest,
+  attentionRemoveRequest,
+  favoriteRequest,
+  favoriteRemoveRequest
+} from '@service/user-controller'
 
 export default {
   namespace: 'trends',
@@ -16,13 +23,14 @@ export default {
   effects: {
     *effectsDynamicList({ payload }, { call, put, select }) {
       const { comentCardList, pageSize, page } = yield select(state => state.trends)
+      const { isReset } = payload
       const { data } = yield call(trendsApi.dynamicList, { ...payload })
       if (data) {
         yield put({
           type: 'updateState',
           payload: {
-            comentCardList: comentCardList.concat(data),
-            page: page + 1
+            comentCardList: isReset ? data : comentCardList.concat(data),
+            page: isReset ? 0 : page + 1
           }
         })
         if (data.length < pageSize) {
@@ -53,6 +61,42 @@ export default {
     },
     *effectsfabulousRemove({ payload }, { call, put }) {
       const { data } = yield call(fabulousRemoveRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsAttention({ payload }, { call, put }) {
+      const { data } = yield call(attentionRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsAttentionRemove({ payload }, { call, put }) {
+      const { data } = yield call(attentionRemoveRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsfavorite({ payload }, { call, put }) {
+      const { data } = yield call(favoriteRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsfavoriteRemove({ payload }, { call, put }) {
+      const { data } = yield call(favoriteRemoveRequest, { ...payload })
       if (data) {
         yield put({
           type: 'updateState',

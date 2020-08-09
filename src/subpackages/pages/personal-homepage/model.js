@@ -3,7 +3,9 @@ import {
   attentionRequest,
   attentionRemoveRequest,
   fabulousRequest,
-  fabulousRemoveRequest
+  fabulousRemoveRequest,
+  favoriteRequest,
+  favoriteRemoveRequest
 } from '@service/user-controller'
 
 export default {
@@ -68,6 +70,24 @@ export default {
     },
     *effectsfabulousRemove({ payload }, { call, put }) {
       const { data } = yield call(fabulousRemoveRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsfavorite({ payload }, { call, put }) {
+      const { data } = yield call(favoriteRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsfavoriteRemove({ payload }, { call, put }) {
+      const { data } = yield call(favoriteRemoveRequest, { ...payload })
       if (data) {
         yield put({
           type: 'updateState',
