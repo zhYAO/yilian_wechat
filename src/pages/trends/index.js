@@ -83,6 +83,26 @@ const Trends = props => {
     })
   }
 
+  const handleZanClick = (foreignId, isFabulous) => {
+    if(!isFabulous) {
+      dispatch({
+        type: 'trends/effectsfabulous',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      })
+    } else {
+      dispatch({
+        type: 'trends/effectsfabulousRemove',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      })
+    }
+  }
+
   return (
     <ScrollView
       className="container"
@@ -117,6 +137,8 @@ const Trends = props => {
                 card={item}
                 handleShowAction={onShow}
                 handleSharePopShow={handleSharePopShow}
+                handleZanClick={() => handleZanClick(item.foreignId, item.isFabulous)}
+                isFabulous={item.isFabulous}
               />
             </View>
           )

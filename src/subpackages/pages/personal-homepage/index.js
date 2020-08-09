@@ -1,9 +1,10 @@
 import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
+import { AtNavBar, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import CommentCard from '@components/page-components/comment-card'
+import SharePop from '@components/page-components/share-pop'
 import './index.less'
 
 class PersonalHomepage extends Taro.Component {
@@ -48,6 +49,67 @@ class PersonalHomepage extends Taro.Component {
     }
   }
 
+  onShow = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'personalHomepage/updateState',
+      payload: {
+        actionSheetOpen: true
+      }
+    })
+  }
+
+  onCancel = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'personalHomepage/updateState',
+      payload: {
+        actionSheetOpen: false
+      }
+    })
+  }
+
+  handleSharePopShow = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'personalHomepage/updateState',
+      payload: {
+        isShareOpened: true
+      }
+    })
+  }
+
+  handleSharePopClose = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'personalHomepage/updateState',
+      payload: {
+        isShareOpened: false
+      }
+    })
+  }
+
+  handleZanClick = (foreignId, isFabulous) => {
+    const { dispatch } = this.props
+    if (!isFabulous) {
+      dispatch({
+        type: 'personalHomepage/effectsfabulous',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      })
+    } else {
+      dispatch({
+        type: 'personalHomepage/effectsfabulousRemove',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      })
+    }
+  }
+
   render() {
     const {
       personalHomepage: {
@@ -57,7 +119,9 @@ class PersonalHomepage extends Taro.Component {
         companyName,
         name,
         theme,
-        isAttention
+        isAttention,
+        actionSheetOpen,
+        isShareOpened
       },
       loading,
       common: { navBarPaddingTop }
@@ -104,7 +168,13 @@ class PersonalHomepage extends Taro.Component {
             {dynamics.map(item => {
               return (
                 <View className="list__item">
-                  <CommentCard card={item} />
+                  <CommentCard
+                    card={item}
+                    handleShowAction={this.onShow}
+                    handleSharePopShow={this.handleSharePopShow}
+                    handleZanClick={() => this.handleZanClick(item.foreignId, item.isFabulous)}
+                    isFabulous={item.isFabulous}
+                  />
                 </View>
               )
             })}
@@ -114,6 +184,19 @@ class PersonalHomepage extends Taro.Component {
         <View className="container__bottom" onClick={this.handleAttention}>
           <View className="container__bottom__btn">{isAttention ? '已关注' : '+ 关注'}</View>
         </View>
+
+        <AtActionSheet
+          isOpened={actionSheetOpen}
+          cancelText="取消"
+          onCancel={this.onCancel}
+          onClose={this.onCancel}
+        >
+          <AtActionSheetItem>关注作者</AtActionSheetItem>
+          <AtActionSheetItem>收藏动态</AtActionSheetItem>
+          <AtActionSheetItem>举报</AtActionSheetItem>
+        </AtActionSheet>
+
+        <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />
       </View>
     )
   }

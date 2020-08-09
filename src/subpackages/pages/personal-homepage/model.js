@@ -1,5 +1,10 @@
 import * as personalHomepageApi from './service'
-import { attentionRequest, attentionRemoveRequest } from '@service/user-controller'
+import {
+  attentionRequest,
+  attentionRemoveRequest,
+  fabulousRequest,
+  fabulousRemoveRequest
+} from '@service/user-controller'
 
 export default {
   namespace: 'personalHomepage',
@@ -13,7 +18,9 @@ export default {
     companyName: '',
     name: '',
     theme: '',
-    isAttention: false
+    isAttention: false,
+    actionSheetOpen: false,
+    isShareOpened: false
   },
 
   effects: {
@@ -47,6 +54,24 @@ export default {
           payload: {
             isAttention: false
           }
+        })
+      }
+    },
+    *effectsfabulous({ payload }, { call, put }) {
+      const { data } = yield call(fabulousRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsfabulousRemove({ payload }, { call, put }) {
+      const { data } = yield call(fabulousRemoveRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
         })
       }
     }

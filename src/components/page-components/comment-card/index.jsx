@@ -6,7 +6,7 @@ import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
 const CommentCard = props => {
-  const { card, handleShowAction, handleSharePopShow } = props
+  const { card, handleShowAction, handleSharePopShow, handleZanClick, isFabulous } = props
 
   const handleClick = (id) => {
     navigateTo({
@@ -38,6 +38,8 @@ const CommentCard = props => {
         commentNum={card.commentCount}
         zanNum={card.fabulousCount}
         handleSharePopShow={handleSharePopShow}
+        handleZanClick={handleZanClick}
+        isFabulous={isFabulous}
       />
     </View>
   )

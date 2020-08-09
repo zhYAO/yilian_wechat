@@ -1,4 +1,5 @@
 import * as companyDetailApi from './service'
+import { fabulousRequest, fabulousRemoveRequest } from '@service/user-controller'
 
 export default {
   namespace: 'companyDetail',
@@ -11,7 +12,7 @@ export default {
     positionList: [],
     productList: [],
     actionSheetOpen: false,
-    isShareOpened: false,
+    isShareOpened: false
   },
 
   effects: {
@@ -30,6 +31,24 @@ export default {
           }
         })
       } else {
+      }
+    },
+    *effectsfabulous({ payload }, { call, put }) {
+      const { data } = yield call(fabulousRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsfabulousRemove({ payload }, { call, put }) {
+      const { data } = yield call(fabulousRemoveRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
       }
     }
   },

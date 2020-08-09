@@ -1,4 +1,5 @@
 import * as trendsApi from './service'
+import {fabulousRequest, fabulousRemoveRequest} from '@service/user-controller'
 
 export default {
   namespace: 'trends',
@@ -38,6 +39,24 @@ export default {
           payload: {
             hasNextPage: false
           }
+        })
+      }
+    },
+    *effectsfabulous({ payload }, { call, put }) {
+      const { data } = yield call(fabulousRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
+        })
+      }
+    },
+    *effectsfabulousRemove({ payload }, { call, put }) {
+      const { data } = yield call(fabulousRemoveRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {}
         })
       }
     }

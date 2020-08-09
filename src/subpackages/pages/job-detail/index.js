@@ -30,6 +30,48 @@ class JobDetail extends Taro.Component {
     })
   }
 
+  handleZanClick = (foreignId, isFabulous) => {
+    const { dispatch } = this.props
+    if(!isFabulous) {
+      dispatch({
+        type: 'jobDetail/effectsfabulous',
+        payload: {
+          foreignId,
+          type: 'COMPANY'
+        }
+      })
+    } else {
+      dispatch({
+        type: 'jobDetail/effectsfabulousRemove',
+        payload: {
+          foreignId,
+          type: 'COMPANY'
+        }
+      })
+    }
+  }
+
+  handleFavoriteClick = (foreignId, isFabulous) => {
+    const { dispatch } = this.props
+    if(!isFabulous) {
+      dispatch({
+        type: 'jobDetail/effectsfavorite',
+        payload: {
+          foreignId,
+          type: 'COMPANY'
+        }
+      })
+    } else {
+      dispatch({
+        type: 'jobDetail/effectsfavoriteRemove',
+        payload: {
+          foreignId,
+          type: 'COMPANY'
+        }
+      })
+    }
+  }
+
   render() {
     const {
       jobDetail: { detail },
@@ -77,6 +119,10 @@ class JobDetail extends Taro.Component {
             zanNum={detail.fabulousCount}
             starNum={detail.favoriteCount}
             hasStar
+            handleZanClick={() => this.handleZanClick(detail.foreignId, detail.isFabulous)}
+            isFabulous={detail.isFabulous}
+            handleFavoriteClick={() => this.handleFavoriteClick(detail.foreignId, detail.isFavorite)}
+            isFavorite={detail.isFavorite}
           />
         </View>
       </View>

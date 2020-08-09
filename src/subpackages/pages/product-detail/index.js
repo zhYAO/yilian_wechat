@@ -31,6 +31,48 @@ class ProductDetail extends Taro.Component {
     })
   }
 
+  handleZanClick = (foreignId, isFabulous) => {
+    const { dispatch } = this.props
+    if(!isFabulous) {
+      dispatch({
+        type: 'productDetail/effectsfabulous',
+        payload: {
+          foreignId,
+          type: 'COMPANY'
+        }
+      })
+    } else {
+      dispatch({
+        type: 'productDetail/effectsfabulousRemove',
+        payload: {
+          foreignId,
+          type: 'COMPANY'
+        }
+      })
+    }
+  }
+
+  handleFavoriteClick = (foreignId, isFabulous) => {
+    const { dispatch } = this.props
+    if(!isFabulous) {
+      dispatch({
+        type: 'productDetail/effectsfavorite',
+        payload: {
+          foreignId,
+          type: 'COMPANY'
+        }
+      })
+    } else {
+      dispatch({
+        type: 'productDetail/effectsfavoriteRemove',
+        payload: {
+          foreignId,
+          type: 'COMPANY'
+        }
+      })
+    }
+  }
+
   render() {
     const {
       productDetail: { detail },
@@ -72,6 +114,10 @@ class ProductDetail extends Taro.Component {
             commentNum={detail.commentCount}
             starNum={detail.favoriteCount}
             zanNum={detail.fabulousCount}
+            handleZanClick={() => this.handleZanClick(detail.foreignId, detail.isFabulous)}
+            isFabulous={detail.isFabulous}
+            handleFavoriteClick={() => this.handleFavoriteClick(detail.foreignId, detail.isFavorite)}
+            isFavorite={detail.isFavorite}
           />
         </View>
       </View>

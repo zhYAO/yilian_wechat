@@ -3,7 +3,18 @@ import { View } from '@tarojs/components'
 import './index.less'
 
 const CommonOptions = props => {
-  const { shareNum, commentNum, zanNum, starNum, hasStar, handleSharePopShow } = props
+  const {
+    shareNum,
+    commentNum,
+    zanNum,
+    starNum,
+    hasStar,
+    handleSharePopShow,
+    handleZanClick,
+    isFabulous,
+    handleFavoriteClick,
+    isFavorite
+  } = props
 
   return (
     <View>
@@ -25,19 +36,27 @@ const CommonOptions = props => {
           <View className="container__option__text">评论 {commentNum}</View>
         </View>
         {hasStar && (
-          <View className="container__option">
+          <View className="container__option" onClick={handleFavoriteClick}>
             <Image
               className="container__option__icon"
-              src={require('@static/images/common/star.png')}
+              src={
+                isFavorite
+                  ? require('@static/images/common/star__active.png')
+                  : require('@static/images/common/star.png')
+              }
               mode="aspectFit"
             ></Image>
             <View className="container__option__text">收藏 {starNum}</View>
           </View>
         )}
-        <View className="container__option">
+        <View className="container__option" onClick={handleZanClick}>
           <Image
             className="container__option__icon"
-            src={require('@static/images/common/zan.png')}
+            src={
+              isFabulous
+                ? require('@static/images/common/zan__active.png')
+                : require('@static/images/common/zan.png')
+            }
             mode="aspectFit"
           ></Image>
           <View className="container__option__text">赞 {zanNum}</View>
@@ -52,7 +71,9 @@ CommonOptions.defaultProps = {
   commentNum: 0,
   zanNum: 0,
   starNum: 0,
-  hasStar: false
+  hasStar: false,
+  handleSharePopShow: () => {},
+  handleZanClick: () => {}
 }
 
 export default CommonOptions

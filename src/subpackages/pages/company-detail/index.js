@@ -85,6 +85,26 @@ class CompanyDetail extends Taro.Component {
     })
   }
 
+  handleZanClick = (foreignId, isFabulous) => {
+    if(!isFabulous) {
+      dispatch({
+        type: 'trends/effectsfabulous',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      })
+    } else {
+      dispatch({
+        type: 'trends/effectsfabulousRemove',
+        payload: {
+          foreignId,
+          type: 'USER'
+        }
+      })
+    }
+  }
+
   render() {
     const {
       common: { navBarPaddingTop },
@@ -162,6 +182,8 @@ class CompanyDetail extends Taro.Component {
                     card={item}
                     handleShowAction={this.onShow}
                     handleSharePopShow={this.handleSharePopShow}
+                    handleZanClick={() => this.handleZanClick(item.foreignId, item.isFabulous)}
+                    isFabulous={item.isFabulous}
                   />
                 </View>
               ))}

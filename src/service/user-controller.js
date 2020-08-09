@@ -62,12 +62,12 @@ export const favoriteListRequest = data => {
 /**
  * 点赞
  */
-export const fabulousRequest = ({ id, type }) => {
+export const fabulousRequest = ({ foreignId, type }) => {
   return Request({
     url: '/user/fabulous',
     method: 'POST',
     data: {
-      foreignId: id,
+      foreignId,
       type
     }
   })
@@ -76,12 +76,12 @@ export const fabulousRequest = ({ id, type }) => {
 /**
  * 取消点赞
  */
-export const fabulousRemoveRequest = ({ id, type }) => {
+export const fabulousRemoveRequest = ({ foreignId, type }) => {
   return Request({
     url: '/user/fabulous/disable',
     method: 'POST',
     data: {
-      foreignId: id,
+      foreignId,
       type
     }
   })
@@ -90,12 +90,12 @@ export const fabulousRemoveRequest = ({ id, type }) => {
 /**
  * 收藏
  */
-export const favoriteRequest = ({ id, type }) => {
+export const favoriteRequest = ({ foreignId, type }) => {
   return Request({
     url: '/user/favorite',
     method: 'POST',
     data: {
-      foreignId: id,
+      foreignId,
       type
     }
   })
@@ -104,12 +104,12 @@ export const favoriteRequest = ({ id, type }) => {
 /**
  * 取消收藏
  */
-export const favoriteRemoveRequest = ({ id, type }) => {
+export const favoriteRemoveRequest = ({ foreignId, type }) => {
   return Request({
     url: '/user/favorite/remove',
     method: 'POST',
     data: {
-      foreignId: id,
+      foreignId,
       type
     }
   })
