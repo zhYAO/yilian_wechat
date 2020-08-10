@@ -61,7 +61,7 @@ const Company = props => {
       onScrollToLower={getList}
       scrollY
     >
-      <AtNavBar onClickLeftIcon={handleBack} title="ELink" leftIconType="chevron-left" />
+      <AtNavBar onClickLeftIcon={handleBack} title="ELink" />
 
       <CustomNavigator title="公司分类" extraText=">>排序" rightClick={rightClick} />
 

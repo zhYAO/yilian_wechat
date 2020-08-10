@@ -2,12 +2,14 @@ import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtNavBar, AtTabs, AtTabsPane, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
+import { navigateBack, navigateTo } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 import JobCard from '@components/page-components/job-card'
-import VideoCard from '@components/page-components/video-card'
+import ProductCard from '@components/page-components/product-card'
 import CommentCard from '@components/page-components/comment-card'
 import CompanyDetailInfo from '@components/page-components/company-detail-info'
 import SharePop from '@components/page-components/share-pop'
+import { makePhoneCall } from '@crossplatform/apiservice/makephonecall'
 import './index.less'
 
 class CompanyDetail extends Taro.Component {
@@ -119,7 +121,9 @@ class CompanyDetail extends Taro.Component {
   handleCompanyAttention = (type = 2) => {
     const { id } = this.$router.params
     const {
-      companyDetail: { isAttention }
+      companyDetail: {
+        companyDetail: { isAttention }
+      }
     } = this.props
     const { dispatch } = this.props
     if (!isAttention) {
@@ -171,6 +175,21 @@ class CompanyDetail extends Taro.Component {
       })
     }
     this.onCancel()
+  }
+
+  jumpTo = (url, id) => {
+    navigateTo({
+      url: `${pagejumplist[url].path}?id=${id}`
+    })
+  }
+
+  makePhoneCall = () => {
+    const {
+      companyDetail: {
+        companyDetail: { telephone }
+      }
+    } = this.props
+    makePhoneCall({ phoneNumber: telephone })
   }
 
   render() {
@@ -229,13 +248,20 @@ class CompanyDetail extends Taro.Component {
               companyDetail={companyDetail}
               customerList={customerList}
               handleAttentionClick={this.handleCompanyAttention}
+              handlePhoneCall={this.makePhoneCall}
             />
           </AtTabsPane>
           <AtTabsPane current={current} index={1}>
             <View className="tab__item tab__video">
               {productList.map(item => (
-                <View key={item.id} className="tab__item__card">
-                  <VideoCard card={item} />
+                <View
+                  key={item.id}
+                  className="tab__item__card"
+                  onClick={() => {
+                    this.jumpTo('product-detail', item.id)
+                  }}
+                >
+                  <ProductCard card={item} />
                 </View>
               ))}
             </View>

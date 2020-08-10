@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro'
 import { getStorageSync } from '@crossplatform/apiservice/storage'
 // import { noConsole } from '../config'
 
-const baseUrl = `https://www.ilove01.cn/e-link-api/`
+const baseUrl = `https://www.ilove01.cn/e-link-api`
 
 export default (options = { method: 'GET', data: {} }) => {
   // if (!noConsole) {

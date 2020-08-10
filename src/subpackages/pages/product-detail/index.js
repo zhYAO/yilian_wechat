@@ -1,6 +1,6 @@
 import Taro, { useEffect, render } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
+import { AtNavBar, AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import CustomNavigator from '@components/page-components/custom-navigator'
@@ -33,7 +33,7 @@ class ProductDetail extends Taro.Component {
 
   handleZanClick = (foreignId, isFabulous) => {
     const { dispatch } = this.props
-    if(!isFabulous) {
+    if (!isFabulous) {
       dispatch({
         type: 'productDetail/effectsfabulous',
         payload: {
@@ -54,7 +54,7 @@ class ProductDetail extends Taro.Component {
 
   handleFavoriteClick = (foreignId, isFavorite) => {
     const { dispatch } = this.props
-    if(!isFavorite) {
+    if (!isFavorite) {
       dispatch({
         type: 'productDetail/effectsfavorite',
         payload: {
@@ -73,9 +73,75 @@ class ProductDetail extends Taro.Component {
     }
   }
 
+  editComment({ commentId, commentUserId, commentUserName }) {
+    const {
+      dispatch,
+      productDetail: { detail }
+    } = this.props
+    if (commentId) {
+      dispatch({
+        type: 'productDetail/updateState',
+        payload: {
+          isOpened: true,
+          replyName: commentUserName,
+          replyId: commentUserId,
+          commentId
+        }
+      })
+    } else {
+      dispatch({
+        type: 'productDetail/updateState',
+        payload: {
+          isOpened: true,
+          replyName: detail.name,
+          replyId: detail.id
+        }
+      })
+    }
+  }
+
+  handleChange(val) {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'productDetail/updateState',
+      payload: {
+        content: val
+      }
+    })
+  }
+
+  handleHide() {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'productDetail/updateState',
+      payload: {
+        isOpened: false
+      }
+    })
+  }
+
+  handleConfirm() {
+    const {
+      dispatch,
+      productDetail: { replyId, content, commentId }
+    } = this.props
+    dispatch({
+      type: 'productDetail/effectsAddComment',
+      payload: {
+        commentId,
+        foreignId: replyId,
+        content,
+        type: 1
+      }
+    }).then(() => {
+      this.getDetail()
+      this.handleHide()
+    })
+  }
+
   render() {
     const {
-      productDetail: { detail },
+      productDetail: { detail, isOpened, replyName, content },
       loading,
       common: { navBarPaddingTop }
     } = this.props
@@ -117,10 +183,30 @@ class ProductDetail extends Taro.Component {
             zanNum={detail.fabulousCount}
             handleZanClick={() => this.handleZanClick(detail.foreignId, detail.isFabulous)}
             isFabulous={detail.isFabulous}
-            handleFavoriteClick={() => this.handleFavoriteClick(detail.foreignId, detail.isFavorite)}
+            handleFavoriteClick={() =>
+              this.handleFavoriteClick(detail.foreignId, detail.isFavorite)
+            }
             isFavorite={detail.isFavorite}
+            editComment={this.editComment.bind(this)}
           />
         </View>
+
+        <AtModal isOpened={isOpened}>
+          <AtModalHeader>回复{replyName}</AtModalHeader>
+          <AtModalContent>
+            <AtInput
+              name="value"
+              type="text"
+              placeholder={`回复${replyName || ''}`}
+              value={content}
+              onChange={this.handleChange.bind(this)}
+            />
+          </AtModalContent>
+          <AtModalAction>
+            <Button onClick={this.handleHide.bind(this)}>取消</Button>
+            <Button onClick={this.handleConfirm.bind(this)}>确定</Button>
+          </AtModalAction>
+        </AtModal>
       </View>
     )
   }

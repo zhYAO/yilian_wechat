@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro'
 import { showModal, showToast } from '@crossplatform/apiservice/toast'
 
-const url = `https://www.ilove01.cn/e-link-api/`
+const url = `https://www.ilove01.cn/e-link-api`
 
 export const doUpload = (type = 'company') => {
   return new Promise(resolve => {

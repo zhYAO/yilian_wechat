@@ -1,5 +1,6 @@
 import * as productDetailApi from './service'
 import { productDetailRequest } from '@service/company-controller'
+import { addCommentRequest } from '@service/info-controller'
 import {
   fabulousRequest,
   fabulousRemoveRequest,
@@ -10,7 +11,11 @@ import {
 export default {
   namespace: 'productDetail',
   state: {
-    detail: {}
+    detail: {},
+    isOpened: false,
+    replyName: '',
+    replyId: 0,
+    content: ''
   },
 
   effects: {
@@ -58,6 +63,17 @@ export default {
         yield put({
           type: 'updateState',
           payload: {}
+        })
+      }
+    },
+    *effectsAddComment({ payload }, { call, put }) {
+      const { data } = yield call(addCommentRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            isOpened: false
+          }
         })
       }
     }

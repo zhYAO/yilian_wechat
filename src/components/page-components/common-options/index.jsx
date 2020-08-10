@@ -118,7 +118,9 @@ const CommonOptions = props => {
               }
               mode="aspectFit"
             ></Image>
-            <View className="container__option__text">收藏 {starNum}</View>
+            <View className={`container__option__text ${isFavorite ? 'text__active' : ''}`}>
+              收藏 {starNum}
+            </View>
           </View>
         )}
         <View className="container__option" onClick={handleZanClick}>
@@ -131,7 +133,9 @@ const CommonOptions = props => {
             }
             mode="aspectFit"
           ></Image>
-          <View className="container__option__text">赞 {zanNum}</View>
+          <View className={`container__option__text ${isFabulous ? 'text__active' : ''}`}>
+            赞 {zanNum}
+          </View>
         </View>
       </View>
       {showComment && comments.length > 0 && (

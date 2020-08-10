@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
+import { AtNavBar, AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import CustomNavigator from '@components/page-components/custom-navigator'
@@ -80,9 +80,75 @@ class JobDetail extends Taro.Component {
     }
   }
 
+  editComment({ commentId, commentUserId, commentUserName }) {
+    const {
+      dispatch,
+      jobDetail: { detail }
+    } = this.props
+    if (commentId) {
+      dispatch({
+        type: 'jobDetail/updateState',
+        payload: {
+          isOpened: true,
+          replyName: commentUserName,
+          replyId: commentUserId,
+          commentId
+        }
+      })
+    } else {
+      dispatch({
+        type: 'jobDetail/updateState',
+        payload: {
+          isOpened: true,
+          replyName: detail.company.name,
+          replyId: detail.company.id
+        }
+      })
+    }
+  }
+
+  handleChange(val) {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'jobDetail/updateState',
+      payload: {
+        content: val
+      }
+    })
+  }
+
+  handleHide() {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'jobDetail/updateState',
+      payload: {
+        isOpened: false
+      }
+    })
+  }
+
+  handleConfirm() {
+    const {
+      dispatch,
+      jobDetail: { replyId, content, commentId }
+    } = this.props
+    dispatch({
+      type: 'jobDetail/effectsAddComment',
+      payload: {
+        commentId,
+        foreignId: replyId,
+        content,
+        type: 2
+      }
+    }).then(() => {
+      this.getDetail()
+      this.handleHide()
+    })
+  }
+
   render() {
     const {
-      jobDetail: { detail },
+      jobDetail: { detail, isOpened, replyName, content },
       loading,
       common: { navBarPaddingTop }
     } = this.props
@@ -134,8 +200,26 @@ class JobDetail extends Taro.Component {
               this.handleFavoriteClick(detail.company.id, detail.isFavorite)
             }
             isFavorite={detail.isFavorite}
+            editComment={this.editComment.bind(this)}
           />
         </View>
+
+        <AtModal isOpened={isOpened}>
+          <AtModalHeader>回复{replyName}</AtModalHeader>
+          <AtModalContent>
+            <AtInput
+              name="value"
+              type="text"
+              placeholder={`回复${replyName || ''}`}
+              value={content}
+              onChange={this.handleChange.bind(this)}
+            />
+          </AtModalContent>
+          <AtModalAction>
+            <Button onClick={this.handleHide.bind(this)}>取消</Button>
+            <Button onClick={this.handleConfirm.bind(this)}>确定</Button>
+          </AtModalAction>
+        </AtModal>
       </View>
     )
   }
