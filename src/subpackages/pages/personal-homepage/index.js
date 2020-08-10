@@ -35,7 +35,7 @@ class PersonalHomepage extends Taro.Component {
   onShow = item => {
     const { dispatch } = this.props
     dispatch({
-      type: 'companyDetail/updateState',
+      type: 'personalHomepage/updateState',
       payload: {
         actionSheetOpen: true
       }
@@ -53,6 +53,29 @@ class PersonalHomepage extends Taro.Component {
         actionSheetOpen: false
       }
     })
+  }
+
+  handleAttention = () => {
+    const {
+      dispatch,
+      personalHomepage: { isAttention }
+    } = this.props
+    const { id } = this.$router.params
+    if (isAttention) {
+      dispatch({
+        type: 'personalHomepage/effectsAttentionRemove',
+        payload: { foreignId: Number(id), type: 1 }
+      }).then(() => {
+        this.getInfo()
+      })
+    } else {
+      dispatch({
+        type: 'personalHomepage/effectsAttention',
+        payload: { foreignId: Number(id), type: 1 }
+      }).then(() => {
+        this.getInfo()
+      })
+    }
   }
 
   handleSharePopShow = () => {
@@ -82,41 +105,17 @@ class PersonalHomepage extends Taro.Component {
         type: 'personalHomepage/effectsfabulous',
         payload: {
           foreignId,
-          type: 'USER'
-        }
-      })
-    } else {
-      dispatch({
-        type: 'personalHomepage/effectsfabulousRemove',
-        payload: {
-          foreignId,
-          type: 'USER'
-        }
-      })
-    }
-    this.onCancel()
-    this.getCompanyDetail()
-  }
-
-  handleAttentionClick = () => {
-    const { isFabulous, foreignId } = this.state.itemActive
-    const { dispatch } = this.props
-    if (!isFabulous) {
-      dispatch({
-        type: 'personalHomepage/effectsAttention',
-        payload: {
-          foreignId,
-          type: 'USER'
+          type: 5
         }
       }).then(() => {
         this.getInfo()
       })
     } else {
       dispatch({
-        type: 'personalHomepage/effectsAttentionRemove',
+        type: 'personalHomepage/effectsfabulousRemove',
         payload: {
           foreignId,
-          type: 'USER'
+          type: 5
         }
       }).then(() => {
         this.getInfo()
@@ -126,14 +125,14 @@ class PersonalHomepage extends Taro.Component {
   }
 
   handleFavoriteClick = () => {
-    const { isFavorite, foreignId } = this.state.itemActive
+    const { isFavorite, id } = this.state.itemActive
     const { dispatch } = this.props
     if (!isFavorite) {
       dispatch({
         type: 'personalHomepage/effectsfavorite',
         payload: {
-          foreignId,
-          type: 'USER'
+          foreignId: id,
+          type: 3
         }
       }).then(() => {
         this.getInfo()
@@ -142,8 +141,8 @@ class PersonalHomepage extends Taro.Component {
       dispatch({
         type: 'personalHomepage/effectsfavoriteRemove',
         payload: {
-          foreignId,
-          type: 'USER'
+          foreignId: id,
+          type: 3
         }
       }).then(() => {
         this.getInfo()
@@ -161,13 +160,15 @@ class PersonalHomepage extends Taro.Component {
         companyName,
         name,
         theme,
-        isAttention,
         actionSheetOpen,
-        isShareOpened
+        isShareOpened,
+        isAttention
       },
       loading,
       common: { navBarPaddingTop }
     } = this.props
+
+    const { itemActive } = this.state
 
     return (
       <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
@@ -214,7 +215,7 @@ class PersonalHomepage extends Taro.Component {
                     card={item}
                     handleShowAction={() => this.onShow(item)}
                     handleSharePopShow={this.handleSharePopShow}
-                    handleZanClick={() => this.handleZanClick(item.foreignId, item.isFabulous)}
+                    handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
                   />
                 </View>
@@ -223,7 +224,7 @@ class PersonalHomepage extends Taro.Component {
           </View>
         </View>
 
-        <View className="container__bottom" onClick={this.handleAttentionClick}>
+        <View className="container__bottom" onClick={this.handleAttention}>
           <View className="container__bottom__btn">{isAttention ? '已关注' : '+ 关注'}</View>
         </View>
 
@@ -233,11 +234,11 @@ class PersonalHomepage extends Taro.Component {
           onCancel={this.onCancel}
           onClose={this.onCancel}
         >
-          <AtActionSheetItem onClick={this.handleAttentionClick}>
-            {isAttention ? '取消关注' : '关注作者'}
+          <AtActionSheetItem onClick={this.handleAttention}>
+            {itemActive.isAttention ? '取消关注' : '关注作者'}
           </AtActionSheetItem>
           <AtActionSheetItem onClick={this.handleFavoriteClick}>
-            {isFavorite ? '取消收藏' : '收藏动态'}
+            {itemActive.isFavorite ? '取消收藏' : '收藏动态'}
           </AtActionSheetItem>
           {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
         </AtActionSheet>

@@ -24,7 +24,10 @@ export default {
     *effectsDynamicList({ payload }, { call, put, select }) {
       const { comentCardList, pageSize, page } = yield select(state => state.trends)
       const { isReset } = payload
-      const { data } = yield call(trendsApi.dynamicList, { ...payload })
+      const { data } = yield call(trendsApi.dynamicList, {
+        pageSize: payload.pageSize,
+        page: payload.page
+      })
       if (data) {
         yield put({
           type: 'updateState',

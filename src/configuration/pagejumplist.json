@@ -74,5 +74,9 @@
   "my-favorite": {
     "name": "我的收藏",
     "path": "/subpackages/pages/my-favorite/index"
+  },
+  "publish-dynamic": {
+    "name": "发布动态",
+    "path": "/subpackages/pages/publish-dynamic/index"
   }
 }

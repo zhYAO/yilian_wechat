@@ -17,6 +17,7 @@ import commonEdit from '../subpackages/pages/common-edit/model'
 import industryLabel from '../subpackages/pages/industry-label/model'
 import myFavorite from '../subpackages/pages/my-favorite/model'
 import productDetail from '../subpackages/pages/product-detail/model'
+import publishDynamic from '../subpackages/pages/publish-dynamic/model'
 
 export default [
   common,
@@ -37,5 +38,6 @@ export default [
   commonEdit,
   industryLabel,
   myFavorite,
-  productDetail
+  productDetail,
+  publishDynamic
 ]

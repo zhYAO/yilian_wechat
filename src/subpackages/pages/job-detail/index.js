@@ -37,7 +37,7 @@ class JobDetail extends Taro.Component {
         type: 'jobDetail/effectsfabulous',
         payload: {
           foreignId,
-          type: 'COMPANY'
+          type: 3
         }
       })
     } else {
@@ -45,7 +45,7 @@ class JobDetail extends Taro.Component {
         type: 'jobDetail/effectsfabulousRemove',
         payload: {
           foreignId,
-          type: 'COMPANY'
+          type: 3
         }
       })
     }
@@ -58,7 +58,7 @@ class JobDetail extends Taro.Component {
         type: 'jobDetail/effectsfavorite',
         payload: {
           foreignId,
-          type: 'COMPANY'
+          type: 2
         }
       })
     } else {
@@ -66,7 +66,7 @@ class JobDetail extends Taro.Component {
         type: 'jobDetail/effectsfavoriteRemove',
         payload: {
           foreignId,
-          type: 'COMPANY'
+          type: 2
         }
       })
     }

@@ -1,7 +1,7 @@
 import Taro, { useEffect } from '@tarojs/taro'
 import { AtTabBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { switchTab } from '@crossplatform/apiservice/navigate'
+import { switchTab, navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 
 const tabList = [
@@ -45,15 +45,22 @@ const TabBar = props => {
 
   const handleClick = value => {
     const path = tabList[value] ? tabList[value].path || 'home' : 'home'
-    switchTab({
-      url: pagejumplist[path].path
-    })
-    dispatch({
-      type: 'common/updateState',
-      payload: {
-        tabbarIndex: value
-      }
-    })
+    if (path === 'trends' && tabList[tabbarIndex].path === 'trends') {
+      // 再次点击trends 则跳转到发布动态页面
+      navigateTo({
+        url: pagejumplist['publish-dynamic'].path
+      })
+    } else {
+      switchTab({
+        url: pagejumplist[path].path
+      })
+      dispatch({
+        type: 'common/updateState',
+        payload: {
+          tabbarIndex: value
+        }
+      })
+    }
   }
 
   return <AtTabBar tabList={tabList} current={tabbarIndex} onClick={handleClick} />

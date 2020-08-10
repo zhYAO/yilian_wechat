@@ -98,3 +98,14 @@ export const favoriteRemoveRequest = data => {
     data
   })
 }
+
+/**
+ * 用户发布个人动态
+ */
+export const publishRequest = data => {
+  return Request({
+    url: '/dynamic/publish/user',
+    method: 'POST',
+    data
+  })
+}

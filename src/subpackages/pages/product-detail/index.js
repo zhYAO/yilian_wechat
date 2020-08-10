@@ -38,7 +38,7 @@ class ProductDetail extends Taro.Component {
         type: 'productDetail/effectsfabulous',
         payload: {
           foreignId,
-          type: 'COMPANY'
+          type: 4
         }
       })
     } else {
@@ -46,20 +46,20 @@ class ProductDetail extends Taro.Component {
         type: 'productDetail/effectsfabulousRemove',
         payload: {
           foreignId,
-          type: 'COMPANY'
+          type: 4
         }
       })
     }
   }
 
-  handleFavoriteClick = (foreignId, isFabulous) => {
+  handleFavoriteClick = (foreignId, isFavorite) => {
     const { dispatch } = this.props
-    if(!isFabulous) {
+    if(!isFavorite) {
       dispatch({
         type: 'productDetail/effectsfavorite',
         payload: {
           foreignId,
-          type: 'COMPANY'
+          type: 1
         }
       })
     } else {
@@ -67,7 +67,7 @@ class ProductDetail extends Taro.Component {
         type: 'productDetail/effectsfavoriteRemove',
         payload: {
           foreignId,
-          type: 'COMPANY'
+          type: 1
         }
       })
     }

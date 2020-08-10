@@ -96,7 +96,7 @@ class CompanyDetail extends Taro.Component {
         type: 'companyDetail/effectsfabulous',
         payload: {
           foreignId,
-          type: 'USER'
+          type: 5
         }
       }).then(() => {
         this.getCompanyDetail()
@@ -106,7 +106,7 @@ class CompanyDetail extends Taro.Component {
         type: 'companyDetail/effectsfabulousRemove',
         payload: {
           foreignId,
-          type: 'USER'
+          type: 5
         }
       }).then(() => {
         this.getCompanyDetail()
@@ -115,15 +115,18 @@ class CompanyDetail extends Taro.Component {
     this.onCancel()
   }
 
-  handleAttentionClick = () => {
-    const { isFabulous, foreignId } = this.state.itemActive
+  handleCompanyAttention = (type = 2) => {
+    const { id } = this.$router.params
+    const {
+      companyDetail: { isAttention }
+    } = this.props
     const { dispatch } = this.props
-    if (!isFabulous) {
+    if (!isAttention) {
       dispatch({
         type: 'companyDetail/effectsAttention',
         payload: {
-          foreignId,
-          type: 'USER'
+          foreignId: id,
+          type
         }
       }).then(() => {
         this.getCompanyDetail()
@@ -132,8 +135,8 @@ class CompanyDetail extends Taro.Component {
       dispatch({
         type: 'companyDetail/effectsAttentionRemove',
         payload: {
-          foreignId,
-          type: 'USER'
+          foreignId: id,
+          type
         }
       }).then(() => {
         this.getCompanyDetail()
@@ -143,14 +146,14 @@ class CompanyDetail extends Taro.Component {
   }
 
   handleFavoriteClick = () => {
-    const { isFavorite, foreignId } = this.state.itemActive
+    const { isFavorite, id } = this.state.itemActive
     const { dispatch } = this.props
     if (!isFavorite) {
       dispatch({
         type: 'companyDetail/effectsfavorite',
         payload: {
-          foreignId,
-          type: 'USER'
+          foreignId: id,
+          type: 3
         }
       }).then(() => {
         this.getCompanyDetail()
@@ -159,8 +162,8 @@ class CompanyDetail extends Taro.Component {
       dispatch({
         type: 'companyDetail/effectsfavoriteRemove',
         payload: {
-          foreignId,
-          type: 'USER'
+          foreignId: id,
+          type: 3
         }
       }).then(() => {
         this.getCompanyDetail()
@@ -221,7 +224,11 @@ class CompanyDetail extends Taro.Component {
         {/* tab */}
         <AtTabs current={current} tabList={tabList} onClick={this.handleClick}>
           <AtTabsPane current={current} index={0}>
-            <CompanyDetailInfo companyDetail={companyDetail} customerList={customerList} />
+            <CompanyDetailInfo
+              companyDetail={companyDetail}
+              customerList={customerList}
+              handleAttentionClick={this.handleCompanyAttention}
+            />
           </AtTabsPane>
           <AtTabsPane current={current} index={1}>
             <View className="tab__item tab__video">
@@ -247,7 +254,7 @@ class CompanyDetail extends Taro.Component {
                     card={item}
                     handleShowAction={() => this.onShow(item)}
                     handleSharePopShow={this.handleSharePopShow}
-                    handleZanClick={() => this.handleZanClick(item.foreignId, item.isFabulous)}
+                    handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
                   />
                 </View>
@@ -262,7 +269,7 @@ class CompanyDetail extends Taro.Component {
           onCancel={this.onCancel}
           onClose={this.onCancel}
         >
-          <AtActionSheetItem onClick={this.handleAttentionClick}>
+          <AtActionSheetItem onClick={this.handleCompanyAttention}>
             {isAttention ? '取消关注' : '关注作者'}
           </AtActionSheetItem>
           <AtActionSheetItem onClick={this.handleFavoriteClick}>

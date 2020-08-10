@@ -3,7 +3,7 @@ import { View, Text, Video, Image } from '@tarojs/components'
 import './index.less'
 
 const CompanyDetailInfo = props => {
-  const { companyDetail, customerList } = props
+  const { companyDetail, customerList, handleAttentionClick } = props
 
   return (
     <View className="container">
@@ -72,16 +72,25 @@ const CompanyDetailInfo = props => {
       </View>
 
       <View className="container__bottom">
-        <Image className="container__bottom__img" src={require('@static/images/common/share__active.png')} />
+        <Image
+          className="container__bottom__img"
+          src={require('@static/images/common/share__active.png')}
+        />
         <View className="container__bottom__btn">
           <View className="btn">急速沟通</View>
-          <View className="btn">+ 关注</View>
+          <View className="btn" onClick={() => handleAttentionClick(2)}>
+            {companyDetail.isAttention ? '已关注' : '+ 关注'}
+          </View>
         </View>
       </View>
     </View>
   )
 }
 
-CompanyDetailInfo.defaultProps = {}
+CompanyDetailInfo.defaultProps = {
+  companyDetail: {},
+  customerList: [],
+  handleAttentionClick: () => {}
+}
 
 export default CompanyDetailInfo

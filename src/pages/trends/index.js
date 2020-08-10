@@ -23,8 +23,6 @@ const Trends = props => {
       page,
       actionSheetOpen,
       isShareOpened,
-      isAttention,
-      isFavorite
     }
   } = props
 
@@ -96,28 +94,32 @@ const Trends = props => {
         type: 'trends/effectsfabulous',
         payload: {
           foreignId,
-          type: 'USER'
+          type: 5
         }
+      }).then(() => {
+        getList(true)
       })
     } else {
       dispatch({
         type: 'trends/effectsfabulousRemove',
         payload: {
           foreignId,
-          type: 'USER'
+          type: 5
         }
+      }).then(() => {
+        getList(true)
       })
     }
   }
 
   const handleAttentionClick = () => {
-    const { isFabulous, foreignId } = itemActive
-    if (!isFabulous) {
+    const { isAttention, foreignId } = itemActive
+    if (!isAttention) {
       dispatch({
         type: 'trends/effectsAttention',
         payload: {
           foreignId,
-          type: 'USER'
+          type: 1
         }
       }).then(() => {
         getList(true)
@@ -127,7 +129,7 @@ const Trends = props => {
         type: 'trends/effectsAttentionRemove',
         payload: {
           foreignId,
-          type: 'USER'
+          type: 1
         }
       }).then(() => {
         getList(true)
@@ -137,26 +139,29 @@ const Trends = props => {
   }
 
   const handleFavoriteClick = () => {
-    const { isFavorite, foreignId } = itemActive
+    const { isFavorite, id } = itemActive
     if (!isFavorite) {
       dispatch({
         type: 'trends/effectsfavorite',
         payload: {
-          foreignId,
-          type: 'USER'
+          foreignId: id,
+          type: 3
         }
+      }).then(() => {
+        getList(true)
       })
     } else {
       dispatch({
         type: 'trends/effectsfavoriteRemove',
         payload: {
-          foreignId,
-          type: 'USER'
+          foreignId: id,
+          type: 3
         }
+      }).then(() => {
+        getList(true)
       })
     }
     onCancel()
-    getList(true)
   }
 
   return (
@@ -193,7 +198,7 @@ const Trends = props => {
                 card={item}
                 handleShowAction={() => onShow(item)}
                 handleSharePopShow={handleSharePopShow}
-                handleZanClick={() => handleZanClick(item.foreignId, item.isFabulous)}
+                handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
                 isFabulous={item.isFabulous}
               />
             </View>
@@ -208,10 +213,10 @@ const Trends = props => {
         onClose={onCancel}
       >
         <AtActionSheetItem onClick={handleAttentionClick}>
-          {isAttention ? '取消关注' : '关注作者'}
+          {itemActive.isAttention ? '取消关注' : '关注作者'}
         </AtActionSheetItem>
         <AtActionSheetItem onClick={handleFavoriteClick}>
-          {isFavorite ? '取消收藏' : '收藏动态'}
+          {itemActive.isFavorite ? '取消收藏' : '收藏动态'}
         </AtActionSheetItem>
         {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
       </AtActionSheet>
