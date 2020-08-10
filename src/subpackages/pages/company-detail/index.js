@@ -290,7 +290,10 @@ class CompanyDetail extends Taro.Component {
               ))}
             </View>
             {isMine && (
-              <View className="tab__send" onClick={this.jumpTo('publish-dynamic', `?type=COMPANY`)}>
+              <View
+                className="tab__send"
+                onClick={() => this.jumpTo('publish-dynamic', `?type=COMPANY`)}
+              >
                 <View className="tab__send__btn">发动态</View>
               </View>
             )}
