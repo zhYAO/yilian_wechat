@@ -125,7 +125,7 @@ const Mine = props => {
             <View className="container__user__card">
               <View
                 className="card__item"
-                onClick={() => handleNavigate('company-detail', `?id=${companyId}`)}
+                onClick={() => handleNavigate('company-detail', `?id=${1}&isMine=1`)}
               >
                 <Image
                   className="card__item__img"

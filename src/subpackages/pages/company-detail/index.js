@@ -177,9 +177,9 @@ class CompanyDetail extends Taro.Component {
     this.onCancel()
   }
 
-  jumpTo = (url, id) => {
+  jumpTo = (url, params) => {
     navigateTo({
-      url: `${pagejumplist[url].path}?id=${id}`
+      url: `${pagejumplist[url].path}${params}`
     })
   }
 
@@ -209,6 +209,7 @@ class CompanyDetail extends Taro.Component {
       },
       loading
     } = this.props
+    const { isMine } = this.$router.params
 
     return (
       <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
@@ -249,6 +250,7 @@ class CompanyDetail extends Taro.Component {
               customerList={customerList}
               handleAttentionClick={this.handleCompanyAttention}
               handlePhoneCall={this.makePhoneCall}
+              isMine={isMine}
             />
           </AtTabsPane>
           <AtTabsPane current={current} index={1}>
@@ -258,7 +260,7 @@ class CompanyDetail extends Taro.Component {
                   key={item.id}
                   className="tab__item__card"
                   onClick={() => {
-                    this.jumpTo('product-detail', item.id)
+                    this.jumpTo('product-detail', `?id=${item.id}`)
                   }}
                 >
                   <ProductCard card={item} />
@@ -287,6 +289,11 @@ class CompanyDetail extends Taro.Component {
                 </View>
               ))}
             </View>
+            {isMine && (
+              <View className="tab__send" onClick={this.jumpTo('publish-dynamic', `?type=COMPANY`)}>
+                <View className="tab__send__btn">发动态</View>
+              </View>
+            )}
           </AtTabsPane>
         </AtTabs>
 

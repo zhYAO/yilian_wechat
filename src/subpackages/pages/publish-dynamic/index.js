@@ -5,19 +5,17 @@ import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import './index.less'
 
-const PublishDynamic = props => {
-  const {
-    dispatch,
-    publishDynamic: { value },
-    loading,
-    common: { navBarPaddingTop }
-  } = props
+class PublishDynamic extends Taro.Component {
+  constructor(props) {
+    super(props)
+    this.data = {}
+  }
 
-  const handleBack = () => {
+  handleBack = () => {
     navigateBack()
   }
 
-  const handleChange = value => {
+  handleChange = value => {
     dispatch({
       type: 'publishDynamic/updateState',
       payload: {
@@ -26,38 +24,48 @@ const PublishDynamic = props => {
     })
   }
 
-  const sendDynamic = () => {
+  sendDynamic = () => {
+    const { type = 'USER' } = this.$router.params
     dispatch({
       type: 'publishDynamic/effectsPublish',
       payload: {
         content: value,
         theme: '活动',
-        type: 'USER'
+        type
       }
     })
   }
 
-  return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="发动态" leftIconType="chevron-left" />
+  render() {
+    const {
+      dispatch,
+      publishDynamic: { value },
+      loading,
+      common: { navBarPaddingTop }
+    } = this.props
 
-      <View className="container__tips">发布活动内容：</View>
+    return (
+      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+        <AtNavBar onClickLeftIcon={this.handleBack} title="发动态" leftIconType="chevron-left" />
 
-      <AtTextarea
-        value={value}
-        onChange={handleChange}
-        maxLength={400}
-        placeholder="发布活动内容："
-        onConfirm={sendDynamic}
-      />
+        <View className="container__tips">发布活动内容：</View>
 
-      <View className="container__options">
-        <View className="container__options__send" onClick={sendDynamic}>
-          发送
+        <AtTextarea
+          value={value}
+          onChange={this.handleChange}
+          maxLength={400}
+          placeholder="发布活动内容："
+          onConfirm={this.sendDynamic}
+        />
+
+        <View className="container__options">
+          <View className="container__options__send" onClick={this.sendDynamic}>
+            发送
+          </View>
         </View>
       </View>
-    </View>
-  )
+    )
+  }
 }
 
 export default connect(({ common, publishDynamic, loading }) => ({

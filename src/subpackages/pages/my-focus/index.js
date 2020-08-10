@@ -4,6 +4,7 @@ import { AtNavBar, AtTabs, AtTabsPane } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import FocusCard from '@components/page-components/focus-card'
+import CompanyDetailCard from '@components/page-components/company-detail-card'
 import './index.less'
 
 const MyFocus = props => {
@@ -42,7 +43,7 @@ const MyFocus = props => {
         <AtTabsPane current={current} index={1}>
           <View>
             {focusCardsList.map(item => {
-              return <FocusCard card={item} />
+              return <CompanyDetailCard card={item} />
             })}
           </View>
         </AtTabsPane>

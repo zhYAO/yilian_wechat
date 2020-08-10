@@ -19,6 +19,7 @@ import myFavorite from '../subpackages/pages/my-favorite/model'
 import productDetail from '../subpackages/pages/product-detail/model'
 import publishDynamic from '../subpackages/pages/publish-dynamic/model'
 import editComment from '../subpackages/pages/edit-comment/model'
+import videoDetail from '../subpackages/pages/video-detail/model'
 
 export default [
   common,
@@ -41,5 +42,6 @@ export default [
   myFavorite,
   productDetail,
   publishDynamic,
-  editComment
+  editComment,
+  videoDetail
 ]
