@@ -91,6 +91,7 @@ class CompanyDetail extends Taro.Component {
   }
 
   handleZanClick = (foreignId, isFabulous) => {
+    const { dispatch } = this.props
     if (!isFabulous) {
       dispatch({
         type: 'companyDetail/effectsfabulous',
@@ -254,7 +255,7 @@ class CompanyDetail extends Taro.Component {
                     card={item}
                     handleShowAction={() => this.onShow(item)}
                     handleSharePopShow={this.handleSharePopShow}
-                    handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
+                    handleZanClick={() => this.handleZanClick(item.foreignId, item.isFabulous)}
                     isFabulous={item.isFabulous}
                   />
                 </View>

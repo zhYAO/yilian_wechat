@@ -3,7 +3,7 @@ import Request from '../utils/request'
 /**
  * banner列表
  */
-export const bannerListRequest = (data) => {
+export const bannerListRequest = data => {
   return Request({
     url: '/banner',
     method: 'GET',
@@ -14,7 +14,7 @@ export const bannerListRequest = (data) => {
 /**
  * 小易推荐
  */
-export const companyRecommendRequest = (data) => {
+export const companyRecommendRequest = data => {
   return Request({
     url: '/company/recommend',
     method: 'GET',
@@ -25,10 +25,31 @@ export const companyRecommendRequest = (data) => {
 /**
  * 本月热门
  */
-export const hotRequest = (data) => {
+export const hotRequest = data => {
   return Request({
     url: '/company-product/hot/month',
     method: 'GET',
+    data
+  })
+}
+
+/**
+ * 动态详情
+ */
+export const dynamicDetailRequest = ({ id }) => {
+  return Request({
+    url: `/dynamic/detail/${id}`,
+    method: 'GET'
+  })
+}
+
+/**
+ * 添加评论
+ */
+export const addCommentRequest = data => {
+  return Request({
+    url: '/comment/add',
+    method: 'POST',
     data
   })
 }

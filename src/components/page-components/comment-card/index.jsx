@@ -6,9 +6,16 @@ import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
 const CommentCard = props => {
-  const { card, handleShowAction, handleSharePopShow, handleZanClick, isFabulous } = props
+  const {
+    card,
+    handleShowAction,
+    handleSharePopShow,
+    handleZanClick,
+    isFabulous,
+    editComment
+  } = props
 
-  const handleClick = (id) => {
+  const handleClick = id => {
     navigateTo({
       url: `${pagejumplist['personal-homepage'].path}?id=${id}`
     })
@@ -17,7 +24,11 @@ const CommentCard = props => {
   return (
     <View className="container">
       <View className="container__top">
-        <Image className="container__top__img" src={card.src} onClick={() => handleClick(card.id)} />
+        <Image
+          className="container__top__img"
+          src={card.src}
+          onClick={() => handleClick(card.id)}
+        />
         <View className="container__top__content">
           <View className="content__desc">
             <View className="content__name">{card.publisher}</View>
@@ -34,19 +45,26 @@ const CommentCard = props => {
 
       {/* 底部操作组件 */}
       <CommonOptions
+        optionId={card.id}
         shareNum={card.forwardCount}
         commentNum={card.commentCount}
         zanNum={card.fabulousCount}
         handleSharePopShow={handleSharePopShow}
         handleZanClick={handleZanClick}
         isFabulous={isFabulous}
+        editComment={editComment}
       />
     </View>
   )
 }
 
 CommentCard.defaultProps = {
-  card: {}
+  card: {},
+  handleShowAction: () => {},
+  handleSharePopShow: () => {},
+  handleZanClick: () => {},
+  isFabulous: false,
+  editComment: null
 }
 
 export default CommentCard

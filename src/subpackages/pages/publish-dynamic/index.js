@@ -32,7 +32,7 @@ const PublishDynamic = props => {
       payload: {
         content: value,
         theme: '活动',
-        type: 1
+        type: 'USER'
       }
     })
   }

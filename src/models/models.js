@@ -18,6 +18,7 @@ import industryLabel from '../subpackages/pages/industry-label/model'
 import myFavorite from '../subpackages/pages/my-favorite/model'
 import productDetail from '../subpackages/pages/product-detail/model'
 import publishDynamic from '../subpackages/pages/publish-dynamic/model'
+import editComment from '../subpackages/pages/edit-comment/model'
 
 export default [
   common,
@@ -39,5 +40,6 @@ export default [
   industryLabel,
   myFavorite,
   productDetail,
-  publishDynamic
+  publishDynamic,
+  editComment
 ]

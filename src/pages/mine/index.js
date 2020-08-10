@@ -25,7 +25,8 @@ const Mine = props => {
         attentionCount,
         favoriteCount,
         fansCount,
-        companyId
+        companyId,
+        id
       }
     },
     loading

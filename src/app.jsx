@@ -72,7 +72,8 @@ class App extends Component {
           'pages/common-edit/index',
           'pages/industry-label/index',
           'pages/my-favorite/index',
-          'pages/publish-dynamic/index'
+          'pages/publish-dynamic/index',
+          'pages/edit-comment/index'
         ]
       }
     ]

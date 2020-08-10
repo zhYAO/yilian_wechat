@@ -110,6 +110,7 @@ class ProductDetail extends Taro.Component {
         <View className="container__options">
           <CommonOptions
             hasStar={true}
+            optionId={detail.id}
             shareNum={detail.forwardCount}
             commentNum={detail.commentCount}
             starNum={detail.favoriteCount}

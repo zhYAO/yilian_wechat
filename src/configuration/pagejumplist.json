@@ -78,5 +78,9 @@
   "publish-dynamic": {
     "name": "发布动态",
     "path": "/subpackages/pages/publish-dynamic/index"
+  },
+  "edit-comment": {
+    "name": "添加评论",
+    "path": "/subpackages/pages/edit-comment/index"
   }
 }

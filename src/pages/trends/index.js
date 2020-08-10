@@ -168,7 +168,7 @@ const Trends = props => {
     <ScrollView
       className="container"
       style={{ paddingTop: navBarPaddingTop + 'px' }}
-      onScrollToLower={getList}
+      onScrollToLower={() => getList()}
       scrollY
     >
       {/* 头部搜索栏 */}

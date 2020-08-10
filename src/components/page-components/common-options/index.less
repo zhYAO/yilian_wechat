@@ -19,4 +19,32 @@
       margin-left: 6px;
     }
   }
+  .text__active {
+    color: rgba(247, 126, 3, 1);
+  }
+}
+.comments {
+  padding: 20px;
+  &__item {
+    display: flex;
+    flex-direction: column;
+    &__content {
+      display: flex;
+      font-size: 16px;
+      color: #000000;
+      margin-bottom: 10px;
+      .content__title {
+        display: flex;
+        &__name {
+          color: rgba(247, 126, 3, 1);
+        }
+        &__re {
+          color: #000000;
+        }
+      }
+    }
+    &__content--sub {
+      padding-left: 20px;
+    }
+  }
 }

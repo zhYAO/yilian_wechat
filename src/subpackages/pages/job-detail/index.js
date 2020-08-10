@@ -32,13 +32,15 @@ class JobDetail extends Taro.Component {
 
   handleZanClick = (foreignId, isFabulous) => {
     const { dispatch } = this.props
-    if(!isFabulous) {
+    if (!isFabulous) {
       dispatch({
         type: 'jobDetail/effectsfabulous',
         payload: {
           foreignId,
           type: 3
         }
+      }).then(() => {
+        this.getDetail()
       })
     } else {
       dispatch({
@@ -47,19 +49,23 @@ class JobDetail extends Taro.Component {
           foreignId,
           type: 3
         }
+      }).then(() => {
+        this.getDetail()
       })
     }
   }
 
   handleFavoriteClick = (foreignId, isFabulous) => {
     const { dispatch } = this.props
-    if(!isFabulous) {
+    if (!isFabulous) {
       dispatch({
         type: 'jobDetail/effectsfavorite',
         payload: {
           foreignId,
           type: 2
         }
+      }).then(() => {
+        this.getDetail()
       })
     } else {
       dispatch({
@@ -68,6 +74,8 @@ class JobDetail extends Taro.Component {
           foreignId,
           type: 2
         }
+      }).then(() => {
+        this.getDetail()
       })
     }
   }
@@ -114,14 +122,17 @@ class JobDetail extends Taro.Component {
         {/* 底部操作组件 */}
         <View className="container__options">
           <CommonOptions
+            optionId={detail.id}
             shareNum={detail.forwardCount}
             commentNum={detail.commentCount}
             zanNum={detail.fabulousCount}
             starNum={detail.favoriteCount}
             hasStar
-            handleZanClick={() => this.handleZanClick(detail.foreignId, detail.isFabulous)}
+            handleZanClick={() => this.handleZanClick(detail.company.id, detail.isFabulous)}
             isFabulous={detail.isFabulous}
-            handleFavoriteClick={() => this.handleFavoriteClick(detail.foreignId, detail.isFavorite)}
+            handleFavoriteClick={() =>
+              this.handleFavoriteClick(detail.company.id, detail.isFavorite)
+            }
             isFavorite={detail.isFavorite}
           />
         </View>
