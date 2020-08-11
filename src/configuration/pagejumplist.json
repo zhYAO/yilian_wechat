@@ -84,7 +84,15 @@
     "path": "/subpackages/pages/edit-comment/index"
   },
   "video-detail": {
-    "name": "添加评论",
+    "name": "视频详情",
     "path": "/subpackages/pages/video-detail/index"
+  },
+  "my-fans-page": {
+    "name": "我的粉丝",
+    "path": "/subpackages/pages/my-fans-page/index"
+  },
+  "my-takepart": {
+    "name": "我参与的",
+    "path": "/subpackages/pages/my-takepart/index"
   }
 }

@@ -3,10 +3,10 @@ import { View, Image } from '@tarojs/components'
 import './index.less'
 
 const MineNavigator = props => {
-  const { iconSrc, showArrow, title } = props
+  const { iconSrc, showArrow, title, onJump } = props
 
   return (
-    <View className="container">
+    <View className="container" onClick={onJump}>
       <View className="container__right">
         <Image className="container__right__icon" src={iconSrc}></Image>
         <View className="container__right__title">{title}</View>

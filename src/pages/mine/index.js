@@ -118,7 +118,9 @@ const Mine = props => {
                 <View className="options__item__name">收藏</View>
               </View>
               <View className="options__item">
-                <View className="options__item__num">{fansCount}</View>
+                <View className="options__item__num" onClick={() => handleNavigate('my-fans-page')}>
+                  {fansCount}
+                </View>
                 <View className="options__item__name">粉丝</View>
               </View>
             </View>
@@ -158,7 +160,11 @@ const Mine = props => {
           </View>
 
           <View className="container__nav">
-            <MineNavigator iconSrc={require('@static/images/mine/join.png')} title="我参与的" />
+            <MineNavigator
+              iconSrc={require('@static/images/mine/join.png')}
+              title="我参与的"
+              onJump={() => handleNavigate('my-takepart')}
+            />
           </View>
           <View className="container__nav">
             <MineNavigator iconSrc={require('@static/images/mine/about.png')} title="关于我们" />

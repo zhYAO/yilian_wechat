@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtNavBar, AtTabs, AtTabsPane } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -10,10 +10,18 @@ import './index.less'
 const MyFocus = props => {
   const {
     dispatch,
-    myFocus: { current, tabList, focusCardsList },
+    myFocus: {
+      current,
+      tabList,
+      attentionList: { companys = [], users = [] }
+    },
     loading,
     common: { navBarPaddingTop }
   } = props
+
+  useDidShow(() => {
+    getList()
+  })
 
   const handleBack = () => {
     navigateBack()
@@ -28,6 +36,13 @@ const MyFocus = props => {
     })
   }
 
+  const getList = () => {
+    dispatch({
+      type: 'myFocus/effectsAttentionList',
+      payload: {}
+    })
+  }
+
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
       <AtNavBar onClickLeftIcon={handleBack} title="我的关注" leftIconType="chevron-left" />
@@ -35,14 +50,14 @@ const MyFocus = props => {
       <AtTabs current={current} tabList={tabList} onClick={handleClick}>
         <AtTabsPane current={current} index={0}>
           <View>
-            {focusCardsList.map(item => {
+            {users.map(item => {
               return <FocusCard card={item} />
             })}
           </View>
         </AtTabsPane>
         <AtTabsPane current={current} index={1}>
           <View>
-            {focusCardsList.map(item => {
+            {companys.map(item => {
               return <CompanyDetailCard card={item} />
             })}
           </View>

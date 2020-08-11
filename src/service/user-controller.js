@@ -109,3 +109,36 @@ export const publishRequest = data => {
     data
   })
 }
+
+/**
+ * 我的关注
+ */
+export const myAttentionRequest = data => {
+  return Request({
+    url: '/user/attention/self',
+    method: 'GET',
+    data
+  })
+}
+
+/**
+ * 我的粉丝
+ */
+export const myFansRequest = data => {
+  return Request({
+    url: '/user/fans/self',
+    method: 'GET',
+    data
+  })
+}
+
+/**
+ * 我参与的
+ */
+export const myTakepartRequest = data => {
+  return Request({
+    url: '/user/take-part',
+    method: 'GET',
+    data
+  })
+}

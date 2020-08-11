@@ -4,7 +4,7 @@ import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
-const FocusCard = props => {
+const DynamicCardFav = props => {
   const { card } = props
 
   const handleClick = () => {
@@ -17,23 +17,19 @@ const FocusCard = props => {
     <View className="container" onClick={handleClick}>
       <Image className="container__img" src={card.src} />
       <View className="container__content">
-        <Text className="container__content__title">{card.name}</Text>
-        <Text className="container__content__intro">{card.theme}</Text>
-        <View className="container__content__labels">
-          {card.labels &&
-            card.labels.length > 0 &&
-            card.labels.map(item => <View className="labels__item">{item}</View>)}
-        </View>
+        <Text className="container__content__title">{card.publisher}</Text>
+        <Text className="container__content__intro">{card.createTime}</Text>
+        <Text className="container__content__intro">{card.content}</Text>
       </View>
       <View className="container__btn">
-        + 关注
+        收藏
       </View>
     </View>
   )
 }
 
-FocusCard.defaultProps = {
+DynamicCardFav.defaultProps = {
   card: {}
 }
 
-export default FocusCard
+export default DynamicCardFav

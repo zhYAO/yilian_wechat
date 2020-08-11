@@ -18,7 +18,7 @@ const VideoCard = props => {
       <Image className="container__video" src={card.imgPath} />
       <View className="container__content">
         <View className="container__content__title">{card.foreignName}</View>
-        <View className="container__content__desc">{card.foreignName}</View>
+        <View className="container__content__desc">{card.company.theme}</View>
       </View>
     </View>
   )

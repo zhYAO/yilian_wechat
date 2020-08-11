@@ -20,6 +20,8 @@ import productDetail from '../subpackages/pages/product-detail/model'
 import publishDynamic from '../subpackages/pages/publish-dynamic/model'
 import editComment from '../subpackages/pages/edit-comment/model'
 import videoDetail from '../subpackages/pages/video-detail/model'
+import myFansPage from '../subpackages/pages/my-fans-page/model'
+import myTakepart from '../subpackages/pages/my-takepart/model'
 
 export default [
   common,
@@ -43,5 +45,7 @@ export default [
   productDetail,
   publishDynamic,
   editComment,
-  videoDetail
+  videoDetail,
+  myFansPage,
+  myTakepart
 ]

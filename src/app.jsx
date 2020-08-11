@@ -74,7 +74,9 @@ class App extends Component {
           'pages/my-favorite/index',
           'pages/publish-dynamic/index',
           'pages/edit-comment/index',
-          'pages/video-detail/index'
+          'pages/video-detail/index',
+          'pages/my-fans-page/index',
+          'pages/my-takepart/index'
         ]
       }
     ]

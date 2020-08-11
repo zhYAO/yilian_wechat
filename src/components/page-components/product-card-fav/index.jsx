@@ -4,12 +4,12 @@ import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
 
-const CompanyDetailCard = props => {
+const ProductCardFav = props => {
   const { card } = props
 
   const handleClick = () => {
     navigateTo({
-      url: `${pagejumplist['company-detail'].path}?id=${card.id}`
+      url: `${pagejumplist['product-detail'].path}?id=${card.id}`
     })
   }
 
@@ -18,20 +18,17 @@ const CompanyDetailCard = props => {
       <Image className="container__img" src={card.src} />
       <View className="container__content">
         <Text className="container__content__title">{card.name}</Text>
-        <Text className="container__content__intro">{card.theme}</Text>
-        <View className="container__content__labels">
-          {card.labels &&
-            card.labels.length > 0 &&
-            card.labels.map(item => <View className="labels__item">{item}</View>)}
-        </View>
+        <Text className="container__content__intro">{card.companyName}</Text>
       </View>
-      <View className="container__btn">+ 关注</View>
+      <View className="container__btn">
+        收藏
+      </View>
     </View>
   )
 }
 
-CompanyDetailCard.defaultProps = {
+ProductCardFav.defaultProps = {
   card: {}
 }
 
-export default CompanyDetailCard
+export default ProductCardFav

@@ -4,14 +4,14 @@ import { AtNavBar, AtTabs, AtTabsPane } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import ProductCardFav from '@components/page-components/product-card-fav'
-import PositionCardFav from '@components/page-components/position-card-fav'
+import CompanyCard from '@components/page-components/company-card'
 import DynamicCardFav from '@components/page-components/dynamic-card-fav'
 import './index.less'
 
-const MyFavorite = props => {
+const MyTakepart = props => {
   const {
     dispatch,
-    myFavorite: { current, tabList, dynamicList = [], positionList = [], productList = [] },
+    myTakepart: { current, tabList, dynamicList = [], companys = [], productList = [] },
     loading,
     common: { navBarPaddingTop }
   } = props
@@ -26,7 +26,7 @@ const MyFavorite = props => {
 
   const handleClick = value => {
     dispatch({
-      type: 'myFavorite/updateState',
+      type: 'myTakepart/updateState',
       payload: {
         current: value
       }
@@ -35,7 +35,7 @@ const MyFavorite = props => {
 
   const getList = () => {
     dispatch({
-      type: 'myFavorite/effectsFavoriteList',
+      type: 'myTakepart/effectsTakePart',
       payload: {}
     })
   }
@@ -47,16 +47,25 @@ const MyFavorite = props => {
       <AtTabs current={current} tabList={tabList} onClick={handleClick}>
         <AtTabsPane current={current} index={0}>
           <View>
-            {positionList.map(item => {
+            {companys.map(item => {
               return (
                 <View key={item.id}>
-                  <PositionCardFav card={item} />
+                  <CompanyCard card={item} />
                 </View>
               )
             })}
           </View>
         </AtTabsPane>
         <AtTabsPane current={current} index={1}>
+          {productList.map(item => {
+            return (
+              <View key={item.id}>
+                <ProductCardFav card={item} />
+              </View>
+            )
+          })}
+        </AtTabsPane>
+        <AtTabsPane current={current} index={2}>
           {dynamicList.map(item => {
             return (
               <View key={item.id}>
@@ -65,23 +74,12 @@ const MyFavorite = props => {
             )
           })}
         </AtTabsPane>
-        <AtTabsPane current={current} index={2}>
-          <View>
-            {productList.map(item => {
-              return (
-                <View key={item.id}>
-                  <ProductCardFav card={item} />
-                </View>
-              )
-            })}
-          </View>
-        </AtTabsPane>
       </AtTabs>
     </View>
   )
 }
-export default connect(({ common, myFavorite, loading }) => ({
+export default connect(({ common, myTakepart, loading }) => ({
   common,
-  myFavorite,
+  myTakepart,
   loading
-}))(MyFavorite)
+}))(MyTakepart)
