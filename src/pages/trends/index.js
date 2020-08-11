@@ -1,4 +1,4 @@
-import Taro, { useEffect, useState } from '@tarojs/taro'
+import Taro, { useDidShow, useState, usePullDownRefresh } from '@tarojs/taro'
 import { View, ScrollView, Block } from '@tarojs/components'
 import { AtIcon, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -22,14 +22,14 @@ const Trends = props => {
       pageSize,
       page,
       actionSheetOpen,
-      isShareOpened,
+      isShareOpened
     }
   } = props
 
   const [itemActive, setItemActive] = useState({})
 
-  useEffect(() => {
-    getList()
+  useDidShow(() => {
+    getList(true)
   }, [])
 
   const handleClick = () => {
@@ -113,13 +113,13 @@ const Trends = props => {
   }
 
   const handleAttentionClick = () => {
-    const { isAttention, foreignId } = itemActive
+    const { isAttention, foreignId, type } = itemActive
     if (!isAttention) {
       dispatch({
         type: 'trends/effectsAttention',
         payload: {
           foreignId,
-          type: 1
+          type: type === 'USER' ? 1 : 2
         }
       }).then(() => {
         getList(true)
@@ -129,7 +129,7 @@ const Trends = props => {
         type: 'trends/effectsAttentionRemove',
         payload: {
           foreignId,
-          type: 1
+          type: type === 'USER' ? 1 : 2
         }
       }).then(() => {
         getList(true)
@@ -145,7 +145,7 @@ const Trends = props => {
         type: 'trends/effectsfavorite',
         payload: {
           foreignId: id,
-          type: 3
+          type: 5
         }
       }).then(() => {
         getList(true)
@@ -155,7 +155,7 @@ const Trends = props => {
         type: 'trends/effectsfavoriteRemove',
         payload: {
           foreignId: id,
-          type: 3
+          type: 5
         }
       }).then(() => {
         getList(true)
@@ -193,7 +193,7 @@ const Trends = props => {
       <View className="container__comment">
         {comentCardList.map(item => {
           return (
-            <View className="container__comment__item">
+            <View className="container__comment__item" key={item.id}>
               <CommentCard
                 card={item}
                 handleShowAction={() => onShow(item)}
@@ -213,7 +213,7 @@ const Trends = props => {
         onClose={onCancel}
       >
         <AtActionSheetItem onClick={handleAttentionClick}>
-          {itemActive.isAttention ? '取消关注' : '关注作者'}
+          {itemActive.isAttention ? '取消关注' : `关注${itemActive.type === 'USER' ? '作者' : '公司'}`}
         </AtActionSheetItem>
         <AtActionSheetItem onClick={handleFavoriteClick}>
           {itemActive.isFavorite ? '取消收藏' : '收藏动态'}
@@ -221,7 +221,7 @@ const Trends = props => {
         {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
       </AtActionSheet>
 
-      <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} />
+      {/* <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} /> */}
     </ScrollView>
   )
 }

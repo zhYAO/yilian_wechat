@@ -1,4 +1,4 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
 import { AtNavBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -8,13 +8,14 @@ import './index.less'
 
 const RecommendListPage = props => {
   const {
+    dispatch,
     common: { navBarPaddingTop },
     recommendListPage: { companyCardList, pageSize, page, hasNextPage },
     loading
   } = props
 
-  useEffect(() => {
-    getList()
+  useDidShow(() => {
+    getList(true)
   }, [])
 
   const handleBack = () => {
@@ -24,7 +25,7 @@ const RecommendListPage = props => {
   const getList = () => {
     if (hasNextPage) {
       dispatch({
-        type: 'company/effectsCompanyList',
+        type: 'recommendListPage/effectsRecommend',
         payload: {
           pageSize,
           page

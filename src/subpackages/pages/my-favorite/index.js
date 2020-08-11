@@ -1,4 +1,4 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtNavBar, AtTabs, AtTabsPane } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -14,8 +14,8 @@ const MyFavorite = props => {
     common: { navBarPaddingTop }
   } = props
 
-  useEffect(() => {
-    getList()
+  useDidShow(() => {
+    getList(true)
   }, [])
 
   const handleBack = () => {

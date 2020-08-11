@@ -98,7 +98,7 @@ const Mine = props => {
             />
             <View className="container__user__info">
               <Image className="info__aventor" src={avatarUrl}></Image>
-              <View className="info__name">{name || nickName || '没得法士大夫'}</View>
+              <View className="info__name">{name || nickName || ''}</View>
               <View className="info__score">我的积分 {integral || 0}</View>
               <View className="info__myInfo" onClick={() => handleNavigate('my-info')}>
                 我的资料

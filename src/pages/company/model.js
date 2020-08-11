@@ -62,13 +62,17 @@ export default {
   effects: {
     *effectsCompanyList({ payload }, { call, put, select }) {
       const { companyCardList, pageSize, page } = yield select(state => state.company)
-      const { data } = yield call(companyApi.companyList, { ...payload })
+      const { isReset } = payload
+      const { data } = yield call(companyApi.companyList, {
+        pageSize: payload.pageSize,
+        page: payload.page
+      })
       if (data) {
         yield put({
           type: 'updateState',
           payload: {
-            companyCardList: companyCardList.concat(data),
-            page: page + 1
+            companyCardList: isReset ? data : companyCardList.concat(data),
+            page: isReset ? 0 : page + 1
           }
         })
         if (data.length < pageSize) {

@@ -1,4 +1,4 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyPart from '@components/page-components/company-part'
@@ -17,7 +17,7 @@ const Index = props => {
     home: { bannerList, companyCardList, hotList, pageSize, page, hasNextPage }
   } = props
 
-  useEffect(() => {
+  useDidShow(() => {
     if (!token) {
       wxLogin.doLogin().then(({ openId, token }) => {
         dispatch({
@@ -94,6 +94,8 @@ const Index = props => {
         indicatorActiveColor="#333"
         circular
         indicatorDots
+        autoplay
+        interval={3000}
       >
         {bannerList.map(item => {
           return (

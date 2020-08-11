@@ -121,10 +121,8 @@ class CompanyDetail extends Taro.Component {
   handleCompanyAttention = (type = 2) => {
     const { id } = this.$router.params
     const {
-      companyDetail: {
-        companyDetail: { isAttention }
-      }
-    } = this.props
+      itemActive: { isAttention }
+    } = this.state
     const { dispatch } = this.props
     if (!isAttention) {
       dispatch({
@@ -158,7 +156,7 @@ class CompanyDetail extends Taro.Component {
         type: 'companyDetail/effectsfavorite',
         payload: {
           foreignId: id,
-          type: 3
+          type: 5
         }
       }).then(() => {
         this.getCompanyDetail()
@@ -168,7 +166,7 @@ class CompanyDetail extends Taro.Component {
         type: 'companyDetail/effectsfavoriteRemove',
         payload: {
           foreignId: id,
-          type: 3
+          type: 5
         }
       }).then(() => {
         this.getCompanyDetail()
@@ -204,12 +202,12 @@ class CompanyDetail extends Taro.Component {
         positionList,
         productList,
         actionSheetOpen,
-        isShareOpened,
-        isAttention
+        isShareOpened
       },
       loading
     } = this.props
     const { isMine } = this.$router.params
+    const { itemActive } = this.state
 
     return (
       <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
@@ -228,7 +226,7 @@ class CompanyDetail extends Taro.Component {
           <View className="container__user__info">
             <Image className="info__aventor" src={companyDetail.logoPath}></Image>
             <View className="info__name">{companyDetail.name}</View>
-            <View className="info__score">{companyDetail.profile}</View>
+            <View className="info__score">{companyDetail.theme}</View>
             <View className="info__labels">
               {companyDetail.labels.map((item, index) => {
                 return index < 3 ? (
@@ -283,7 +281,7 @@ class CompanyDetail extends Taro.Component {
                     card={item}
                     handleShowAction={() => this.onShow(item)}
                     handleSharePopShow={this.handleSharePopShow}
-                    handleZanClick={() => this.handleZanClick(item.foreignId, item.isFabulous)}
+                    handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
                   />
                 </View>
@@ -306,16 +304,16 @@ class CompanyDetail extends Taro.Component {
           onCancel={this.onCancel}
           onClose={this.onCancel}
         >
-          <AtActionSheetItem onClick={this.handleCompanyAttention}>
-            {isAttention ? '取消关注' : '关注作者'}
+          <AtActionSheetItem onClick={() => this.handleCompanyAttention(1)}>
+            {itemActive.isAttention ? '取消关注' : '关注作者'}
           </AtActionSheetItem>
           <AtActionSheetItem onClick={this.handleFavoriteClick}>
-            {isFavorite ? '取消收藏' : '收藏动态'}
+            {itemActive.isFavorite ? '取消收藏' : '收藏动态'}
           </AtActionSheetItem>
           {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
         </AtActionSheet>
 
-        <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />
+        {/* <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} /> */}
       </View>
     )
   }

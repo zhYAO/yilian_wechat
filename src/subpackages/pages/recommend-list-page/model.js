@@ -12,14 +12,18 @@ export default {
 
   effects: {
     *effectsRecommend({ payload }, { call, put, select }) {
-      const { companyCardList, pageSize, page } = yield select(state => state.company)
-      const { data } = yield call(companyRecommendRequest, { ...payload })
+      const { companyCardList, pageSize, page } = yield select(state => state.recommendListPage)
+      const { isReset } = payload
+      const { data } = yield call(companyRecommendRequest, {
+        pageSize: payload.pageSize,
+        page: payload.page
+      })
       if (data) {
         yield put({
           type: 'updateState',
           payload: {
-            companyCardList: companyCardList.concat(data),
-            page: page + 1
+            companyCardList: isReset ? data.records : companyCardList.concat(data.records),
+            page: isReset ? 0 : page + 1
           }
         })
         if (data.length < pageSize) {

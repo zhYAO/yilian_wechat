@@ -17,8 +17,10 @@ const CompanyPart = props => {
   return (
     <View>
       <CustomNavigator title={title} extraText={extraText} rightClick={rightClick} />
-      {cardList.map(item => {
-        return <CompanyCard key={item.id} data={item} />
+      {cardList.map((item, index) => {
+        if (index < 3) {
+          return <CompanyCard key={item.id} data={item} />
+        }
       })}
     </View>
   )

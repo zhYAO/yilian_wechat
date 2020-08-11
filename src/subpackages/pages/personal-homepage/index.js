@@ -243,7 +243,7 @@ class PersonalHomepage extends Taro.Component {
           {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
         </AtActionSheet>
 
-        <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />
+        {/* <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} /> */}
       </View>
     )
   }

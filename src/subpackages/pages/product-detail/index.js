@@ -1,4 +1,4 @@
-import Taro, { useEffect, render } from '@tarojs/taro'
+import Taro, { useDidShow, render } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import { AtNavBar, AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -40,6 +40,8 @@ class ProductDetail extends Taro.Component {
           foreignId,
           type: 4
         }
+      }).then(() => {
+        this.getData()
       })
     } else {
       dispatch({
@@ -48,6 +50,8 @@ class ProductDetail extends Taro.Component {
           foreignId,
           type: 4
         }
+      }).then(() => {
+        this.getData()
       })
     }
   }
@@ -59,16 +63,20 @@ class ProductDetail extends Taro.Component {
         type: 'productDetail/effectsfavorite',
         payload: {
           foreignId,
-          type: 1
+          type: 4
         }
+      }).then(() => {
+        this.getData()
       })
     } else {
       dispatch({
         type: 'productDetail/effectsfavoriteRemove',
         payload: {
           foreignId,
-          type: 1
+          type: 4
         }
+      }).then(() => {
+        this.getData()
       })
     }
   }
@@ -115,7 +123,10 @@ class ProductDetail extends Taro.Component {
     dispatch({
       type: 'productDetail/updateState',
       payload: {
-        isOpened: false
+        isOpened: false,
+        replyId: '',
+        content: '',
+        commentId: '',
       }
     })
   }
@@ -123,18 +134,23 @@ class ProductDetail extends Taro.Component {
   handleConfirm() {
     const {
       dispatch,
-      productDetail: { replyId, content, commentId }
+      productDetail: {
+        replyId,
+        content,
+        commentId,
+        detail: { id }
+      }
     } = this.props
     dispatch({
       type: 'productDetail/effectsAddComment',
       payload: {
         commentId,
-        foreignId: replyId,
+        foreignId: id,
         content,
-        type: 1
+        type: 4
       }
     }).then(() => {
-      this.getDetail()
+      this.getData()
       this.handleHide()
     })
   }
@@ -181,13 +197,12 @@ class ProductDetail extends Taro.Component {
             commentNum={detail.commentCount}
             starNum={detail.favoriteCount}
             zanNum={detail.fabulousCount}
-            handleZanClick={() => this.handleZanClick(detail.foreignId, detail.isFabulous)}
+            handleZanClick={() => this.handleZanClick(detail.id, detail.isFabulous)}
             isFabulous={detail.isFabulous}
-            handleFavoriteClick={() =>
-              this.handleFavoriteClick(detail.foreignId, detail.isFavorite)
-            }
+            handleFavoriteClick={() => this.handleFavoriteClick(detail.id, detail.isFavorite)}
             isFavorite={detail.isFavorite}
             editComment={this.editComment.bind(this)}
+            comments={detail.comments}
           />
         </View>
 

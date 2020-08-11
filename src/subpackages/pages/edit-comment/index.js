@@ -66,7 +66,10 @@ class EditComment extends Taro.Component {
     dispatch({
       type: 'editComment/updateState',
       payload: {
-        isOpened: false
+        isOpened: false,
+        replyId: '',
+        content: '',
+        commentId: '',
       }
     })
   }
@@ -74,15 +77,20 @@ class EditComment extends Taro.Component {
   handleConfirm() {
     const {
       dispatch,
-      editComment: { replyId, content, commentId }
+      editComment: {
+        replyId,
+        content,
+        commentId,
+        detail: { id }
+      }
     } = this.props
     dispatch({
       type: 'editComment/effectsAddComment',
       payload: {
         commentId,
-        foreignId: replyId,
+        foreignId: id,
         content,
-        type: 3
+        type: 5
       }
     }).then(() => {
       this.getData()
@@ -277,7 +285,7 @@ class EditComment extends Taro.Component {
           </AtModalAction>
         </AtModal>
 
-        <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />
+        {/* <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} /> */}
 
         <AtActionSheet
           isOpened={actionSheetOpen}

@@ -1,4 +1,4 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import { AtTabs, AtTabsPane } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -15,7 +15,7 @@ const Discover = props => {
     discover: { bannerList, current, tabList, jobList, videoList, comentCardList }
   } = props
 
-  useEffect(() => {
+  useDidShow(() => {
     getPositionList()
     getVideoList()
     getActivityList()

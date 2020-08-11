@@ -10,7 +10,7 @@ const CompanyDetailInfo = props => {
       <View className="container__item">
         <View className="container__item__title">
           <View className="title__line"></View>
-          <View className="title__text">{companyDetail.profile}</View>
+          <View className="title__text">公司简述</View>
         </View>
         <View className="container__item__sketch">{companyDetail.profile}</View>
       </View>

@@ -25,7 +25,7 @@ const HotProducts = props => {
               className="container__cards__hot"
               onClick={() => handleClick(item.id)}
             >
-              <Image src={item.imgPath} mode="aspectFit" />
+              <Image src={item.imgPath} mode="aspectFill" />
             </View>
           )
         })}

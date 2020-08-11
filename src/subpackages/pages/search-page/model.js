@@ -8,7 +8,8 @@ export default {
     searchVal: '',
     searchRecord: ['搜索词1', '搜索词1', '搜索词1', '搜索词1', '搜索词1'],
     hotRecord: ['搜索词1', '搜索词1', '搜索词1'],
-    searchData: null
+    searchData: {},
+    isSearch: false
   },
 
   effects: {
@@ -20,7 +21,8 @@ export default {
           type: 'updateState',
           payload: {
             searchVal: '',
-            searchData: data
+            searchData: data,
+            isSearch: true
           }
         })
       }

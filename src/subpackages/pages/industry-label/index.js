@@ -1,4 +1,4 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtNavBar } from 'taro-ui'
@@ -13,7 +13,7 @@ const IndustryLabel = props => {
     loading
   } = props
 
-  useEffect(() => {
+  useDidShow(() => {
     getLabelList()
   }, [])
 

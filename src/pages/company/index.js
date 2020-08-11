@@ -1,4 +1,4 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import { AtNavBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -17,8 +17,8 @@ const Company = props => {
     common: { navBarPaddingTop }
   } = props
 
-  useEffect(() => {
-    getList()
+  useDidShow(() => {
+    getList(true)
     getLabel()
   }, [])
 

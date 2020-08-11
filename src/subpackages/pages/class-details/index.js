@@ -1,8 +1,8 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtNavBar } from 'taro-ui'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
-import JobCard from '@components/page-components/job-card'
+import ClassList from '@components/page-components/class-list'
 import { connect } from '@tarojs/redux'
 import './index.less'
 
@@ -33,16 +33,19 @@ class ClassDetails extends Taro.Component {
 
   render() {
     const {
-      classDetails: { jobList },
+      classDetails: { classList },
       loading,
       common: { navBarPaddingTop }
     } = this.props
+
+    const { name } = this.$router.params
+
     return (
       <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar onClickLeftIcon={this.handleBack} title="智能驾驶" leftIconType="chevron-left" />
+        <AtNavBar onClickLeftIcon={this.handleBack} title={name} leftIconType="chevron-left" />
         <View className="container__list">
-          {jobList.map(item => (
-            <JobCard key={item.id} card={item} />
+          {classList.map(item => (
+            <ClassList key={item.id} card={item} />
           ))}
         </View>
       </View>

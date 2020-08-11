@@ -1,4 +1,4 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { AtTabBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { switchTab, navigateTo } from '@crossplatform/apiservice/navigate'

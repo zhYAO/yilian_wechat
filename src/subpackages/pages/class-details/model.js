@@ -3,7 +3,7 @@ import * as classDetailsApi from './service'
 export default {
   namespace: 'classDetails',
   state: {
-    jobList: []
+    classList: []
   },
 
   effects: {
@@ -13,7 +13,7 @@ export default {
         yield put({
           type: 'updateState',
           payload: {
-            jobList: data
+            classList: data
           }
         })
       }

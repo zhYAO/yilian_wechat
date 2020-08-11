@@ -1,4 +1,4 @@
-import Taro, { useEffect } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtNavBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -14,7 +14,7 @@ const ClassSort = props => {
     loading
   } = props
 
-  useEffect(() => {
+  useDidShow(() => {
     getLabel()
   }, [])
 

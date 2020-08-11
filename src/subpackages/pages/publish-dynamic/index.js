@@ -16,6 +16,7 @@ class PublishDynamic extends Taro.Component {
   }
 
   handleChange = value => {
+    const { dispatch } = this.props
     dispatch({
       type: 'publishDynamic/updateState',
       payload: {
@@ -25,6 +26,10 @@ class PublishDynamic extends Taro.Component {
   }
 
   sendDynamic = () => {
+    const {
+      dispatch,
+      publishDynamic: { value }
+    } = this.props
     const { type = 'USER' } = this.$router.params
     dispatch({
       type: 'publishDynamic/effectsPublish',
@@ -33,6 +38,8 @@ class PublishDynamic extends Taro.Component {
         theme: '活动',
         type
       }
+    }).then(() => {
+      navigateBack()
     })
   }
 

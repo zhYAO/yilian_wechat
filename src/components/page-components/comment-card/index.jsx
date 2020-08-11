@@ -27,7 +27,7 @@ const CommentCard = props => {
         <Image
           className="container__top__img"
           src={card.src}
-          onClick={() => handleClick(card.id)}
+          onClick={() => handleClick(card.foreignId)}
         />
         <View className="container__top__content">
           <View className="content__desc">
@@ -53,6 +53,7 @@ const CommentCard = props => {
         handleZanClick={handleZanClick}
         isFabulous={isFabulous}
         editComment={editComment}
+        comments={card.comments}
       />
     </View>
   )

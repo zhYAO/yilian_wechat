@@ -74,8 +74,8 @@ const CommonOptions = props => {
       })
     } else {
       if (!(comments && comments.length > 0)) {
-        editComment({})
         setShowComment(true)
+        editComment({})
       } else {
         setShowComment(!showComment)
       }
@@ -85,14 +85,14 @@ const CommonOptions = props => {
   return (
     <View>
       <View className="container">
-        <View className="container__option" onClick={handleSharePopShow}>
+        {/* <View className="container__option" onClick={handleSharePopShow}>
           <Image
             className="container__option__icon"
             src={require('@static/images/common/share.png')}
             mode="aspectFit"
           ></Image>
           <View className="container__option__text">转发 {shareNum}</View>
-        </View>
+        </View> */}
         <View className="container__option" onClick={handleShowComment}>
           <Image
             className="container__option__icon"
