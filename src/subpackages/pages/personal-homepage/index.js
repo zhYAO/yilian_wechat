@@ -34,15 +34,18 @@ class PersonalHomepage extends Taro.Component {
 
   onShow = item => {
     const { dispatch } = this.props
-    dispatch({
-      type: 'personalHomepage/updateState',
-      payload: {
-        actionSheetOpen: true
-      }
-    })
-    this.setState({
-      itemActive: item
-    })
+    const { isMine } = this.$router.params
+    if (!isMine) {
+      dispatch({
+        type: 'personalHomepage/updateState',
+        payload: {
+          actionSheetOpen: true
+        }
+      })
+      this.setState({
+        itemActive: item
+      })
+    }
   }
 
   onCancel = () => {
@@ -168,6 +171,8 @@ class PersonalHomepage extends Taro.Component {
       common: { navBarPaddingTop }
     } = this.props
 
+    const { isMine } = this.$router.params
+
     const { itemActive } = this.state
 
     return (
@@ -224,9 +229,11 @@ class PersonalHomepage extends Taro.Component {
           </View>
         </View>
 
-        <View className="container__bottom" onClick={this.handleAttention}>
-          <View className="container__bottom__btn">{isAttention ? '已关注' : '+ 关注'}</View>
-        </View>
+        {!isMine && (
+          <View className="container__bottom" onClick={this.handleAttention}>
+            <View className="container__bottom__btn">{isAttention ? '已关注' : '+ 关注'}</View>
+          </View>
+        )}
 
         <AtActionSheet
           isOpened={actionSheetOpen}

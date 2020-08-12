@@ -6,6 +6,7 @@ import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import { removeStorageSync, setStorageSync } from '@crossplatform/apiservice/storage'
 import wxLogin from '@utils/wxLogin'
+import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
 const Mine = props => {
@@ -37,6 +38,7 @@ const Mine = props => {
   }, [])
 
   const handleNavigate = (pageUrl, parmas) => {
+    console.log(pageUrl, 'pageUrlpageUrlpageUrl')
     navigateTo({
       url: `${pagejumplist[pageUrl].path}${parmas ? parmas : ''}`
     })
@@ -85,6 +87,16 @@ const Mine = props => {
     }
   }
 
+  const goCompanyPage = () => {
+    if (companyId) {
+      handleNavigate('company-detail', `?id=${companyId}&isMine=1`)
+    } else {
+      showToast({
+        title: '尚未绑定公司'
+      })
+    }
+  }
+
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
       <View className="container__pageTitle">{pageTitle}</View>
@@ -105,7 +117,10 @@ const Mine = props => {
               </View>
             </View>
             <View className="container__user__options">
-              <View className="options__item">
+              <View
+                className="options__item"
+                onClick={() => handleNavigate('personal-homepage', `?id=${id}&isMine=1`)}
+              >
                 <View className="options__item__num">{dynamicCount}</View>
                 <View className="options__item__name">动态</View>
               </View>
@@ -117,25 +132,23 @@ const Mine = props => {
                 <View className="options__item__num">{favoriteCount}</View>
                 <View className="options__item__name">收藏</View>
               </View>
-              <View className="options__item">
-                <View className="options__item__num" onClick={() => handleNavigate('my-fans-page')}>
-                  {fansCount}
-                </View>
+              <View className="options__item" onClick={() => handleNavigate('my-fans-page')}>
+                <View className="options__item__num">{fansCount}</View>
                 <View className="options__item__name">粉丝</View>
               </View>
             </View>
             <View className="container__user__card">
-              <View
-                className="card__item"
-                onClick={() => handleNavigate('company-detail', `?id=${1}&isMine=1`)}
-              >
+              <View className="card__item" onClick={goCompanyPage}>
                 <Image
                   className="card__item__img"
                   src={require('@static/images/mine/company_home.png')}
                 ></Image>
                 <View className="card__item__text">公司主页</View>
               </View>
-              <View className="card__item">
+              <View
+                className="card__item"
+                onClick={() => handleNavigate('personal-homepage', `?id=${id}&isMine=1`)}
+              >
                 <Image
                   className="card__item__img"
                   src={require('@static/images/mine/my_trends.png')}

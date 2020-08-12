@@ -53,3 +53,13 @@ export const addCommentRequest = data => {
     data
   })
 }
+
+/**
+ * 视频详情
+ */
+export const videoDetailRequest = ({ id }) => {
+  return Request({
+    url: `/company-video/detail/${id}`,
+    method: 'GET'
+  })
+}

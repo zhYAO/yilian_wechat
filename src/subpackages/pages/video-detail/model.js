@@ -1,6 +1,5 @@
 import * as jobDetailApi from './service'
-import { positionDetailRequest } from '@service/company-controller'
-import { addCommentRequest } from '@service/info-controller'
+import { addCommentRequest, videoDetailRequest } from '@service/info-controller'
 import {
   fabulousRequest,
   fabulousRemoveRequest,
@@ -20,8 +19,8 @@ export default {
   },
 
   effects: {
-    *effectsPositionDetail({ payload }, { call, put }) {
-      const { data } = yield call(positionDetailRequest, { ...payload })
+    *effectsVideoDetail({ payload }, { call, put }) {
+      const { data } = yield call(videoDetailRequest, { ...payload })
       if (data) {
         yield put({
           type: 'updateState',

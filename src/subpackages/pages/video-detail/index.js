@@ -25,7 +25,7 @@ class videoDetail extends Taro.Component {
     const { dispatch } = this.props
     const { id } = this.$router.params
     dispatch({
-      type: 'videoDetail/effectsPositionDetail',
+      type: 'videoDetail/effectsVideoDetail',
       payload: { id }
     })
   }
@@ -37,7 +37,7 @@ class videoDetail extends Taro.Component {
         type: 'videoDetail/effectsfabulous',
         payload: {
           foreignId,
-          type: 3
+          type: 2
         }
       }).then(() => {
         this.getDetail()
@@ -47,7 +47,7 @@ class videoDetail extends Taro.Component {
         type: 'videoDetail/effectsfabulousRemove',
         payload: {
           foreignId,
-          type: 3
+          type: 2
         }
       }).then(() => {
         this.getDetail()
@@ -130,13 +130,18 @@ class videoDetail extends Taro.Component {
   handleConfirm() {
     const {
       dispatch,
-      videoDetail: { replyId, content, commentId }
+      videoDetail: {
+        detail: { id },
+        replyId,
+        content,
+        commentId
+      }
     } = this.props
     dispatch({
       type: 'videoDetail/effectsAddComment',
       payload: {
         commentId,
-        foreignId: replyId,
+        foreignId: id,
         content,
         type: 2
       }
@@ -161,10 +166,10 @@ class videoDetail extends Taro.Component {
         />
 
         <View className="container__video">
-          <Video className="container__video__item" src={detail.url}></Video>
+          <Video className="container__video__item" src={detail.videoPath}></Video>
         </View>
 
-        <CompanyDetailCard card={detail} />
+        <CompanyDetailCard card={detail.company} />
 
         {/* 底部操作组件 */}
         <View className="container__options">
@@ -175,13 +180,12 @@ class videoDetail extends Taro.Component {
             zanNum={detail.fabulousCount}
             starNum={detail.favoriteCount}
             hasStar
-            handleZanClick={() => this.handleZanClick(detail.company.id, detail.isFabulous)}
+            handleZanClick={() => this.handleZanClick(detail.id, detail.isFabulous)}
             isFabulous={detail.isFabulous}
-            handleFavoriteClick={() =>
-              this.handleFavoriteClick(detail.company.id, detail.isFavorite)
-            }
+            handleFavoriteClick={() => this.handleFavoriteClick(detail.id, detail.isFavorite)}
             isFavorite={detail.isFavorite}
             editComment={this.editComment.bind(this)}
+            comments={detail.comments}
           />
         </View>
 

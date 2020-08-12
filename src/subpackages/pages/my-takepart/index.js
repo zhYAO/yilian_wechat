@@ -50,7 +50,7 @@ const MyTakepart = props => {
             {companys.map(item => {
               return (
                 <View key={item.id}>
-                  <CompanyCard card={item} />
+                  <CompanyCard card={item} noBtn={true} />
                 </View>
               )
             })}
@@ -60,7 +60,7 @@ const MyTakepart = props => {
           {productList.map(item => {
             return (
               <View key={item.id}>
-                <ProductCardFav card={item} />
+                <ProductCardFav card={item} noBtn={true} />
               </View>
             )
           })}
@@ -69,7 +69,7 @@ const MyTakepart = props => {
           {dynamicList.map(item => {
             return (
               <View key={item.id}>
-                <DynamicCardFav card={item} />
+                <DynamicCardFav card={item} noBtn={true} />
               </View>
             )
           })}
