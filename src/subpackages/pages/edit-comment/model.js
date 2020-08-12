@@ -7,6 +7,7 @@ import {
   favoriteRequest,
   favoriteRemoveRequest
 } from '@service/user-controller'
+import { showToast } from '@crossplatform/apiservice/toast'
 
 export default {
   namespace: 'editComment',
@@ -44,56 +45,50 @@ export default {
       }
     },
     *effectsfabulous({ payload }, { call, put }) {
-      const { data } = yield call(fabulousRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(fabulousRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '点赞成功'
         })
       }
     },
     *effectsfabulousRemove({ payload }, { call, put }) {
-      const { data } = yield call(fabulousRemoveRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(fabulousRemoveRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '取消点赞'
         })
       }
     },
     *effectsAttention({ payload }, { call, put }) {
-      const { data } = yield call(attentionRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(attentionRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '关注成功'
         })
       }
     },
     *effectsAttentionRemove({ payload }, { call, put }) {
-      const { data } = yield call(attentionRemoveRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(attentionRemoveRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '取消关注'
         })
       }
     },
     *effectsfavorite({ payload }, { call, put }) {
-      const { data } = yield call(favoriteRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(favoriteRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '收藏成功'
         })
       }
     },
     *effectsfavoriteRemove({ payload }, { call, put }) {
-      const { data } = yield call(favoriteRemoveRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(favoriteRemoveRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '取消收藏'
         })
       }
     }

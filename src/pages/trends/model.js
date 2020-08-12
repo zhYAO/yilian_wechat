@@ -7,6 +7,7 @@ import {
   favoriteRequest,
   favoriteRemoveRequest
 } from '@service/user-controller'
+import { showToast } from '@crossplatform/apiservice/toast'
 
 export default {
   namespace: 'trends',
@@ -60,6 +61,9 @@ export default {
           type: 'updateState',
           payload: {}
         })
+        showToast({
+          title: '点赞成功'
+        })
       }
     },
     *effectsfabulousRemove({ payload }, { call, put }) {
@@ -68,6 +72,9 @@ export default {
         yield put({
           type: 'updateState',
           payload: {}
+        })
+        showToast({
+          title: '取消点赞'
         })
       }
     },
@@ -78,6 +85,9 @@ export default {
           type: 'updateState',
           payload: {}
         })
+        showToast({
+          title: '关注成功'
+        })
       }
     },
     *effectsAttentionRemove({ payload }, { call, put }) {
@@ -86,6 +96,9 @@ export default {
         yield put({
           type: 'updateState',
           payload: {}
+        })
+        showToast({
+          title: '取消关注'
         })
       }
     },
@@ -96,6 +109,9 @@ export default {
           type: 'updateState',
           payload: {}
         })
+        showToast({
+          title: '收藏成功'
+        })
       }
     },
     *effectsfavoriteRemove({ payload }, { call, put }) {
@@ -104,6 +120,9 @@ export default {
         yield put({
           type: 'updateState',
           payload: {}
+        })
+        showToast({
+          title: '取消收藏'
         })
       }
     }

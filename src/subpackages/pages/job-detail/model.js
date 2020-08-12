@@ -7,6 +7,7 @@ import {
   favoriteRequest,
   favoriteRemoveRequest
 } from '@service/user-controller'
+import { showToast } from '@crossplatform/apiservice/toast'
 
 export default {
   namespace: 'jobDetail',
@@ -31,38 +32,34 @@ export default {
       }
     },
     *effectsfabulous({ payload }, { call, put }) {
-      const { data } = yield call(fabulousRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(fabulousRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '点赞成功'
         })
       }
     },
     *effectsfabulousRemove({ payload }, { call, put }) {
-      const { data } = yield call(fabulousRemoveRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(fabulousRemoveRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '取消点赞'
         })
       }
     },
     *effectsfavorite({ payload }, { call, put }) {
-      const { data } = yield call(favoriteRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(favoriteRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '收藏成功'
         })
       }
     },
     *effectsfavoriteRemove({ payload }, { call, put }) {
-      const { data } = yield call(favoriteRemoveRequest, { ...payload })
-      if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {}
+      const { code } = yield call(favoriteRemoveRequest, { ...payload })
+      if (code === '0000') {
+        showToast({
+          title: '取消收藏'
         })
       }
     },

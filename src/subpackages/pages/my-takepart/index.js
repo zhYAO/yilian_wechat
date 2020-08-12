@@ -42,7 +42,7 @@ const MyTakepart = props => {
 
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="我的收藏" leftIconType="chevron-left" />
+      <AtNavBar onClickLeftIcon={handleBack} title="我参与的" leftIconType="chevron-left" />
 
       <AtTabs current={current} tabList={tabList} onClick={handleClick}>
         <AtTabsPane current={current} index={0}>

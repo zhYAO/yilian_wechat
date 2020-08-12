@@ -118,11 +118,8 @@ class CompanyDetail extends Taro.Component {
     this.onCancel()
   }
 
-  handleCompanyAttention = (type = 2) => {
+  handleCompanyAttention = (type = 2, isAttention) => {
     const { id } = this.$router.params
-    const {
-      itemActive: { isAttention }
-    } = this.state
     const { dispatch } = this.props
     if (!isAttention) {
       dispatch({
@@ -246,7 +243,7 @@ class CompanyDetail extends Taro.Component {
             <CompanyDetailInfo
               companyDetail={companyDetail}
               customerList={customerList}
-              handleAttentionClick={this.handleCompanyAttention}
+              handleAttentionClick={() => this.handleCompanyAttention(2, companyDetail.isAttention)}
               handlePhoneCall={this.makePhoneCall}
               isMine={isMine}
             />
@@ -304,7 +301,7 @@ class CompanyDetail extends Taro.Component {
           onCancel={this.onCancel}
           onClose={this.onCancel}
         >
-          <AtActionSheetItem onClick={() => this.handleCompanyAttention(1)}>
+          <AtActionSheetItem onClick={() => this.handleCompanyAttention(1, itemActive.isAttention)}>
             {itemActive.isAttention ? '取消关注' : '关注作者'}
           </AtActionSheetItem>
           <AtActionSheetItem onClick={this.handleFavoriteClick}>
