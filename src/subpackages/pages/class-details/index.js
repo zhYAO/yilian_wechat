@@ -13,20 +13,20 @@ class ClassDetails extends Taro.Component {
   }
 
   componentWillMount() {
-    const { id } = this.$router.params
-    this.getCompanyDetail(id)
+    this.getCompanyDetail()
   }
 
   handleBack = () => {
     navigateBack()
   }
 
-  getCompanyDetail = id => {
+  getCompanyDetail = () => {
+    const { id } = this.$router.params
     const { dispatch } = this.props
     dispatch({
       type: 'classDetails/effectsCompanyList',
       payload: {
-        id
+        labelId: id
       }
     })
   }

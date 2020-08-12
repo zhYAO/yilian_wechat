@@ -6,56 +6,7 @@ export default {
     pageSize: 10,
     page: 0,
     hasNextPage: true,
-    companyCategoryList: [
-      {
-        id: 1,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        title: '智能驾驶'
-      },
-      {
-        id: 2,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        title: '图像视觉'
-      },
-      {
-        id: 3,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        title: '语音技术'
-      },
-      {
-        id: 4,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        title: '大数据'
-      },
-      {
-        id: 5,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        title: 'XR'
-      },
-      {
-        id: 6,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        title: 'AI芯片'
-      },
-      {
-        id: 7,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        title: 'AI硬件'
-      },
-      {
-        id: 8,
-        src:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        title: 'AR'
-      }
-    ],
+    companyCategoryList: [],
     companyCardList: []
   },
 
@@ -65,7 +16,7 @@ export default {
       const { isReset } = payload
       const { data } = yield call(companyApi.companyList, {
         pageSize: payload.pageSize,
-        page: payload.page
+        page: isReset ? 0 : payload.page + 1 
       })
       if (data) {
         yield put({

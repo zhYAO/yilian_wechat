@@ -7,6 +7,7 @@ import {
   favoriteRequest,
   favoriteRemoveRequest
 } from '@service/user-controller'
+import { recommendAttentionRequest } from '@service/info-controller'
 import { showToast } from '@crossplatform/apiservice/toast'
 
 export default {
@@ -27,7 +28,7 @@ export default {
       const { isReset } = payload
       const { data } = yield call(trendsApi.dynamicList, {
         pageSize: payload.pageSize,
-        page: payload.page
+        page: isReset ? 0 : payload.page + 1
       })
       if (data) {
         yield put({
@@ -54,9 +55,20 @@ export default {
         })
       }
     },
-    *effectsfabulous({ payload }, { call, put }) {
-      const { data } = yield call(fabulousRequest, { ...payload })
+    *effectsRecommendAttention({ payload }, { call, put }) {
+      const { data } = yield call(recommendAttentionRequest, { ...payload })
       if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            focusCardsList: data.records
+          }
+        })
+      }
+    },
+    *effectsfabulous({ payload }, { call, put }) {
+      const { code } = yield call(fabulousRequest, { ...payload })
+      if (code === '0000') {
         yield put({
           type: 'updateState',
           payload: {}
@@ -67,8 +79,8 @@ export default {
       }
     },
     *effectsfabulousRemove({ payload }, { call, put }) {
-      const { data } = yield call(fabulousRemoveRequest, { ...payload })
-      if (data) {
+      const { code } = yield call(fabulousRemoveRequest, { ...payload })
+      if (code === '0000') {
         yield put({
           type: 'updateState',
           payload: {}
@@ -79,8 +91,8 @@ export default {
       }
     },
     *effectsAttention({ payload }, { call, put }) {
-      const { data } = yield call(attentionRequest, { ...payload })
-      if (data) {
+      const { code } = yield call(attentionRequest, { ...payload })
+      if (code === '0000') {
         yield put({
           type: 'updateState',
           payload: {}
@@ -91,8 +103,8 @@ export default {
       }
     },
     *effectsAttentionRemove({ payload }, { call, put }) {
-      const { data } = yield call(attentionRemoveRequest, { ...payload })
-      if (data) {
+      const { code } = yield call(attentionRemoveRequest, { ...payload })
+      if (code === '0000') {
         yield put({
           type: 'updateState',
           payload: {}
@@ -103,8 +115,8 @@ export default {
       }
     },
     *effectsfavorite({ payload }, { call, put }) {
-      const { data } = yield call(favoriteRequest, { ...payload })
-      if (data) {
+      const { code } = yield call(favoriteRequest, { ...payload })
+      if (code === '0000') {
         yield put({
           type: 'updateState',
           payload: {}
@@ -115,8 +127,8 @@ export default {
       }
     },
     *effectsfavoriteRemove({ payload }, { call, put }) {
-      const { data } = yield call(favoriteRemoveRequest, { ...payload })
-      if (data) {
+      const { code } = yield call(favoriteRemoveRequest, { ...payload })
+      if (code === '0000') {
         yield put({
           type: 'updateState',
           payload: {}

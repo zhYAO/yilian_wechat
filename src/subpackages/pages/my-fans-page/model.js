@@ -16,7 +16,7 @@ export default {
       const { isReset } = payload
       const { data } = yield call(myFansRequest, {
         pageSize: payload.pageSize,
-        page: payload.page
+        page: isReset ? 0 : payload.page + 1 
       })
       if (data) {
         yield put({

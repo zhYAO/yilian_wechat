@@ -122,7 +122,10 @@ class videoDetail extends Taro.Component {
     dispatch({
       type: 'videoDetail/updateState',
       payload: {
-        isOpened: false
+        isOpened: false,
+        replyId: '',
+        content: '',
+        commentId: '',
       }
     })
   }

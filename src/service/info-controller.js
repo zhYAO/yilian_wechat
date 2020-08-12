@@ -63,3 +63,15 @@ export const videoDetailRequest = ({ id }) => {
     method: 'GET'
   })
 }
+
+
+/**
+ * 推荐关注
+ */
+export const recommendAttentionRequest = (data) => {
+  return Request({
+    url: '/user/recommend',
+    method: 'GET',
+    data
+  })
+}

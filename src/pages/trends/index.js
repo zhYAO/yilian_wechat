@@ -30,6 +30,7 @@ const Trends = props => {
 
   useDidShow(() => {
     getList(true)
+    getRecommendAttention()
   }, [])
 
   const handleClick = () => {
@@ -49,6 +50,13 @@ const Trends = props => {
         }
       })
     }
+  }
+
+  const getRecommendAttention = () => {
+    dispatch({
+      type: 'trends/effectsRecommendAttention',
+      payload: {}
+    })
   }
 
   const onShow = item => {
@@ -181,8 +189,10 @@ const Trends = props => {
         <Block>
           <CustomNavigator title="推荐关注" extraText={'>>更多'} rightClick={handleClick} />
           <View>
-            {focusCardsList.map(item => {
-              return <FocusCard card={item} />
+            {focusCardsList.map((item, index) => {
+              if (index < 3) {
+                return <FocusCard card={item} />
+              }
             })}
           </View>
           <View className="container__gap"></View>
@@ -213,7 +223,9 @@ const Trends = props => {
         onClose={onCancel}
       >
         <AtActionSheetItem onClick={handleAttentionClick}>
-          {itemActive.isAttention ? '取消关注' : `关注${itemActive.type === 'USER' ? '作者' : '公司'}`}
+          {itemActive.isAttention
+            ? '取消关注'
+            : `关注${itemActive.type === 'USER' ? '作者' : '公司'}`}
         </AtActionSheetItem>
         <AtActionSheetItem onClick={handleFavoriteClick}>
           {itemActive.isFavorite ? '取消收藏' : '收藏动态'}

@@ -15,10 +15,16 @@ const CommentCard = props => {
     editComment
   } = props
 
-  const handleClick = id => {
-    navigateTo({
-      url: `${pagejumplist['personal-homepage'].path}?id=${id}`
-    })
+  const handleClick = () => {
+    if(card.type === 'USER') {
+      navigateTo({
+        url: `${pagejumplist['personal-homepage'].path}?id=${card.foreignId}`
+      })
+    } else {
+      navigateTo({
+        url: `${pagejumplist['company-detail'].path}?id=${card.foreignId}`
+      })
+    }
   }
 
   return (
@@ -27,7 +33,7 @@ const CommentCard = props => {
         <Image
           className="container__top__img"
           src={card.src}
-          onClick={() => handleClick(card.foreignId)}
+          onClick={handleClick}
         />
         <View className="container__top__content">
           <View className="content__desc">

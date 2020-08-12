@@ -1,11 +1,20 @@
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro, { useEffect, useState } from '@tarojs/taro'
 import { View, Block } from '@tarojs/components'
-import { AtNavBar, AtTabs, AtTabsPane, AtSearchBar } from 'taro-ui'
+import {
+  AtNavBar,
+  AtTabs,
+  AtTabsPane,
+  AtSearchBar,
+  AtActionSheet,
+  AtActionSheetItem
+} from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
+import { navigateBack, navigateTo } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 import CompanyCard from '@components/page-components/company-card'
 import ProductCard from '@components/page-components/product-card'
 import CommentCard from '@components/page-components/comment-card'
+import SharePop from '@components/page-components/share-pop'
 import './index.less'
 
 const SearchPage = props => {
@@ -18,13 +27,16 @@ const SearchPage = props => {
       isSearch,
       searchData: { companys, dynamics, products },
       current,
-      tabList
+      tabList,
+      actionSheetOpen
     },
     loading,
     common: { navBarPaddingTop }
   } = props
 
-  useDidShow(() => {
+  const [itemActive, setItemActive] = useState({})
+
+  useEffect(() => {
     dispatch({
       type: 'searchPage/updateState',
       payload: {
@@ -34,7 +46,7 @@ const SearchPage = props => {
         isSearch: false
       }
     })
-  })
+  }, [])
 
   const handleBack = () => {
     navigateBack()
@@ -50,7 +62,6 @@ const SearchPage = props => {
   }
 
   const handleActionClick = () => {
-    console.log('开始搜索')
     dispatch({
       type: 'searchPage/effectsSearch',
       payload: {}
@@ -82,6 +93,125 @@ const SearchPage = props => {
       type: 'searchPage/updateState',
       payload: {
         current: value
+      }
+    })
+  }
+
+  const handleZanClick = (foreignId, isFabulous) => {
+    if (!isFabulous) {
+      dispatch({
+        type: 'searchPage/effectsfabulous',
+        payload: {
+          foreignId,
+          type: 5
+        }
+      }).then(() => {
+        handleActionClick()
+      })
+    } else {
+      dispatch({
+        type: 'searchPage/effectsfabulousRemove',
+        payload: {
+          foreignId,
+          type: 5
+        }
+      }).then(() => {
+        handleActionClick()
+      })
+    }
+  }
+
+  const handleAttentionClick = () => {
+    const { isAttention, foreignId, type } = itemActive
+    if (!isAttention) {
+      dispatch({
+        type: 'searchPage/effectsAttention',
+        payload: {
+          foreignId,
+          type: type === 'USER' ? 1 : 2
+        }
+      }).then(() => {
+        handleActionClick()
+      })
+    } else {
+      dispatch({
+        type: 'searchPage/effectsAttentionRemove',
+        payload: {
+          foreignId,
+          type: type === 'USER' ? 1 : 2
+        }
+      }).then(() => {
+        handleActionClick()
+      })
+    }
+    onCancel()
+  }
+
+  const handleFavoriteClick = () => {
+    const { isFavorite, id } = itemActive
+    if (!isFavorite) {
+      dispatch({
+        type: 'searchPage/effectsfavorite',
+        payload: {
+          foreignId: id,
+          type: 5
+        }
+      }).then(() => {
+        handleActionClick()
+      })
+    } else {
+      dispatch({
+        type: 'searchPage/effectsfavoriteRemove',
+        payload: {
+          foreignId: id,
+          type: 5
+        }
+      }).then(() => {
+        handleActionClick()
+      })
+    }
+    onCancel()
+  }
+
+  const jumpTo = (url, params) => {
+    navigateTo({
+      url: `${pagejumplist[url].path}${params}`
+    })
+  }
+
+  const onShow = item => {
+    setItemActive(item)
+    dispatch({
+      type: 'searchPage/updateState',
+      payload: {
+        actionSheetOpen: true
+      }
+    })
+  }
+
+  const onCancel = () => {
+    dispatch({
+      type: 'searchPage/updateState',
+      payload: {
+        actionSheetOpen: false
+      }
+    })
+  }
+
+  const handleSharePopShow = () => {
+    dispatch({
+      type: 'trends/updateState',
+      payload: {
+        isShareOpened: true
+      }
+    })
+  }
+
+  const handleSharePopClose = () => {
+    dispatch({
+      type: 'trends/updateState',
+      payload: {
+        isShareOpened: false
       }
     })
   }
@@ -142,7 +272,7 @@ const SearchPage = props => {
                   key={item.id}
                   className="tab__item__card"
                   onClick={() => {
-                    this.jumpTo('product-detail', `?id=${item.id}`)
+                    jumpTo('product-detail', `?id=${item.id}`)
                   }}
                 >
                   <ProductCard card={item} />
@@ -156,9 +286,9 @@ const SearchPage = props => {
                 <View key={item.id} className="tab__item__comment">
                   <CommentCard
                     card={item}
-                    handleShowAction={() => this.onShow(item)}
-                    handleSharePopShow={this.handleSharePopShow}
-                    handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
+                    handleShowAction={() => onShow(item)}
+                    handleSharePopShow={handleSharePopShow}
+                    handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
                   />
                 </View>
@@ -167,6 +297,25 @@ const SearchPage = props => {
           </AtTabsPane>
         </AtTabs>
       )}
+
+      <AtActionSheet
+        isOpened={actionSheetOpen}
+        cancelText="取消"
+        onCancel={onCancel}
+        onClose={onCancel}
+      >
+        <AtActionSheetItem onClick={handleAttentionClick}>
+          {itemActive.isAttention
+            ? '取消关注'
+            : `关注${itemActive.type === 'USER' ? '作者' : '公司'}`}
+        </AtActionSheetItem>
+        <AtActionSheetItem onClick={handleFavoriteClick}>
+          {itemActive.isFavorite ? '取消收藏' : '收藏动态'}
+        </AtActionSheetItem>
+        {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
+      </AtActionSheet>
+
+      {/* <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} /> */}
     </View>
   )
 }

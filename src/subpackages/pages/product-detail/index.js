@@ -126,7 +126,7 @@ class ProductDetail extends Taro.Component {
         isOpened: false,
         replyId: '',
         content: '',
-        commentId: '',
+        commentId: ''
       }
     })
   }
@@ -183,7 +183,9 @@ class ProductDetail extends Taro.Component {
 
         <CustomNavigator title="产品详情" />
         <View className="container__detail">
-          <Image className="container__detail__img"></Image>
+          {detail.imgPaths.map(item => {
+            return <Image className="container__detail__img" src={item} mode="aspectFill"></Image>
+          })}
         </View>
 
         <View className="container__gap"></View>

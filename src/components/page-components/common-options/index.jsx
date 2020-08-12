@@ -21,50 +21,6 @@ const CommonOptions = props => {
     editComment
   } = props
 
-  const [mockComments, setMockComments] = useState([
-    {
-      id: 1,
-      parentId: 1,
-      content: '评论内容',
-      type: 1,
-      foreignId: 123,
-      commentUserId: 22,
-      commentUserName: '评论人',
-      replyUserId: 33,
-      replyUserName: '回复目标人',
-      createTime: 'time',
-      createUser: '创建人',
-      subComments: [
-        {
-          parentId: 1,
-          content: '评论内容1',
-          type: 1,
-          foreignId: 123,
-          commentUserId: 22,
-          commentUserName: '评论人1',
-          replyUserId: 33,
-          replyUserName: '回复目标人1',
-          createTime: 'time1',
-          createUser: '创建人1',
-          subComments: '评论回复1'
-        },
-        {
-          parentId: 1,
-          content: '评论内容1',
-          type: 1,
-          foreignId: 123,
-          commentUserId: 22,
-          commentUserName: '评论人1',
-          replyUserId: 33,
-          replyUserName: '回复目标人1',
-          createTime: 'time1',
-          createUser: '创建人1',
-          subComments: '评论回复1'
-        }
-      ]
-    }
-  ])
-
   const [showComment, setShowComment] = useState(false)
 
   const handleShowComment = () => {
@@ -73,12 +29,8 @@ const CommonOptions = props => {
         url: `${pagejumplist['edit-comment'].path}?id=${optionId}`
       })
     } else {
-      if (!(comments && comments.length > 0)) {
-        setShowComment(true)
-        editComment({})
-      } else {
-        setShowComment(!showComment)
-      }
+      setShowComment(true)
+      editComment({})
     }
   }
 
@@ -171,7 +123,7 @@ const CommonOptions = props => {
                         className="content__title__name"
                         onClick={() =>
                           editComment({
-                            commentId: item.id,
+                            commentId: subItem.id,
                             commentUserId: subItem.commentUserId,
                             commentUserName: subItem.commentUserName
                           })
@@ -184,7 +136,7 @@ const CommonOptions = props => {
                         className="content__title__name"
                         onClick={() =>
                           editComment({
-                            commentId: item.id,
+                            commentId: subItem.id,
                             commentUserId: subItem.commentUserId,
                             commentUserName: subItem.commentUserName
                           })

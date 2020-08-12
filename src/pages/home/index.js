@@ -5,8 +5,6 @@ import CompanyPart from '@components/page-components/company-part'
 import RecommendPart from '@components/page-components/recommend-part'
 import HotProducts from '@components/page-components/hot-products'
 import SearchPart from '@components/page-components/search-part'
-import { navigateTo } from '@crossplatform/apiservice/navigate'
-import pagejumplist from '@configuration/pagejumplist.json'
 import wxLogin from '@utils/wxLogin'
 import './index.less'
 
@@ -30,12 +28,6 @@ const Index = props => {
     getRecommend()
     getHotList()
   }, [])
-
-  const handleClick = () => {
-    navigateTo({
-      url: `${pagejumplist['search-page'].path}`
-    })
-  }
 
   const handleImgJump = url => {
     // 点击banner跳转
@@ -76,7 +68,7 @@ const Index = props => {
       scrollY
     >
       {/* 头部搜索栏 */}
-      <SearchPart className="search" onNavTo={handleClick}>
+      <SearchPart className="search">
         {/* <View className="search__local">
           <Image
             className="search__local__image"
