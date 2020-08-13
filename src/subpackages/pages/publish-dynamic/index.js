@@ -8,7 +8,13 @@ import './index.less'
 class PublishDynamic extends Taro.Component {
   constructor(props) {
     super(props)
-    this.data = {}
+    this.state = {
+      isActivity: false
+    }
+  }
+
+  componentWillUnmount() {
+    this.handleClearData()
   }
 
   handleBack = () => {
@@ -31,22 +37,68 @@ class PublishDynamic extends Taro.Component {
       publishDynamic: { value }
     } = this.props
     const { type = 'USER' } = this.$router.params
+    const { isActivity } = this.state
+    let params = {
+      content: value,
+      type
+    }
+    if (isActivity) {
+      params.theme = '活动'
+    }
     dispatch({
       type: 'publishDynamic/effectsPublish',
-      payload: {
-        content: value,
-        theme: '活动',
-        type
-      }
+      payload: params
     }).then(() => {
       navigateBack()
+    })
+  }
+
+  handleActivity = () => {
+    const {
+      dispatch,
+      publishDynamic: { value }
+    } = this.props
+    const { isActivity } = this.state
+    if (isActivity) {
+      this.setState({
+        isActivity: false
+      })
+      dispatch({
+        type: 'publishDynamic/updateState',
+        payload: {
+          value: value.replace('#活动 ', '')
+        }
+      })
+    } else {
+      this.setState({
+        isActivity: true
+      })
+      dispatch({
+        type: 'publishDynamic/updateState',
+        payload: {
+          value: '#活动 ' + value
+        }
+      })
+    }
+  }
+
+  handleClearData = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'publishDynamic/updateState',
+      payload: {
+        value: ''
+      }
+    })
+    this.setState({
+      isActivity: false
     })
   }
 
   render() {
     const {
       dispatch,
-      publishDynamic: { value },
+      publishDynamic: { value = '' },
       loading,
       common: { navBarPaddingTop }
     } = this.props
@@ -55,7 +107,17 @@ class PublishDynamic extends Taro.Component {
       <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
         <AtNavBar onClickLeftIcon={this.handleBack} title="发动态" leftIconType="chevron-left" />
 
-        <View className="container__tips">发布活动内容：</View>
+        <View className="container__tips">
+          <View>发布活动内容：</View>
+          <View
+            className={`container__tips__activity ${
+              isActivity ? 'container__tips__activity--active' : ''
+            }`}
+            onClick={this.handleActivity}
+          >
+            #活动
+          </View>
+        </View>
 
         <AtTextarea
           value={value}

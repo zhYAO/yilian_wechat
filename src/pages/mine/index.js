@@ -27,7 +27,8 @@ const Mine = props => {
         favoriteCount,
         fansCount,
         companyId,
-        id
+        id,
+        imgPath
       }
     },
     loading
@@ -53,10 +54,10 @@ const Mine = props => {
     })
   }
 
-  const setUserInfo = ({ nickName: name, gender: sex }) => {
+  const setUserInfo = ({ nickName: name, gender: sex, avatarUrl: imgPath }) => {
     dispatch({
       type: 'mine/effectsUserModify',
-      payload: { name, sex }
+      payload: { name, sex, imgPath }
     })
   }
 
@@ -85,7 +86,9 @@ const Mine = props => {
           type: 'common/effectsUpdate',
           payload: { openId, token }
         })
-        setUserInfo(userInfo)
+        if(name) {
+          setUserInfo(userInfo)
+        }
         setIsLogin(true)
       })
     }
@@ -113,7 +116,7 @@ const Mine = props => {
               mode="aspectFit"
             />
             <View className="container__user__info">
-              <Image className="info__aventor" src={avatarUrl}></Image>
+              <Image className="info__aventor" src={imgPath || avatarUrl}></Image>
               <View className="info__name">{name || nickName || ''}</View>
               <View className="info__score">我的积分 {integral || 0}</View>
               <View className="info__myInfo" onClick={() => handleNavigate('my-info')}>
@@ -184,11 +187,15 @@ const Mine = props => {
             />
           </View>
           <View className="container__nav">
-            <MineNavigator iconSrc={require('@static/images/mine/about.png')} title="关于我们" />
+            <MineNavigator
+              iconSrc={require('@static/images/mine/about.png')}
+              onJump={() => handleNavigate('about-us')}
+              title="关于我们"
+            />
           </View>
-          <View className="container__nav">
+          {/* <View className="container__nav">
             <MineNavigator iconSrc={require('@static/images/mine/feedback.png')} title="意见反馈" />
-          </View>
+          </View> */}
 
           <View className="container__logout" onClick={logout}>
             退出登录

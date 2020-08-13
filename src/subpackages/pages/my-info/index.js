@@ -114,10 +114,16 @@ const MyInfo = props => {
           onClick={() => handleJump('common-edit', `key=weChat&value=${weChat}`)}
         />
         <AtListItem
-          title="绑定手机号"
+          title="绑定手机号(mvp助手用户名)"
           extraText={mobile}
           arrow="right"
           onClick={() => handleJump('common-edit', `key=mobile&value=${mobile}`)}
+        />
+        <AtListItem
+          title="e-link MVP助手密码"
+          extraText=''
+          arrow="right"
+          onClick={() => handleJump('common-edit', `key=password`)}
         />
         <AtListItem
           title="邮箱"

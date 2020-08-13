@@ -32,7 +32,7 @@ const CommentCard = props => {
       <View className="container__top">
         <Image
           className="container__top__img"
-          src={card.src}
+          src={card.imgPath}
           onClick={handleClick}
         />
         <View className="container__top__content">

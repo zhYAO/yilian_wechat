@@ -1,0 +1,37 @@
+.container {
+  position: relative;
+  height: 100vh;
+  box-sizing: border-box;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    padding: 0 50px;
+    &__logo {
+      width: 100px;
+    }
+    &__name {
+      margin-top: 20px;
+    }
+    &__version {
+      margin-top: 20px;
+    }
+    &__desc {
+      margin-top: 100px;
+      font-size: 24px;
+      word-break: break-all;
+    }
+  }
+  &__bottom {
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    font-size: 24px;
+  }
+}

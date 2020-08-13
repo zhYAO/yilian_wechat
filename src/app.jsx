@@ -20,7 +20,8 @@ class App extends Component {
       'pages/company/index',
       'pages/trends/index',
       'pages/discover/index',
-      'pages/mine/index'
+      'pages/mine/index',
+      'pages/about-us/index'
     ],
     window: {
       navigationStyle: 'custom',

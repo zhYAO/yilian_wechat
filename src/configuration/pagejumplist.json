@@ -19,6 +19,10 @@
     "name": "我的",
     "path": "/pages/mine/index"
   },
+  "about-us": {
+    "name": "关于我们",
+    "path": "/pages/about-us/index"
+  },
   "search-page": {
     "name": "搜索页面",
     "path": "/subpackages/pages/search-page/index"

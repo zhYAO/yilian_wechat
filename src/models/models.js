@@ -3,6 +3,7 @@ import company from '../pages/company/model'
 import discover from '../pages/discover/model'
 import mine from '../pages/mine/model'
 import trends from '../pages/trends/model'
+import aboutUs from '../pages/about-us/model'
 import common from './common'
 import searchPage from '../subpackages/pages/search-page/model'
 import recommendListPage from '../subpackages/pages/recommend-list-page/model'
@@ -49,5 +50,6 @@ export default [
   videoDetail,
   myFansPage,
   myTakepart,
-  myInfo
+  myInfo,
+  aboutUs
 ]

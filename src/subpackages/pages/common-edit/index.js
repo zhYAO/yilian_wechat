@@ -3,6 +3,7 @@ import { View, Text, RichText } from '@tarojs/components'
 import { AtNavBar, AtInput } from 'taro-ui'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import { connect } from '@tarojs/redux'
+import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
 class CommonEdit extends Taro.Component {
@@ -16,7 +17,8 @@ class CommonEdit extends Taro.Component {
         job: '职位',
         weChat: '微信号',
         mobile: '手机号',
-        theme: '座右铭'
+        theme: '座右铭',
+        password: '密码'
       },
       inputVal: ''
     }
@@ -52,22 +54,47 @@ class CommonEdit extends Taro.Component {
 
     params[key] = inputVal
 
-    dispatch({
-      type: 'commonEdit/effectsUpdate',
-      payload: params
-    }).then(() => {
-      navigateBack()
-
+    if (key === 'password') {
+      if(inputVal.length < 6) {
+        showToast({
+          title: '密码最少设置6位'
+        })
+        return
+      }
       dispatch({
-        type: 'mine/updateState',
-        payload: {
-          userInfo: {
-            ...userInfo,
-            ...params
+        type: 'commonEdit/effectsPasswordUpdate',
+        payload: params
+      }).then(() => {
+        navigateBack()
+
+        dispatch({
+          type: 'mine/updateState',
+          payload: {
+            userInfo: {
+              ...userInfo,
+              ...params
+            }
           }
-        }
+        })
       })
-    })
+    } else {
+      dispatch({
+        type: 'commonEdit/effectsUpdate',
+        payload: params
+      }).then(() => {
+        navigateBack()
+
+        dispatch({
+          type: 'mine/updateState',
+          payload: {
+            userInfo: {
+              ...userInfo,
+              ...params
+            }
+          }
+        })
+      })
+    }
   }
 
   render() {
@@ -87,7 +114,7 @@ class CommonEdit extends Taro.Component {
 
         <AtInput
           name="value"
-          type="text"
+          type={key === 'password' ? 'password' : 'text'}
           placeholder={`请输入${ENUM[key] || ''}`}
           value={value}
           onChange={this.handleChange.bind(this)}

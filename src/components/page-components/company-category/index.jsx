@@ -23,7 +23,7 @@ const CompanyCategory = props => {
                 className="container__grid__item"
                 key={item.id}
                 onClick={() => {
-                  handleClick(item.id, item.label)
+                  handleClick(item.labelId, item.label)
                 }}
               >
                 <Image className="item__icon" src={item.imgPath} />

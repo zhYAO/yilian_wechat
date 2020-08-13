@@ -85,7 +85,7 @@ const IndustryLabel = props => {
 
   return (
     <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="所处行业" leftIconType="chevron-left" />
+      <AtNavBar onClickLeftIcon={handleBack} title="关注领域" leftIconType="chevron-left" />
 
       <View className="container__chosed">
         {chosedLabels.map((item, index) => {

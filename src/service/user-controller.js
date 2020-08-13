@@ -45,6 +45,17 @@ export const modifyUserInfoRequest = data => {
 }
 
 /**
+ * 修改用户密码
+ */
+export const modifyPasswordRequest = data => {
+  return Request({
+    url: '/user/set-mp-password',
+    method: 'POST',
+    data
+  })
+}
+
+/**
  * 更新用户所处行业
  */
 export const modifyLabelRequest = data => {

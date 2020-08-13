@@ -15,7 +15,7 @@ const ClassList = props => {
 
   return (
     <View className="container" onClick={handleClick}>
-      <Image className="container__img" src={card.imgPath}></Image>
+      <Image className="container__img" src={card.logoPath}></Image>
       <View className="container__content">
         <View className="container__content__title">{card.name}</View>
         <View className="container__content__place">{card.theme}</View>
