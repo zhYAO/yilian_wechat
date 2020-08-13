@@ -26,6 +26,7 @@ const HotProducts = props => {
               onClick={() => handleClick(item.id)}
             >
               <Image src={item.imgPath} mode="aspectFill" />
+              <View className="hot__name">{item.companyName}</View>
             </View>
           )
         })}
