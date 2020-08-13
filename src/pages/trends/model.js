@@ -14,7 +14,7 @@ export default {
   namespace: 'trends',
   state: {
     pageSize: 10,
-    page: 0,
+    page: 1,
     hasNextPage: true,
     focusCardsList: [],
     comentCardList: [],
@@ -28,14 +28,14 @@ export default {
       const { isReset } = payload
       const { data } = yield call(trendsApi.dynamicList, {
         pageSize: payload.pageSize,
-        page: isReset ? 0 : payload.page + 1
+        page: isReset ? 1 : payload.page + 1
       })
       if (data) {
         yield put({
           type: 'updateState',
           payload: {
             comentCardList: isReset ? data : comentCardList.concat(data),
-            page: isReset ? 0 : page + 1
+            page: isReset ? 1 : page + 1
           }
         })
         if (data.length < pageSize) {

@@ -5,7 +5,7 @@ export default {
   namespace: 'myFansPage',
   state: {
     pageSize: 10,
-    page: 0,
+    page: 1,
     hasNextPage: true,
     fansList: []
   },
@@ -16,14 +16,14 @@ export default {
       const { isReset } = payload
       const { data } = yield call(myFansRequest, {
         pageSize: payload.pageSize,
-        page: isReset ? 0 : payload.page + 1 
+        page: isReset ? 1 : payload.page + 1 
       })
       if (data) {
         yield put({
           type: 'updateState',
           payload: {
             fansList: isReset ? data : fansList.concat(data),
-            page: isReset ? 0 : page + 1
+            page: isReset ? 1 : page + 1
           }
         })
         if (data.length < pageSize) {

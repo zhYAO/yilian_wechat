@@ -5,7 +5,7 @@ export default {
   namespace: 'home',
   state: {
     pageSize: 10,
-    page: 0,
+    page: 1,
     hasNextPage: true,
     bannerList: [],
     companyCardList: [],
@@ -44,11 +44,11 @@ export default {
         yield put({
           type: 'updateState',
           payload: {
-            hotList: hotList.concat(data),
+            hotList: hotList.concat(data.records),
             page: page + 1
           }
         })
-        if (data.length < pageSize) {
+        if (data.records.length < pageSize) {
           yield put({
             type: 'updateState',
             payload: {

@@ -4,7 +4,7 @@ export default {
   namespace: 'company',
   state: {
     pageSize: 10,
-    page: 0,
+    page: 1,
     hasNextPage: true,
     companyCategoryList: [],
     companyCardList: []
@@ -16,14 +16,14 @@ export default {
       const { isReset } = payload
       const { data } = yield call(companyApi.companyList, {
         pageSize: payload.pageSize,
-        page: isReset ? 0 : payload.page + 1 
+        page: isReset ? 1 : payload.page + 1 
       })
       if (data) {
         yield put({
           type: 'updateState',
           payload: {
             companyCardList: isReset ? data : companyCardList.concat(data),
-            page: isReset ? 0 : page + 1
+            page: isReset ? 1 : page + 1
           }
         })
         if (data.length < pageSize) {

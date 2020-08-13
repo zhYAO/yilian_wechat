@@ -24,6 +24,14 @@ class CompanyDetail extends Taro.Component {
     this.getCompanyDetail()
   }
 
+  componentDidHide() {
+    this.handleClearData()
+  }
+
+  componentWillUnmount() {
+    this.handleClearData()
+  }
+
   handleBack = () => {
     navigateBack()
   }
@@ -185,6 +193,22 @@ class CompanyDetail extends Taro.Component {
       }
     } = this.props
     makePhoneCall({ phoneNumber: telephone })
+  }
+
+  handleClearData = () => {
+    dispatch({
+      type: 'companyDetail/updateState',
+      payload: {
+        current: 0,
+        companyDetail: {},
+        customerList: [],
+        dynamicList: [],
+        positionList: [],
+        productList: [],
+        actionSheetOpen: false,
+        isShareOpened: false
+      }
+    })
   }
 
   render() {
