@@ -1,4 +1,4 @@
-import Taro, { useState } from '@tarojs/taro'
+import Taro, { useState, useDidShow, getUserInfo } from '@tarojs/taro'
 import { View, Image, Button } from '@tarojs/components'
 import { AtNavBar, AtList, AtListItem, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -8,14 +8,8 @@ import './index.less'
 
 const MyInfo = props => {
   const {
-    myInfo,
-    loading,
-    common: {
-      navBarPaddingTop,
-      userInfo: { nickName, avatarUrl }
-    },
-    mine: {
-      pageTitle,
+    dispatch,
+    myInfo: {
       userInfo: {
         name = '',
         sex = '',
@@ -27,10 +21,26 @@ const MyInfo = props => {
         theme = '',
         labels = []
       }
+    },
+    loading,
+    common: {
+      navBarPaddingTop,
+      userInfo: { nickName, avatarUrl }
     }
   } = props
 
   const [isOpened, setIsOpened] = useState(false)
+  const [genderIsOpen, setGenderIsOpen] = useState(false)
+
+  useDidShow(() => {
+    getUserInfo()
+  })
+
+  const getUserInfo = () => {
+    dispatch({
+      type: 'myInfo/effectsUserInfo'
+    })
+  }
 
   const handleBack = () => {
     navigateBack()
@@ -47,11 +57,27 @@ const MyInfo = props => {
   }
 
   const handleIndustry = labels => {
-    return labels.map(item => item)
+    return labels.map(item => item.label)
   }
 
   const handleOpen = () => {
     setIsOpened(!isOpened)
+  }
+
+  const handleShowGender = () => {
+    setGenderIsOpen(!genderIsOpen)
+  }
+
+  const handleSelectGender = gender => {
+    dispatch({
+      type: 'myInfo/effectsModify',
+      payload: {
+        sex: gender
+      }
+    }).then(() => {
+      handleShowGender()
+      getUserInfo()
+    })
   }
 
   return (
@@ -75,7 +101,12 @@ const MyInfo = props => {
           arrow="right"
           onClick={() => handleJump('common-edit', `key=name&value=${name}`)}
         />
-        <AtListItem title="性别" extraText={handleGender(sex)} arrow="right" />
+        <AtListItem
+          title="性别"
+          extraText={handleGender(sex)}
+          onClick={handleShowGender}
+          arrow="right"
+        />
         <AtListItem
           title="微信号"
           extraText={weChat}
@@ -128,12 +159,16 @@ const MyInfo = props => {
           手动填写手机号
         </AtActionSheetItem>
       </AtActionSheet> */}
+
+      <AtActionSheet isOpened={genderIsOpen}>
+        <AtActionSheetItem onClick={() => handleSelectGender(1)}>男</AtActionSheetItem>
+        <AtActionSheetItem onClick={() => handleSelectGender(2)}>女</AtActionSheetItem>
+      </AtActionSheet>
     </View>
   )
 }
-export default connect(({ common, myInfo, loading, mine }) => ({
+export default connect(({ common, myInfo, loading }) => ({
   common,
   myInfo,
-  loading,
-  mine
+  loading
 }))(MyInfo)

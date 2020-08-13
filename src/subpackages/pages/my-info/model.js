@@ -1,19 +1,31 @@
 import * as myInfoApi from './service'
+import { modifyUserInfoRequest, userInfoRequest } from '@service/user-controller'
 
 export default {
   namespace: 'myInfo',
   state: {
-    keai: '测试数据666'
+    userInfo: {}
   },
 
   effects: {
-    *effectsDemo(_, { call, put }) {
-      const { status, data } = yield call(my - infoApi.demo, {})
-      if (status === 'ok') {
+    *effectsModify({ payload }, { call, put }) {
+      const { data } = yield call(modifyUserInfoRequest, { ...payload })
+      if (data) {
         yield put({
-          type: 'save',
+          type: 'updateState',
           payload: {
-            topData: data
+            detail: data
+          }
+        })
+      }
+    },
+    *effectsUserInfo({ payload }, { call, put, select }) {
+      const { data } = yield call(userInfoRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            userInfo: data
           }
         })
       }

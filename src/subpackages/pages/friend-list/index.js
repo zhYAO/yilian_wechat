@@ -45,8 +45,6 @@ const FriendList = props => {
     }
   }
 
-  console.log(focusCardsList, 'focusCardsListfocusCardsList')
-
   return (
     <ScrollView
       className="container"

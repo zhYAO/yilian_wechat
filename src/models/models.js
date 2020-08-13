@@ -22,6 +22,7 @@ import editComment from '../subpackages/pages/edit-comment/model'
 import videoDetail from '../subpackages/pages/video-detail/model'
 import myFansPage from '../subpackages/pages/my-fans-page/model'
 import myTakepart from '../subpackages/pages/my-takepart/model'
+import myInfo from '../subpackages/pages/my-info/model'
 
 export default [
   common,
@@ -47,5 +48,6 @@ export default [
   editComment,
   videoDetail,
   myFansPage,
-  myTakepart
+  myTakepart,
+  myInfo
 ]

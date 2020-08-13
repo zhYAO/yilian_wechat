@@ -10,11 +10,21 @@ const IndustryLabel = props => {
     dispatch,
     common: { navBarPaddingTop },
     industryLabel: { industryLabels, chosedLabels },
+    mine: {
+      userInfo: { labels = [] }
+    },
     loading
   } = props
 
   useDidShow(() => {
     getLabelList()
+
+    dispatch({
+      type: 'industryLabel/updateState',
+      payload: {
+        chosedLabels: labels
+      }
+    })
   }, [])
 
   const handleBack = () => {
@@ -111,7 +121,8 @@ const IndustryLabel = props => {
   )
 }
 
-export default connect(({ common, industryLabel, loading }) => ({
+export default connect(({ mine, common, industryLabel, loading }) => ({
+  mine,
   common,
   industryLabel,
   loading

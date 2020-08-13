@@ -23,6 +23,17 @@ export const attentionRemoveRequest = data => {
 }
 
 /**
+ * 获取用户资料
+ */
+export const userInfoRequest = data => {
+  return Request({
+    url: '/user/homepage',
+    method: 'GET',
+    data
+  })
+}
+
+/**
  * 修改用户资料
  */
 export const modifyUserInfoRequest = data => {
