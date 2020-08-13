@@ -184,7 +184,7 @@ class ProductDetail extends Taro.Component {
         <CustomNavigator title="产品详情" />
         <View className="container__detail">
           {detail.imgPaths.map(item => {
-            return <Image className="container__detail__img" src={item} mode="aspectFill"></Image>
+            return <Image className="container__detail__img" src={item} mode="widthFix"></Image>
           })}
         </View>
 
