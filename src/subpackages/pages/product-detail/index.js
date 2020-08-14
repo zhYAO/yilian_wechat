@@ -1,5 +1,5 @@
 import Taro, { useDidShow, render } from '@tarojs/taro'
-import { View, Image } from '@tarojs/components'
+import { View, Image, Video } from '@tarojs/components'
 import { AtNavBar, AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
@@ -171,7 +171,7 @@ class ProductDetail extends Taro.Component {
         />
 
         <View className="container__top">
-          <Image className="container__top__banner"></Image>
+          <Video className="container__top__banner" src={detail.videoPath}></Video>
           <View className="container__top__detail">
             <View className="detail__left">
               <View className="detail__left__name">{detail.name}</View>

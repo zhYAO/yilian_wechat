@@ -21,6 +21,7 @@ export default {
     companyName: '',
     name: '',
     theme: '',
+    imgPath: '',
     isAttention: false,
     actionSheetOpen: false,
     isShareOpened: false

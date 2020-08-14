@@ -19,6 +19,22 @@ class PersonalHomepage extends Taro.Component {
     this.getInfo()
   }
 
+  componentWillUnmount() {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'personalHomepage/updateState',
+      payload: {
+        companyName: '',
+        name: '',
+        theme: '',
+        imgPath: '',
+        isAttention: false,
+        actionSheetOpen: false,
+        isShareOpened: false
+      }
+    })
+  }
+
   handleBack = () => {
     navigateBack()
   }
@@ -165,7 +181,8 @@ class PersonalHomepage extends Taro.Component {
         theme,
         actionSheetOpen,
         isShareOpened,
-        isAttention
+        isAttention,
+        imgPath
       },
       loading,
       common: { navBarPaddingTop }
@@ -186,13 +203,7 @@ class PersonalHomepage extends Taro.Component {
             mode="aspectFit"
           />
           <View className="container__user__info">
-            <Image
-              className="info__aventor"
-              src={
-                avatarUrl ||
-                'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180'
-              }
-            ></Image>
+            <Image className="info__aventor" src={imgPath}></Image>
             <View className="info__name">{name || ''}</View>
             <View className="info__score">{companyName}</View>
             <View className="info__labels">

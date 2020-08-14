@@ -15,7 +15,7 @@ const FriendList = props => {
   } = props
 
   useDidShow(() => {
-    getList()
+    getList(true)
   })
 
   useDidHide(() => {

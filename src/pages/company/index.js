@@ -26,13 +26,14 @@ const Company = props => {
     navigateBack()
   }
 
-  const getList = () => {
+  const getList = (isReset = false) => {
     if (hasNextPage) {
       dispatch({
         type: 'company/effectsCompanyList',
         payload: {
           pageSize,
-          page
+          page,
+          isReset
         }
       })
     }

@@ -22,13 +22,14 @@ const MyFansPage = props => {
     navigateBack()
   }
 
-  const getList = () => {
+  const getList = (isReset = false) => {
     if (hasNextPage) {
       dispatch({
         type: 'myFansPage/effectsFansList',
         payload: {
           pageSize,
-          page
+          page,
+          isReset
         }
       })
     }

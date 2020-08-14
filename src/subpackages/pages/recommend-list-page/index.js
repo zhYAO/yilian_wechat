@@ -22,13 +22,14 @@ const RecommendListPage = props => {
     navigateBack()
   }
 
-  const getList = () => {
+  const getList = (isReset = false) => {
     if (hasNextPage) {
       dispatch({
         type: 'recommendListPage/effectsRecommend',
         payload: {
           pageSize,
-          page
+          page,
+          isReset
         }
       })
     }
