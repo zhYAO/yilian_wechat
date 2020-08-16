@@ -164,3 +164,14 @@ export const myTakepartRequest = data => {
     data
   })
 }
+
+/**
+ * 申请公司
+ */
+export const applyCompanyRequest = data => {
+  return Request({
+    url: '/user/bind-company',
+    method: 'GET',
+    data
+  })
+}

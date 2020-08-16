@@ -32,3 +32,14 @@ export const productDetailRequest = ({ id }) => {
     data: {}
   })
 }
+
+/**
+ * 获取公司列表
+ */
+export const companyListRequest = data => {
+  return Request({
+    url: `/company/list`,
+    method: 'GET',
+    data
+  })
+}

@@ -121,7 +121,7 @@ const MyInfo = props => {
         />
         <AtListItem
           title="e-link MVP助手密码"
-          extraText=''
+          extraText=""
           arrow="right"
           onClick={() => handleJump('common-edit', `key=password`)}
         />
@@ -131,7 +131,14 @@ const MyInfo = props => {
           arrow="right"
           onClick={() => handleJump('common-edit', `key=email&value=${email}`)}
         />
-        <AtListItem title="公司" extraText={companyName} arrow="right" />
+        <AtListItem
+          title="公司"
+          extraText={companyName}
+          arrow="right"
+          onClick={() =>
+            handleJump('common-edit', `key=companyApply&value=${companyName}&isCompanyApply=1`)
+          }
+        />
         <AtListItem
           title="职位"
           extraText={job}

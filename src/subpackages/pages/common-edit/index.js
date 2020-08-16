@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Text, RichText } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtNavBar, AtInput } from 'taro-ui'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import { connect } from '@tarojs/redux'
@@ -18,7 +18,8 @@ class CommonEdit extends Taro.Component {
         weChat: '微信号',
         mobile: '手机号',
         theme: '座右铭',
-        password: '密码'
+        password: '密码',
+        companyApply: '申请/修改公司'
       },
       inputVal: ''
     }
@@ -36,9 +37,19 @@ class CommonEdit extends Taro.Component {
   }
 
   handleChange = value => {
+    const { dispatch } = this.props
+    const { isCompanyApply = false } = this.$router.params
     this.setState({
       inputVal: value
     })
+    if (isCompanyApply) {
+      dispatch({
+        type: 'commonEdit/effectsCompanyList',
+        payload: {
+          name: value
+        }
+      })
+    }
     // 在小程序中，如果想改变 value 的值，需要 `return value` 从而改变输入框的当前值
     return value
   }
@@ -55,7 +66,7 @@ class CommonEdit extends Taro.Component {
     params[key] = inputVal
 
     if (key === 'password') {
-      if(inputVal.length < 6) {
+      if (inputVal.length < 6) {
         showToast({
           title: '密码最少设置6位'
         })
@@ -97,16 +108,27 @@ class CommonEdit extends Taro.Component {
     }
   }
 
+  handleApplyCompany = id => {
+    dispatch({
+      type: 'mine/effectsApplyCompany',
+      payload: {
+        companyId: id
+      }
+    }).then(() => {
+      navigateBack()
+    })
+  }
+
   render() {
     const {
       common: { navBarPaddingTop },
-      commonEdit,
+      commonEdit: { companyList },
       loading
     } = this.props
 
-    const { ENUM } = this.state
+    const { ENUM, inputVal } = this.state
 
-    const { key, value } = this.$router.params
+    const { key, value, isCompanyApply = false } = this.$router.params
 
     return (
       <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
@@ -120,9 +142,29 @@ class CommonEdit extends Taro.Component {
           onChange={this.handleChange.bind(this)}
         />
 
-        <View className="container__confirm" onClick={this.handleConfirm}>
-          确定
-        </View>
+        {!isCompanyApply && (
+          <View className="container__confirm" onClick={this.handleConfirm}>
+            确定
+          </View>
+        )}
+
+        {isCompanyApply && (
+          <View className="container__list">
+            {companyList.length > 0 &&
+              companyList.map(item => (
+                <View
+                  key={item.id}
+                  className="container__list__item"
+                  onClick={() => this.handleApplyCompany(item.id)}
+                >
+                  {item.name}
+                </View>
+              ))}
+            {companyList.length === 0 && inputVal.length > 0 && (
+              <View className="container__list__empty">暂无数据</View>
+            )}
+          </View>
+        )}
       </View>
     )
   }

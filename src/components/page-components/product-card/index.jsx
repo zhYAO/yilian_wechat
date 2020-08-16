@@ -7,7 +7,7 @@ const ProductCard = props => {
 
   return (
     <View className="container">
-      <Image className="container__video" src={card.imgPath} />
+      <Image className="container__video" mode="aspectFill" src={card.imgPath} />
       <View className="container__content">
         <View className="container__content__title">{card.name}</View>
       </View>

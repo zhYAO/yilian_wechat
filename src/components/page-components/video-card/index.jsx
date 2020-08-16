@@ -15,7 +15,7 @@ const VideoCard = props => {
 
   return (
     <View className="container" onClick={handleClick}>
-      <Image className="container__video" src={card.imgPath} />
+      <Image className="container__video" mode="aspectFill" src={card.imgPath} />
       <View className="container__content">
         <View className="container__content__title">{card.foreignName}</View>
         <View className="container__content__desc">{card.company.theme}</View>
