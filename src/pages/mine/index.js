@@ -1,4 +1,4 @@
-import Taro, { useEffect, useState } from '@tarojs/taro'
+import Taro, { useDidShow, useState } from '@tarojs/taro'
 import { View, Image, Block, Text, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import MineNavigator from '@components/page-components/mine-navigator'
@@ -36,7 +36,7 @@ const Mine = props => {
 
   const [isLogin, setIsLogin] = useState(!!nickName)
 
-  useEffect(() => {
+  useDidShow(() => {
     getUserInfo()
   }, [])
 
@@ -86,7 +86,7 @@ const Mine = props => {
           type: 'common/effectsUpdate',
           payload: { openId, token }
         })
-        if(name) {
+        if(!name) {
           setUserInfo(userInfo)
         }
         setIsLogin(true)

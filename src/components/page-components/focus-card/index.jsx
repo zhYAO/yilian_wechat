@@ -1,4 +1,4 @@
-import Taro, { useState } from '@tarojs/taro'
+import Taro, { useState, useEffect } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
@@ -7,10 +7,15 @@ import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
 const FocusCard = props => {
-  const { card, getData } = props
+  const { card, handleInit } = props
 
   const [btnName, setBtnName] = useState(card.isAttention ? '取消关注' : '+ 关注')
   const [isAttention, setIsAttention] = useState(card.isAttention)
+
+  useEffect(() => {
+    setBtnName(card.isAttention ? '取消关注' : '+ 关注')
+    setIsAttention(card.isAttention)
+  }, [card])
 
   const handleClick = () => {
     navigateTo({
@@ -30,6 +35,9 @@ const FocusCard = props => {
         })
         setBtnName('取消关注')
         setIsAttention(true)
+        if(handleInit) {
+          handleInit()
+        }
       })
     } else {
       attentionRemoveRequest({
@@ -41,6 +49,9 @@ const FocusCard = props => {
         })
         setBtnName('+ 关注')
         setIsAttention(false)
+        if(handleInit) {
+          handleInit()
+        }
       })
     }
   }
@@ -69,7 +80,9 @@ const FocusCard = props => {
 }
 
 FocusCard.defaultProps = {
-  card: {}
+  card: {},
+  // 执行完成之后 回调函数
+  handleInit: () => {}
 }
 
 export default FocusCard

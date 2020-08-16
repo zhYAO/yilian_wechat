@@ -40,7 +40,7 @@ const Trends = props => {
   }
 
   const getList = (isReset = false) => {
-    if (hasNextPage) {
+    if (hasNextPage || isReset) {
       dispatch({
         type: 'trends/effectsDynamicList',
         payload: {
@@ -106,6 +106,7 @@ const Trends = props => {
         }
       }).then(() => {
         getList(true)
+        getRecommendAttention()
       })
     } else {
       dispatch({
@@ -116,6 +117,7 @@ const Trends = props => {
         }
       }).then(() => {
         getList(true)
+        getRecommendAttention()
       })
     }
   }
@@ -131,6 +133,7 @@ const Trends = props => {
         }
       }).then(() => {
         getList(true)
+        getRecommendAttention()
       })
     } else {
       dispatch({
@@ -141,6 +144,7 @@ const Trends = props => {
         }
       }).then(() => {
         getList(true)
+        getRecommendAttention()
       })
     }
     onCancel()
@@ -157,6 +161,7 @@ const Trends = props => {
         }
       }).then(() => {
         getList(true)
+        getRecommendAttention()
       })
     } else {
       dispatch({
@@ -167,6 +172,7 @@ const Trends = props => {
         }
       }).then(() => {
         getList(true)
+        getRecommendAttention()
       })
     }
     onCancel()
@@ -185,19 +191,19 @@ const Trends = props => {
       </SearchPart>
 
       {/* 推荐关注 */}
-      {focusCardsList && focusCardsList.length > 0 && (
-        <Block>
-          <CustomNavigator title="推荐关注" extraText={'>>更多'} rightClick={handleClick} />
-          <View>
-            {focusCardsList.map((item, index) => {
-              if (index < 3) {
-                return <FocusCard card={item} />
-              }
-            })}
-          </View>
-          <View className="container__gap"></View>
-        </Block>
-      )}
+      <CustomNavigator title="推荐关注" extraText={'>>更多'} rightClick={handleClick} />
+      <View>
+        {focusCardsList.map((item, index) => {
+          if (index < 3) {
+            return (
+              <View key={item.id}>
+                <FocusCard card={item} handleInit={() => getList(true)} />
+              </View>
+            )
+          }
+        })}
+      </View>
+      <View className="container__gap"></View>
 
       {/* 评论卡片 */}
       <View className="container__comment">

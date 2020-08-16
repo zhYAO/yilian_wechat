@@ -23,7 +23,7 @@ const RecommendListPage = props => {
   }
 
   const getList = (isReset = false) => {
-    if (hasNextPage) {
+    if (hasNextPage || isReset) {
       dispatch({
         type: 'recommendListPage/effectsRecommend',
         payload: {

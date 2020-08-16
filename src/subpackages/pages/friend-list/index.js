@@ -33,7 +33,7 @@ const FriendList = props => {
   }
 
   const getList = (isReset = false) => {
-    if (hasNextPage) {
+    if (hasNextPage || isReset) {
       dispatch({
         type: 'friendList/effectsRecommendList',
         payload: {

@@ -27,7 +27,7 @@ const Company = props => {
   }
 
   const getList = (isReset = false) => {
-    if (hasNextPage) {
+    if (hasNextPage || isReset) {
       dispatch({
         type: 'company/effectsCompanyList',
         payload: {

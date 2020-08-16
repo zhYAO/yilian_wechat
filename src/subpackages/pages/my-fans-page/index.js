@@ -23,7 +23,7 @@ const MyFansPage = props => {
   }
 
   const getList = (isReset = false) => {
-    if (hasNextPage) {
+    if (hasNextPage || isReset) {
       dispatch({
         type: 'myFansPage/effectsFansList',
         payload: {
