@@ -40,12 +40,12 @@ const tabList = [
 const TabBar = props => {
   const {
     dispatch,
-    common: { tabbarIndex }
+    common: { tabbarIndex, userInfo }
   } = props
 
   const handleClick = value => {
     const path = tabList[value] ? tabList[value].path || 'home' : 'home'
-    if (path === 'trends' && tabList[tabbarIndex].path === 'trends') {
+    if (path === 'trends' && tabList[tabbarIndex].path === 'trends' && userInfo.nickName) {
       // 再次点击trends 则跳转到发布动态页面
       navigateTo({
         url: pagejumplist['publish-dynamic'].path
