@@ -12,11 +12,13 @@ const CommentCard = props => {
     handleSharePopShow,
     handleZanClick,
     isFabulous,
-    editComment
+    editComment,
+    defaultShowComment,
+    isMine
   } = props
 
   const handleClick = () => {
-    if(card.type === 'USER') {
+    if (card.type === 'USER') {
       navigateTo({
         url: `${pagejumplist['personal-homepage'].path}?id=${card.foreignId}`
       })
@@ -30,11 +32,7 @@ const CommentCard = props => {
   return (
     <View className="container">
       <View className="container__top">
-        <Image
-          className="container__top__img"
-          src={card.imgPath}
-          onClick={handleClick}
-        />
+        <Image className="container__top__img" src={card.imgPath} onClick={handleClick} />
         <View className="container__top__content">
           <View className="content__desc">
             <View className="content__name">{card.publisher}</View>
@@ -42,11 +40,13 @@ const CommentCard = props => {
           </View>
           <View className="content__intro">{card.content}</View>
         </View>
-        <View className="container__top__options" onClick={handleShowAction}>
-          <View className="options__item"></View>
-          <View className="options__item"></View>
-          <View className="options__item"></View>
-        </View>
+        {!isMine && (
+          <View className="container__top__options" onClick={handleShowAction}>
+            <View className="options__item"></View>
+            <View className="options__item"></View>
+            <View className="options__item"></View>
+          </View>
+        )}
       </View>
 
       {/* 底部操作组件 */}
@@ -60,6 +60,7 @@ const CommentCard = props => {
         isFabulous={isFabulous}
         editComment={editComment}
         comments={card.comments}
+        defaultShowComment={defaultShowComment}
       />
     </View>
   )

@@ -14,6 +14,7 @@ import pagejumplist from '@configuration/pagejumplist.json'
 import CompanyCard from '@components/page-components/company-card'
 import ProductCard from '@components/page-components/product-card'
 import CommentCard from '@components/page-components/comment-card'
+import JobCard from '@components/page-components/job-card'
 import SharePop from '@components/page-components/share-pop'
 import './index.less'
 
@@ -25,7 +26,7 @@ const SearchPage = props => {
       searchRecord,
       hotRecord,
       isSearch,
-      searchData: { companys, dynamics, products },
+      searchData: { companys, dynamics, products, positions },
       current,
       tabList,
       actionSheetOpen
@@ -225,6 +226,7 @@ const SearchPage = props => {
         onChange={handleChange}
         onActionClick={handleActionClick}
         onClear={handleClear}
+        focus={true}
       />
 
       {/* {!isSearch && (
@@ -292,6 +294,13 @@ const SearchPage = props => {
                     isFabulous={item.isFabulous}
                   />
                 </View>
+              ))}
+            </View>
+          </AtTabsPane>
+          <AtTabsPane current={current} index={3}>
+            <View className="tab__item">
+              {positions.map(item => (
+                <JobCard key={item.id} card={item} />
               ))}
             </View>
           </AtTabsPane>

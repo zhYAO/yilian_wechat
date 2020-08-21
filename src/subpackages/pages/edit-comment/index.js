@@ -23,7 +23,12 @@ class EditComment extends Taro.Component {
   }
 
   componentDidMount() {
-    this.getData()
+    const {
+      editComment: { detail }
+    } = this.props
+    this.getData().then(() => {
+      this.handleEditComment({ commentUserId: detail.id, commentUserName: detail.publisher })
+    })
   }
 
   handleBack = () => {
@@ -31,13 +36,17 @@ class EditComment extends Taro.Component {
   }
 
   getData() {
-    const { dispatch } = this.props
-    const { id } = this.$router.params
-    dispatch({
-      type: 'editComment/effectsDetail',
-      payload: {
-        id
-      }
+    return new Promise(resolve => {
+      const { dispatch } = this.props
+      const { id } = this.$router.params
+      dispatch({
+        type: 'editComment/effectsDetail',
+        payload: {
+          id
+        }
+      }).then(() => {
+        resolve()
+      })
     })
   }
 
@@ -69,7 +78,7 @@ class EditComment extends Taro.Component {
         isOpened: false,
         replyId: '',
         content: '',
-        commentId: '',
+        commentId: ''
       }
     })
   }
@@ -197,7 +206,7 @@ class EditComment extends Taro.Component {
     this.onCancel()
   }
 
-  editComment({ commentId, commentUserId, commentUserName }) {
+  handleEditComment({ commentId, commentUserId, commentUserName }) {
     const {
       dispatch,
       editComment: { detail }
@@ -265,7 +274,8 @@ class EditComment extends Taro.Component {
             this.handleZanClick(detail.id, detail.isFabulous)
           }}
           isFabulous={detail.isFabulous}
-          editComment={this.editComment.bind(this)}
+          editComment={this.handleEditComment.bind(this)}
+          defaultShowComment={true}
         />
 
         <AtModal isOpened={isOpened}>
@@ -293,7 +303,7 @@ class EditComment extends Taro.Component {
           onCancel={this.onCancel}
           onClose={this.onCancel}
         >
-          <AtActionSheetItem onClick={() => this.handleCompanyAttention()}>
+          <AtActionSheetItem onClick={() => this.handleCompanyAttention(1)}>
             {detail.isAttention ? '取消关注' : '关注作者'}
           </AtActionSheetItem>
           <AtActionSheetItem onClick={this.handleFavoriteClick}>

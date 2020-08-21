@@ -79,7 +79,7 @@ const CompanyDetailInfo = props => {
           />
           <View className="container__bottom__btn">
             <View className="btn" onClick={handlePhoneCall}>
-              急速沟通
+              极速沟通
             </View>
             <View className="btn" onClick={() => handleAttentionClick(2)}>
               {companyDetail.isAttention ? '已关注' : '+ 关注'}

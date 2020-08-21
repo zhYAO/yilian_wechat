@@ -18,10 +18,11 @@ const CommonOptions = props => {
     handleFavoriteClick,
     isFavorite,
     comments = [],
-    editComment
+    editComment,
+    defaultShowComment,
   } = props
 
-  const [showComment, setShowComment] = useState(false)
+  const [showComment, setShowComment] = useState(!!defaultShowComment)
 
   const handleShowComment = () => {
     if (!editComment) {

@@ -233,6 +233,7 @@ class PersonalHomepage extends Taro.Component {
                     handleSharePopShow={this.handleSharePopShow}
                     handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
+                    isMine={isMine}
                   />
                 </View>
               )

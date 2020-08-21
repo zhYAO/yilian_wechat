@@ -13,7 +13,7 @@ export default {
   namespace: 'searchPage',
   state: {
     current: 0,
-    tabList: [{ title: '公司' }, { title: '产品' }, { title: '动态' }],
+    tabList: [{ title: '公司' }, { title: '产品' }, { title: '动态' }, { title: '职位' }],
     searchVal: '',
     searchRecord: ['搜索词1', '搜索词1', '搜索词1', '搜索词1', '搜索词1'],
     hotRecord: ['搜索词1', '搜索词1', '搜索词1'],
