@@ -1,4 +1,4 @@
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro, { useDidShow, useReachBottom } from '@tarojs/taro'
 import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyPart from '@components/page-components/company-part'
@@ -11,7 +11,7 @@ import './index.less'
 const Index = props => {
   const {
     dispatch,
-    common: { navBarPaddingTop, token },
+    common: { token },
     home: { bannerList, companyCardList, hotList, pageSize, page, hasNextPage }
   } = props
 
@@ -28,6 +28,10 @@ const Index = props => {
     getRecommend()
     getHotList()
   }, [])
+
+  useReachBottom(() => {
+    getHotList()
+  })
 
   const handleImgJump = url => {
     // 点击banner跳转
@@ -61,12 +65,7 @@ const Index = props => {
   }
 
   return (
-    <ScrollView
-      className="container"
-      style={{ paddingTop: navBarPaddingTop + 'px' }}
-      onScrollToLower={getHotList}
-      scrollY
-    >
+    <View className="container">
       {/* 头部搜索栏 */}
       <SearchPart className="search">
         {/* <View className="search__local">
@@ -113,13 +112,9 @@ const Index = props => {
 
       {/* 推荐产品 */}
       {/* <RecommendPart title={'推荐产品'} cardList={recommendCardList} /> */}
-    </ScrollView>
+    </View>
   )
 }
-//全局样式继承 你可以关掉
-// Index.options = {
-//   addGlobalClass: true
-// }
 export default connect(({ common, home }) => ({
   common,
   home

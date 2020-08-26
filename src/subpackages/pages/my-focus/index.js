@@ -1,10 +1,10 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtNavBar, AtTabs, AtTabsPane } from 'taro-ui'
+import { AtTabs, AtTabsPane } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
 import FocusCard from '@components/page-components/focus-card'
 import CompanyDetailCard from '@components/page-components/company-detail-card'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const MyFocus = props => {
@@ -15,17 +15,12 @@ const MyFocus = props => {
       tabList,
       attentionList: { companys = [], users = [] }
     },
-    loading,
-    common: { navBarPaddingTop }
+    loading
   } = props
 
   useDidShow(() => {
     getList()
   })
-
-  const handleBack = () => {
-    navigateBack()
-  }
 
   const handleClick = value => {
     dispatch({
@@ -44,8 +39,8 @@ const MyFocus = props => {
   }
 
   return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="我的关注" leftIconType="chevron-left" />
+    <View className="container">
+      <NavigationBar title="我的关注" hasLeftIcon={true} />
 
       <AtTabs current={current} tabList={tabList} onClick={handleClick}>
         <AtTabsPane current={current} index={0}>

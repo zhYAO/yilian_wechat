@@ -1,10 +1,10 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtNavBar, AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
+import { AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
 import CustomNavigator from '@components/page-components/custom-navigator'
 import CommonOptions from '@components/page-components/common-options'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 class JobDetail extends Taro.Component {
@@ -15,10 +15,6 @@ class JobDetail extends Taro.Component {
 
   componentDidMount() {
     this.getDetail()
-  }
-
-  handleBack = () => {
-    navigateBack()
   }
 
   getDetail = () => {
@@ -125,7 +121,7 @@ class JobDetail extends Taro.Component {
         isOpened: false,
         replyId: '',
         content: '',
-        commentId: '',
+        commentId: ''
       }
     })
   }
@@ -157,16 +153,11 @@ class JobDetail extends Taro.Component {
   render() {
     const {
       jobDetail: { detail, isOpened, replyName, content },
-      loading,
-      common: { navBarPaddingTop }
+      loading
     } = this.props
     return (
-      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar
-          onClickLeftIcon={this.handleBack}
-          title={detail.name}
-          leftIconType="chevron-left"
-        />
+      <View className="container">
+        <NavigationBar title={detail.name} hasLeftIcon={true} />
 
         <View className="container__intro">
           <View className="container__intro__title">{detail.name}</View>

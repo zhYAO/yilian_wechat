@@ -7,6 +7,7 @@ import pagejumplist from '@configuration/pagejumplist.json'
 import { removeStorageSync, setStorageSync } from '@crossplatform/apiservice/storage'
 import wxLogin from '@utils/wxLogin'
 import { showToast } from '@crossplatform/apiservice/toast'
+import { getGlobalData } from '@configuration/globaldata'
 import './index.less'
 
 const Mine = props => {
@@ -14,7 +15,6 @@ const Mine = props => {
     dispatch,
     common: {
       userInfo: { nickName, avatarUrl },
-      navBarPaddingTop,
       token
     },
     mine: {
@@ -33,6 +33,8 @@ const Mine = props => {
     },
     loading
   } = props
+
+  const { navBarPaddingTop } = getGlobalData()
 
   const [isLogin, setIsLogin] = useState(!!nickName)
 

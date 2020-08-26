@@ -1,9 +1,8 @@
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
 import ClassList from '@components/page-components/class-list'
 import { connect } from '@tarojs/redux'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 class ClassDetails extends Taro.Component {
@@ -14,10 +13,6 @@ class ClassDetails extends Taro.Component {
 
   componentWillMount() {
     this.getCompanyDetail()
-  }
-
-  handleBack = () => {
-    navigateBack()
   }
 
   getCompanyDetail = () => {
@@ -34,15 +29,15 @@ class ClassDetails extends Taro.Component {
   render() {
     const {
       classDetails: { classList },
-      loading,
-      common: { navBarPaddingTop }
+      loading
     } = this.props
 
     const { name } = this.$router.params
 
     return (
-      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar onClickLeftIcon={this.handleBack} title={name} leftIconType="chevron-left" />
+      <View className="container">
+        <NavigationBar title={name} hasLeftIcon={true} />
+
         <View className="container__list">
           {classList.map(item => (
             <ClassList key={item.id} card={item} />

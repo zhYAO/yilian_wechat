@@ -1,21 +1,15 @@
 import Taro, { useEffect, useState } from '@tarojs/taro'
 import { View, Block } from '@tarojs/components'
-import {
-  AtNavBar,
-  AtTabs,
-  AtTabsPane,
-  AtSearchBar,
-  AtActionSheet,
-  AtActionSheetItem
-} from 'taro-ui'
+import { AtTabs, AtTabsPane, AtSearchBar, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack, navigateTo } from '@crossplatform/apiservice/navigate'
+import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import CompanyCard from '@components/page-components/company-card'
 import ProductCard from '@components/page-components/product-card'
 import CommentCard from '@components/page-components/comment-card'
 import JobCard from '@components/page-components/job-card'
 import SharePop from '@components/page-components/share-pop'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const SearchPage = props => {
@@ -31,8 +25,7 @@ const SearchPage = props => {
       tabList,
       actionSheetOpen
     },
-    loading,
-    common: { navBarPaddingTop }
+    loading
   } = props
 
   const [itemActive, setItemActive] = useState({})
@@ -48,10 +41,6 @@ const SearchPage = props => {
       }
     })
   }, [])
-
-  const handleBack = () => {
-    navigateBack()
-  }
 
   const handleChange = val => {
     dispatch({
@@ -218,8 +207,8 @@ const SearchPage = props => {
   }
 
   return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="搜索" leftIconType="chevron-left" />
+    <View className="container">
+      <NavigationBar title="搜索" hasLeftIcon={true} />
 
       <AtSearchBar
         value={searchVal}

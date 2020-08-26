@@ -1,20 +1,19 @@
-import Taro, { useDidShow } from '@tarojs/taro'
-import { View, ScrollView } from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
+import Taro, { useDidShow, useReachBottom } from '@tarojs/taro'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { navigateBack, navigateTo } from '@crossplatform/apiservice/navigate'
+import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import CompanyCategory from '@components/page-components/company-category'
 import CustomNavigator from '@components/page-components/custom-navigator'
 import CompanyCard from '@components/page-components/company-card'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const Company = props => {
   const {
     dispatch,
     company: { companyCategoryList, companyCardList, pageSize, page, hasNextPage },
-    loading,
-    common: { navBarPaddingTop }
+    loading
   } = props
 
   useDidShow(() => {
@@ -22,9 +21,9 @@ const Company = props => {
     getLabel()
   }, [])
 
-  const handleBack = () => {
-    navigateBack()
-  }
+  useReachBottom(() => {
+    getList()
+  })
 
   const getList = (isReset = false) => {
     if (hasNextPage || isReset) {
@@ -56,13 +55,8 @@ const Company = props => {
   }
 
   return (
-    <ScrollView
-      className="container"
-      style={{ paddingTop: navBarPaddingTop + 'px' }}
-      onScrollToLower={getList}
-      scrollY
-    >
-      <AtNavBar onClickLeftIcon={handleBack} title="ELink" />
+    <View className="container">
+      <NavigationBar title="ELink" />
 
       <CustomNavigator title="公司分类" extraText=">>排序" rightClick={rightClick} />
 
@@ -75,7 +69,7 @@ const Company = props => {
       {companyCardList.map(item => {
         return <CompanyCard key={item.id} data={item} />
       })}
-    </ScrollView>
+    </View>
   )
 }
 

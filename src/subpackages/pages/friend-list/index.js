@@ -1,15 +1,13 @@
-import Taro, { useDidShow, useDidHide } from '@tarojs/taro'
+import Taro, { useDidShow, useDidHide, useReachBottom } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtNavBar } from 'taro-ui'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
 import FocusCard from '@components/page-components/focus-card'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const FriendList = props => {
   const {
     dispatch,
-    common: { navBarPaddingTop },
     friendList: { focusCardsList, pageSize, page, hasNextPage },
     loading
   } = props
@@ -28,9 +26,9 @@ const FriendList = props => {
     })
   })
 
-  const handleBack = () => {
-    navigateBack()
-  }
+  useReachBottom(() => {
+    getList()
+  })
 
   const getList = (isReset = false) => {
     if (hasNextPage || isReset) {
@@ -46,13 +44,8 @@ const FriendList = props => {
   }
 
   return (
-    <ScrollView
-      className="container"
-      style={{ paddingTop: navBarPaddingTop + 'px' }}
-      onScrollToLower={() => getList()}
-      scrollY
-    >
-      <AtNavBar onClickLeftIcon={handleBack} title="发现好友" leftIconType="chevron-left" />
+    <ScrollView className="container">
+      <NavigationBar title="发现好友" hasLeftIcon={true} />
       <View>
         {focusCardsList.map(item => {
           return <FocusCard card={item} />

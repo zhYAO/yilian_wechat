@@ -1,9 +1,9 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtNavBar, AtInput } from 'taro-ui'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
+import { AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { showToast } from '@crossplatform/apiservice/toast'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 class CommonEdit extends Taro.Component {
@@ -30,10 +30,6 @@ class CommonEdit extends Taro.Component {
     this.setState({
       inputVal: value
     })
-  }
-
-  handleBack = () => {
-    navigateBack()
   }
 
   handleChange = value => {
@@ -121,7 +117,6 @@ class CommonEdit extends Taro.Component {
 
   render() {
     const {
-      common: { navBarPaddingTop },
       commonEdit: { companyList },
       loading
     } = this.props
@@ -131,8 +126,8 @@ class CommonEdit extends Taro.Component {
     const { key, value, isCompanyApply = false } = this.$router.params
 
     return (
-      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar onClickLeftIcon={this.handleBack} title={ENUM[key]} leftIconType="chevron-left" />
+      <View className="container">
+        <NavigationBar title={ENUM[key]} hasLeftIcon={true} />
 
         <AtInput
           name="value"

@@ -1,15 +1,13 @@
-import Taro, { useDidShow } from '@tarojs/taro'
-import { View, Text, ScrollView } from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
+import Taro, { useDidShow, useReachBottom } from '@tarojs/taro'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyCard from '@components/page-components/company-card'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const RecommendListPage = props => {
   const {
     dispatch,
-    common: { navBarPaddingTop },
     recommendListPage: { companyCardList, pageSize, page, hasNextPage },
     loading
   } = props
@@ -18,9 +16,9 @@ const RecommendListPage = props => {
     getList(true)
   }, [])
 
-  const handleBack = () => {
-    navigateBack()
-  }
+  useReachBottom(() => {
+    getList()
+  })
 
   const getList = (isReset = false) => {
     if (hasNextPage || isReset) {
@@ -36,18 +34,13 @@ const RecommendListPage = props => {
   }
 
   return (
-    <ScrollView
-      className="container"
-      style={{ paddingTop: navBarPaddingTop + 'px' }}
-      onScrollToLower={getList}
-      scrollY
-    >
-      <AtNavBar onClickLeftIcon={handleBack} title="小易推荐" leftIconType="chevron-left" />
+    <View className="container">
+      <NavigationBar title="小易推荐" hasLeftIcon={true} />
 
       {companyCardList.map(item => {
         return <CompanyCard key={item.id} data={item} />
       })}
-    </ScrollView>
+    </View>
   )
 }
 

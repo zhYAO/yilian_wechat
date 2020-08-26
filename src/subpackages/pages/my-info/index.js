@@ -1,9 +1,10 @@
 import Taro, { useState, useDidShow, getUserInfo } from '@tarojs/taro'
 import { View, Image, Button } from '@tarojs/components'
-import { AtNavBar, AtList, AtListItem, AtActionSheet, AtActionSheetItem } from 'taro-ui'
+import { AtListItem, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack, navigateTo } from '@crossplatform/apiservice/navigate'
+import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const MyInfo = props => {
@@ -24,7 +25,6 @@ const MyInfo = props => {
     },
     loading,
     common: {
-      navBarPaddingTop,
       userInfo: { nickName, avatarUrl }
     }
   } = props
@@ -40,10 +40,6 @@ const MyInfo = props => {
     dispatch({
       type: 'myInfo/effectsUserInfo'
     })
-  }
-
-  const handleBack = () => {
-    navigateBack()
   }
 
   const handleJump = (url, params) => {
@@ -81,8 +77,8 @@ const MyInfo = props => {
   }
 
   return (
-    <View className="container" style={{ marginTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="我的资料" leftIconType="chevron-left" />
+    <View className="container">
+      <NavigationBar title='我的资料' hasLeftIcon={true} />
 
       <View className="container__header">
         <Image

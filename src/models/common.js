@@ -1,5 +1,4 @@
 import { getStorageSync } from '@crossplatform/apiservice/storage'
-import { getSystemInfo } from '@crossplatform/apiservice/systemInfo'
 
 export default {
   namespace: 'common',
@@ -17,7 +16,6 @@ export default {
     //   ? getStorageSync('user_info').erroMessage
     //   : '',
     tabbarIndex: 0,
-    navBarPaddingTop: 22,
     navBarHeight: 44,
     userInfo: getStorageSync('userInfo') || {}
   },
@@ -40,15 +38,6 @@ export default {
   },
   subscriptions: {
     init({ dispatch }) {
-      getSystemInfo({}).then(res => {
-        dispatch({
-          type: 'updateState',
-          payload: {
-            navBarPaddingTop: res.statusBarHeight || 22,
-            serviceInfo: res
-          }
-        })
-      })
     }
   }
 }

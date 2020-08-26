@@ -1,14 +1,13 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtNavBar } from 'taro-ui'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const IndustryLabel = props => {
   const {
     dispatch,
-    common: { navBarPaddingTop },
     industryLabel: { industryLabels, chosedLabels },
     mine: {
       userInfo: { labels = [] }
@@ -26,10 +25,6 @@ const IndustryLabel = props => {
       }
     })
   }, [])
-
-  const handleBack = () => {
-    navigateBack()
-  }
 
   const getLabelList = () => {
     dispatch({
@@ -84,8 +79,8 @@ const IndustryLabel = props => {
   }
 
   return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="关注领域" leftIconType="chevron-left" />
+    <View className="container">
+      <NavigationBar title="关注领域" hasLeftIcon={true} />
 
       <View className="container__chosed">
         {chosedLabels.map((item, index) => {

@@ -1,16 +1,14 @@
 @searchHeight: 88px;
 
-.search {
+.bar {
   position: fixed;
   top: 0;
   left: 0;
-  display: flex;
-  align-items: center;
-  width: calc(100% - 40px);
+  width: 100%;
   height: @searchHeight;
+  // box-sizing: border-box;
   z-index: 999;
   background-color: #fff;
-  padding: 0 20px;
   &__btn {
     display: flex;
     flex: 1;
@@ -36,7 +34,7 @@
   }
 }
 
-.search__empty {
+.bar__empty {
   height: @searchHeight;
   width: 100%;
 }

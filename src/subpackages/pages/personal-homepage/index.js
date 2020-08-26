@@ -1,10 +1,10 @@
 import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtNavBar, AtActionSheet, AtActionSheetItem } from 'taro-ui'
+import { AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
 import CommentCard from '@components/page-components/comment-card'
 import SharePop from '@components/page-components/share-pop'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 class PersonalHomepage extends Taro.Component {
@@ -33,10 +33,6 @@ class PersonalHomepage extends Taro.Component {
         isShareOpened: false
       }
     })
-  }
-
-  handleBack = () => {
-    navigateBack()
   }
 
   getInfo = () => {
@@ -184,8 +180,7 @@ class PersonalHomepage extends Taro.Component {
         isAttention,
         imgPath
       },
-      loading,
-      common: { navBarPaddingTop }
+      loading
     } = this.props
 
     const { isMine } = this.$router.params
@@ -193,8 +188,8 @@ class PersonalHomepage extends Taro.Component {
     const { itemActive } = this.state
 
     return (
-      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar onClickLeftIcon={this.handleBack} title={name} leftIconType="chevron-left" />
+      <View className="container">
+        <NavigationBar title={name} hasLeftIcon={true} />
 
         <View className="container__user">
           <Image

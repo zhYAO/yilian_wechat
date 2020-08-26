@@ -67,7 +67,7 @@ const FocusCard = props => {
             card.labels.length > 0 &&
             card.labels.map((item, index) => {
               if (index < 4) {
-                return <View className="labels__item">{item}</View>
+                return <View key={index} className="labels__item">{item}</View>
               }
             })}
         </View>

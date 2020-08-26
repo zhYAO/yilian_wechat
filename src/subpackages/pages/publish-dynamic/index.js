@@ -1,8 +1,9 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtNavBar, AtTextarea } from 'taro-ui'
+import { AtTextarea } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 class PublishDynamic extends Taro.Component {
@@ -15,10 +16,6 @@ class PublishDynamic extends Taro.Component {
 
   componentWillUnmount() {
     this.handleClearData()
-  }
-
-  handleBack = () => {
-    navigateBack()
   }
 
   handleChange = value => {
@@ -99,13 +96,12 @@ class PublishDynamic extends Taro.Component {
     const {
       dispatch,
       publishDynamic: { value = '' },
-      loading,
-      common: { navBarPaddingTop }
+      loading
     } = this.props
 
     return (
-      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar onClickLeftIcon={this.handleBack} title="发动态" leftIconType="chevron-left" />
+      <View className="container">
+        <NavigationBar title='发动态' hasLeftIcon={true} />
 
         <View className="container__tips">
           <View>发布活动内容：</View>

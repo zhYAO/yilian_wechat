@@ -1,11 +1,11 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtNavBar, AtTabs, AtTabsPane } from 'taro-ui'
+import { AtTabs, AtTabsPane } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
 import ProductCardFav from '@components/page-components/product-card-fav'
 import PositionCardFav from '@components/page-components/position-card-fav'
 import DynamicCardFav from '@components/page-components/dynamic-card-fav'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const MyFavorite = props => {
@@ -13,16 +13,11 @@ const MyFavorite = props => {
     dispatch,
     myFavorite: { current, tabList, dynamicList = [], positionList = [], productList = [] },
     loading,
-    common: { navBarPaddingTop }
   } = props
 
   useDidShow(() => {
     getList(true)
   }, [])
-
-  const handleBack = () => {
-    navigateBack()
-  }
 
   const handleClick = value => {
     dispatch({
@@ -41,8 +36,8 @@ const MyFavorite = props => {
   }
 
   return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="我的收藏" leftIconType="chevron-left" />
+    <View className="container">
+      <NavigationBar title='我的收藏' hasLeftIcon={true} />
 
       <AtTabs current={current} tabList={tabList} onClick={handleClick}>
         <AtTabsPane current={current} index={0}>

@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtNavBar, AtTabs, AtTabsPane, AtActionSheet, AtActionSheetItem } from 'taro-ui'
+import { AtTabs, AtTabsPane, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack, navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
@@ -10,6 +10,7 @@ import CommentCard from '@components/page-components/comment-card'
 import CompanyDetailInfo from '@components/page-components/company-detail-info'
 import SharePop from '@components/page-components/share-pop'
 import { makePhoneCall } from '@crossplatform/apiservice/makephonecall'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 class CompanyDetail extends Taro.Component {
@@ -196,6 +197,7 @@ class CompanyDetail extends Taro.Component {
   }
 
   handleClearData = () => {
+    const { dispatch } = this.props
     dispatch({
       type: 'companyDetail/updateState',
       payload: {
@@ -213,7 +215,6 @@ class CompanyDetail extends Taro.Component {
 
   render() {
     const {
-      common: { navBarPaddingTop },
       companyDetail: {
         current,
         tabList,
@@ -231,12 +232,8 @@ class CompanyDetail extends Taro.Component {
     const { itemActive } = this.state
 
     return (
-      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar
-          onClickLeftIcon={this.handleBack}
-          title={companyDetail.name}
-          leftIconType="chevron-left"
-        />
+      <View className="container">
+        <NavigationBar title={companyDetail.name} hasLeftIcon={true} />
 
         <View className="container__user">
           <Image

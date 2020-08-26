@@ -3,22 +3,19 @@ import { View, Image } from '@tarojs/components'
 import { AtNavBar, AtInput } from 'taro-ui'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import { connect } from '@tarojs/redux'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const AboutUs = props => {
-  const {
-    aboutUs,
-    loading,
-    common: { navBarPaddingTop }
-  } = props
+  const { aboutUs, loading } = props
 
   const handleBack = () => {
     navigateBack()
   }
 
   return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="关于我们" leftIconType="chevron-left" />
+    <View className="container">
+      <NavigationBar title="关于我们" hasLeftIcon={true} />
 
       <View className="container__content">
         <Image

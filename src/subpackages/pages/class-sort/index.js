@@ -1,15 +1,13 @@
 import Taro, { useDidShow } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
 import ClassCard from '@components/page-components/class-card'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const ClassSort = props => {
   const {
     dispatch,
-    common: { navBarPaddingTop },
     classSort: { classList },
     loading
   } = props
@@ -17,10 +15,6 @@ const ClassSort = props => {
   useDidShow(() => {
     getLabel()
   }, [])
-
-  const handleBack = () => {
-    navigateBack()
-  }
 
   const getLabel = () => {
     dispatch({
@@ -49,8 +43,8 @@ const ClassSort = props => {
   }
 
   return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-      <AtNavBar onClickLeftIcon={handleBack} title="排序" leftIconType="chevron-left" />
+    <View className="container">
+      <NavigationBar title="排序" hasLeftIcon={true} />
 
       {classList.map((item, index) => (
         <ClassCard card={item} index={index} handleChangeSort={changeSort} />

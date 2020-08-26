@@ -1,8 +1,7 @@
-import Taro, { render } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import {
-  AtNavBar,
   AtModal,
   AtModalHeader,
   AtModalContent,
@@ -12,8 +11,8 @@ import {
   AtActionSheetItem
 } from 'taro-ui'
 import CommentCard from '@components/page-components/comment-card'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
 import SharePop from '@components/page-components/share-pop'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 class EditComment extends Taro.Component {
@@ -29,10 +28,6 @@ class EditComment extends Taro.Component {
     this.getData().then(() => {
       this.handleEditComment({ commentUserId: detail.id, commentUserName: detail.publisher })
     })
-  }
-
-  handleBack = () => {
-    navigateBack()
   }
 
   getData() {
@@ -257,15 +252,11 @@ class EditComment extends Taro.Component {
     const {
       editComment: { detail, isOpened, replyName, content, isShareOpened, actionSheetOpen },
       loading,
-      common: { navBarPaddingTop }
     } = this.props
     return (
-      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar
-          onClickLeftIcon={this.handleBack.bind(this)}
-          title={`${detail.publisher}的动态`}
-          leftIconType="chevron-left"
-        />
+      <View className="container">
+        <NavigationBar title={`${detail.publisher}的动态`} hasLeftIcon={true} />
+
         <CommentCard
           card={detail}
           handleShowAction={this.onShow.bind(this)}

@@ -1,10 +1,10 @@
-import Taro, { useDidShow, render } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { View, Image, Video } from '@tarojs/components'
-import { AtNavBar, AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
+import { AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
 import CustomNavigator from '@components/page-components/custom-navigator'
 import CommonOptions from '@components/page-components/common-options'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 class ProductDetail extends Taro.Component {
@@ -15,10 +15,6 @@ class ProductDetail extends Taro.Component {
 
   componentDidMount() {
     this.getData()
-  }
-
-  handleBack = () => {
-    navigateBack()
   }
 
   getData() {
@@ -158,17 +154,12 @@ class ProductDetail extends Taro.Component {
   render() {
     const {
       productDetail: { detail, isOpened, replyName, content },
-      loading,
-      common: { navBarPaddingTop }
+      loading
     } = this.props
 
     return (
-      <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar
-          onClickLeftIcon={this.handleBack}
-          title={detail.name}
-          leftIconType="chevron-left"
-        />
+      <View className="container">
+        <NavigationBar title={detail.name} hasLeftIcon={true} />
 
         <View className="container__top">
           <Video className="container__top__banner" src={detail.videoPath}></Video>

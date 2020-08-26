@@ -11,7 +11,6 @@ import './index.less'
 const Discover = props => {
   const {
     dispatch,
-    common: { navBarPaddingTop },
     discover: { bannerList, current, tabList, jobList, videoList, comentCardList, actionSheetOpen }
   } = props
 
@@ -171,7 +170,7 @@ const Discover = props => {
   }
 
   return (
-    <View className="container" style={{ paddingTop: navBarPaddingTop + 'px' }}>
+    <View className="container">
       {/* 头部搜索栏 */}
       <SearchPart></SearchPart>
 

@@ -1,5 +1,5 @@
-import Taro, { useDidShow, useState, usePullDownRefresh } from '@tarojs/taro'
-import { View, ScrollView, Block } from '@tarojs/components'
+import Taro, { useDidShow, useState, useReachBottom, usePullDownRefresh } from '@tarojs/taro'
+import { View } from '@tarojs/components'
 import { AtIcon, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import SearchPart from '@components/page-components/search-part'
@@ -14,7 +14,6 @@ import './index.less'
 const Trends = props => {
   const {
     dispatch,
-    common: { navBarPaddingTop },
     trends: {
       focusCardsList,
       comentCardList,
@@ -29,9 +28,23 @@ const Trends = props => {
   const [itemActive, setItemActive] = useState({})
 
   useDidShow(() => {
-    getList(true)
-    getRecommendAttention()
+    getInitData()
   }, [])
+
+  usePullDownRefresh(() => {
+    getInitData().then(() => {
+      Taro.stopPullDownRefresh()
+    })
+  })
+
+  useReachBottom(() => {
+    getList()
+  })
+
+  // 获取初始化数据
+  const getInitData = () => {
+    return Promise.all([getList(true), getRecommendAttention()])
+  }
 
   const handleClick = () => {
     navigateTo({
@@ -40,22 +53,31 @@ const Trends = props => {
   }
 
   const getList = (isReset = false) => {
-    if (hasNextPage || isReset) {
-      dispatch({
-        type: 'trends/effectsDynamicList',
-        payload: {
-          pageSize,
-          page,
-          isReset
-        }
-      })
-    }
+    return new Promise(resolve => {
+      if (hasNextPage || isReset) {
+        dispatch({
+          type: 'trends/effectsDynamicList',
+          payload: {
+            pageSize,
+            page,
+            isReset
+          }
+        }).then(() => {
+          resolve()
+        })
+      }
+      resolve()
+    })
   }
 
   const getRecommendAttention = () => {
-    dispatch({
-      type: 'trends/effectsRecommendAttention',
-      payload: {}
+    return new Promise(resolve => {
+      dispatch({
+        type: 'trends/effectsRecommendAttention',
+        payload: {}
+      }).then(() => {
+        resolve()
+      })
     })
   }
 
@@ -105,8 +127,7 @@ const Trends = props => {
           type: 5
         }
       }).then(() => {
-        getList(true)
-        getRecommendAttention()
+        getInitData()
       })
     } else {
       dispatch({
@@ -116,8 +137,7 @@ const Trends = props => {
           type: 5
         }
       }).then(() => {
-        getList(true)
-        getRecommendAttention()
+        getInitData()
       })
     }
   }
@@ -132,8 +152,7 @@ const Trends = props => {
           type: type === 'USER' ? 1 : 2
         }
       }).then(() => {
-        getList(true)
-        getRecommendAttention()
+        getInitData()
       })
     } else {
       dispatch({
@@ -143,8 +162,7 @@ const Trends = props => {
           type: type === 'USER' ? 1 : 2
         }
       }).then(() => {
-        getList(true)
-        getRecommendAttention()
+        getInitData()
       })
     }
     onCancel()
@@ -160,8 +178,7 @@ const Trends = props => {
           type: 5
         }
       }).then(() => {
-        getList(true)
-        getRecommendAttention()
+        getInitData()
       })
     } else {
       dispatch({
@@ -171,20 +188,14 @@ const Trends = props => {
           type: 5
         }
       }).then(() => {
-        getList(true)
-        getRecommendAttention()
+        getInitData()
       })
     }
     onCancel()
   }
 
   return (
-    <ScrollView
-      className="container"
-      style={{ paddingTop: navBarPaddingTop + 'px' }}
-      onScrollToLower={() => getList()}
-      scrollY
-    >
+    <View className="container">
       {/* 头部搜索栏 */}
       <SearchPart>
         <AtIcon value="add-circle" size="20" color="#333" onClick={handleClick}></AtIcon>
@@ -240,9 +251,14 @@ const Trends = props => {
       </AtActionSheet>
 
       {/* <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} /> */}
-    </ScrollView>
+    </View>
   )
 }
+
+Trends.config = {
+  enablePullDownRefresh: true
+}
+
 export default connect(({ common, trends }) => ({
   common,
   trends

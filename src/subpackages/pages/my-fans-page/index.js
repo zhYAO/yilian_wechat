@@ -1,15 +1,13 @@
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro, { useDidShow, useReachBottom } from '@tarojs/taro'
 import { ScrollView } from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import FocusCard from '@components/page-components/focus-card'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
+import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
 const MyFansPage = props => {
   const {
     dispatch,
-    common: { navBarPaddingTop },
     myFansPage: { fansList, pageSize, page, hasNextPage },
     loading
   } = props
@@ -18,9 +16,9 @@ const MyFansPage = props => {
     getList(true)
   }, [])
 
-  const handleBack = () => {
-    navigateBack()
-  }
+  useReachBottom(() => {
+    getList()
+  })
 
   const getList = (isReset = false) => {
     if (hasNextPage || isReset) {
@@ -36,13 +34,8 @@ const MyFansPage = props => {
   }
 
   return (
-    <ScrollView
-      className="container"
-      style={{ paddingTop: navBarPaddingTop + 'px' }}
-      onScrollToLower={getList}
-      scrollY
-    >
-      <AtNavBar onClickLeftIcon={handleBack} title="我的粉丝" leftIconType="chevron-left" />
+    <ScrollView className="container">
+      <NavigationBar title="我的粉丝" hasLeftIcon={true} />
 
       {fansList.map(item => {
         return <FocusCard key={item.id} card={item} />
