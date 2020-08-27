@@ -199,7 +199,7 @@ class ProductDetail extends Taro.Component {
           />
         </View>
 
-        <AtModal isOpened={isOpened}>
+        <AtModal isOpened={isOpened} style={{display: isOpened ? 'unset' : 'none'}}>
           <AtModalHeader>回复{replyName}</AtModalHeader>
           <AtModalContent>
             <AtInput

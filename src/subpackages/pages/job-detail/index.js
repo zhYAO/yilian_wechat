@@ -182,10 +182,9 @@ class JobDetail extends Taro.Component {
         <CustomNavigator title="任职要求" />
         <View className="container__desc">{detail.jobRequirements}</View>
 
-        <View className="container__gap"></View>
-
         {/* 底部操作组件 */}
         <View className="container__options">
+          <View className="container__gap"></View>
           <CommonOptions
             optionId={detail.id}
             shareNum={detail.forwardCount}
@@ -200,9 +199,12 @@ class JobDetail extends Taro.Component {
             editComment={this.editComment.bind(this)}
             comments={detail.comments}
           />
+          <View className="container__options__btn" >
+            快速申请
+          </View>
         </View>
 
-        <AtModal isOpened={isOpened}>
+        <AtModal isOpened={isOpened} style={{display: isOpened ? 'unset' : 'none'}}>
           <AtModalHeader>回复{replyName}</AtModalHeader>
           <AtModalContent>
             <AtInput

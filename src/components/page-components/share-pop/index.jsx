@@ -16,7 +16,7 @@ const SharePop = props => {
   }
 
   return (
-    <AtFloatLayout isOpened={isOpened} onClose={handleClose}>
+    <AtFloatLayout isOpened={isOpened} onClose={handleClose} style={{display: isOpened ? 'unset' : 'none'}}>
       <View className="container">
         <View className="container__title">
           <View className="container__title__text">转发动态</View>

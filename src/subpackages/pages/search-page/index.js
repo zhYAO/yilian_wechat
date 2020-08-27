@@ -313,7 +313,7 @@ const SearchPage = props => {
         {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
       </AtActionSheet>
 
-      {/* <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} /> */}
+      <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} />
     </View>
   )
 }

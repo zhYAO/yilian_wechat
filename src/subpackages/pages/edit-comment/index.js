@@ -269,7 +269,7 @@ class EditComment extends Taro.Component {
           defaultShowComment={true}
         />
 
-        <AtModal isOpened={isOpened}>
+        <AtModal isOpened={isOpened} style={{display: isOpened ? 'unset' : 'none'}}>
           <AtModalHeader>回复{replyName}</AtModalHeader>
           <AtModalContent>
             <AtInput
@@ -286,7 +286,7 @@ class EditComment extends Taro.Component {
           </AtModalAction>
         </AtModal>
 
-        {/* <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} /> */}
+        <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />
 
         <AtActionSheet
           isOpened={actionSheetOpen}
