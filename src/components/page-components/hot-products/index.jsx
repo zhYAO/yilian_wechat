@@ -30,6 +30,7 @@ const HotProducts = props => {
             >
               <Image src={item.imgPath} mode="aspectFill" />
               <View className="hot__name">{item.name}</View>
+              <View className="hot__subname">{item.companyName}</View>
             </View>
           )
         })}
