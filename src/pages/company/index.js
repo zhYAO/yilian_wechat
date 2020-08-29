@@ -7,6 +7,7 @@ import CompanyCategory from '@components/page-components/company-category'
 import CustomNavigator from '@components/page-components/custom-navigator'
 import CompanyCard from '@components/page-components/company-card'
 import NavigationBar from '@components/page-components/navigation-bar'
+import StickyWrap from '@components/page-components/sticky-wrap'
 import './index.less'
 
 const Company = props => {
@@ -63,7 +64,9 @@ const Company = props => {
       {/* 公司分类 */}
       <CompanyCategory list={companyCategoryList} />
 
-      <CustomNavigator title="所有公司" />
+      <StickyWrap height={40} fixTop={40}>
+        <CustomNavigator title="所有公司" />
+      </StickyWrap>
 
       {/* 所有公司 */}
       {companyCardList.map(item => {

@@ -5,8 +5,10 @@ import { connect } from '@tarojs/redux'
 import CustomNavigator from '@components/page-components/custom-navigator'
 import CommonOptions from '@components/page-components/common-options'
 import NavigationBar from '@components/page-components/navigation-bar'
-import { navigateTo } from '@crossplatform/apiservice/navigate'
+import { navigateTo, navigateBack } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
+import { getStorageSync } from '@crossplatform/apiservice/storage'
+import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
 class JobDetail extends Taro.Component {
@@ -14,7 +16,8 @@ class JobDetail extends Taro.Component {
     super(props)
     this.state = {
       isQuickSend: false,
-      fileName: ''
+      fileName: '',
+      tempFilePaths: {}
     }
   }
 
@@ -169,28 +172,49 @@ class JobDetail extends Taro.Component {
 
   // 选择上传文件
   chooseMessageUpload() {
-    const {
-      dispatch,
-      jobDetail: { detail }
-    } = this.props
+    const self = this
     Taro.chooseMessageFile({
-      count: 10,
+      count: 1,
       type: 'file',
       success(res) {
         // tempFilePath可以作为img标签的src属性显示图片
-        const tempFilePaths = res.tempFiles
-
-        dispatch({
-          type: 'jobDetail/effectsCompanyApply',
-          payload: {
-            file: tempFilePaths[0],
-            positionId: detail.id
-          }
-        }).then(() => {
-          this.setState({
-            fileName: tempFilePaths[0].name
-          })
+        const tempFilePaths = res.tempFiles[0]
+        self.setState({
+          tempFilePaths,
+          fileName: tempFilePaths.name
         })
+      }
+    })
+  }
+
+  sendResume() {
+    const {
+      jobDetail: { detail },
+      common: { token }
+    } = this.props
+    const { tempFilePaths } = this.state
+    Taro.uploadFile({
+      url: 'https://www.ilove01.cn/e-link-api/company-position/apply',
+      filePath: tempFilePaths.path,
+      name: 'file',
+      header: {
+        'Content-Type': 'multipart/form-data',
+        token: token || getStorageSync('token')
+      },
+      formData: {
+        positionId: detail.id
+      },
+      success(res) {
+        const data = JSON.parse(res.data)
+        if (data.code === '0000') {
+          showToast({
+            title: '发送成功'
+          })
+          const timer = setTimeout(() => {
+            clearTimeout(timer)
+            navigateBack()
+          }, 1000)
+        }
       }
     })
   }
@@ -262,14 +286,14 @@ class JobDetail extends Taro.Component {
                 投递简历{fileName ? `(${fileName})` : ''}
               </View>
               <View className="container__resume__options">
-                <View className="options" onClick={this.chooseMessageUpload}>
+                <View className="options" onClick={this.chooseMessageUpload.bind(this)}>
                   ＋
                 </View>
                 <View className="options options--close">×</View>
               </View>
             </View>
             <View className="container__options">
-              <View className="container__options__btn" onClick={() => {}}>
+              <View className="container__options__btn" onClick={this.sendResume}>
                 发送
               </View>
             </View>

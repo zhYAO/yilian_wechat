@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components'
 import CustomNavigator from '@components/page-components/custom-navigator'
 import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
+import StickyWrap from '@components/page-components/sticky-wrap'
 import './index.less'
 
 const HotProducts = props => {
@@ -16,7 +17,9 @@ const HotProducts = props => {
 
   return (
     <View className="container">
-      <CustomNavigator title={title} />
+      <StickyWrap height={40} fixTop={40}>
+        <CustomNavigator title={title} />
+      </StickyWrap>
       <View className="container__cards">
         {hotList.map(item => {
           return (
