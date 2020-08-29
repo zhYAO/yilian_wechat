@@ -22,11 +22,11 @@ export default {
         yield put({
           type: 'updateState',
           payload: {
-            fansList: isReset ? data : fansList.concat(data),
+            fansList: isReset ? data.records : fansList.concat(data.records),
             page: isReset ? 1 : page + 1
           }
         })
-        if (data.length < pageSize) {
+        if (data.records.length < pageSize) {
           yield put({
             type: 'updateState',
             payload: {

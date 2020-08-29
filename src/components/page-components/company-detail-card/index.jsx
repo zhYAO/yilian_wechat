@@ -7,7 +7,7 @@ import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
 const CompanyDetailCard = props => {
-  const { card } = props
+  const { card, handleInit } = props
 
   const [btnName, setBtnName] = useState(card.isAttention ? '取消关注' : '+ 关注')
   const [isAttention, setIsAttention] = useState(card.isAttention)
@@ -30,6 +30,9 @@ const CompanyDetailCard = props => {
         })
         setBtnName('取消关注')
         setIsAttention(true)
+        if(handleInit) {
+          handleInit()
+        }
       })
     } else {
       attentionRemoveRequest({
@@ -41,20 +44,29 @@ const CompanyDetailCard = props => {
         })
         setBtnName('+ 关注')
         setIsAttention(false)
+        if(handleInit) {
+          handleInit()
+        }
       })
     }
   }
 
   return (
     <View className="container" onClick={handleClick}>
-      <Image className="container__img" src={card.src} />
+      <Image className="container__img" src={card.logoPath} />
       <View className="container__content">
         <Text className="container__content__title">{card.name}</Text>
         <Text className="container__content__intro">{card.theme}</Text>
         <View className="container__content__labels">
           {card.labels &&
             card.labels.length > 0 &&
-            card.labels.map(item => <View className="labels__item">{item}</View>)}
+            card.labels.map((item, index) => {
+              if(index < 3) {
+                return (
+                  <View className="labels__item">{item}</View>
+                )
+              }
+            })}
         </View>
       </View>
       <View className="container__btn" onClick={handleAttention}>

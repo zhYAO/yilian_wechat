@@ -1,5 +1,5 @@
 import * as jobDetailApi from './service'
-import { positionDetailRequest } from '@service/company-controller'
+import { positionDetailRequest, companyApplyRequest } from '@service/company-controller'
 import { addCommentRequest } from '@service/info-controller'
 import {
   fabulousRequest,
@@ -29,6 +29,17 @@ export default {
             detail: data
           }
         })
+      }
+    },
+    *effectsCompanyApply({ payload }, { call, put }) {
+      const { data } = yield call(companyApplyRequest, { ...payload })
+      if (data) {
+        // yield put({
+        //   type: 'updateState',
+        //   payload: {
+        //     detail: data
+        //   }
+        // })
       }
     },
     *effectsfabulous({ payload }, { call, put }) {

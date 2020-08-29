@@ -5,6 +5,7 @@ import { connect } from '@tarojs/redux'
 import CommentCard from '@components/page-components/comment-card'
 import SharePop from '@components/page-components/share-pop'
 import NavigationBar from '@components/page-components/navigation-bar'
+import { stopPullDownRefresh } from '@crossplatform/apiservice/reflash'
 import './index.less'
 
 class PersonalHomepage extends Taro.Component {
@@ -35,12 +36,22 @@ class PersonalHomepage extends Taro.Component {
     })
   }
 
+  onPullDownRefresh() {
+    this.getInfo().then(() => {
+      stopPullDownRefresh()
+    })
+  }
+
   getInfo = () => {
-    const { dispatch } = this.props
-    const { id } = this.$router.params
-    dispatch({
-      type: 'personalHomepage/effectsGetInfo',
-      payload: { id }
+    return new Promise(resolve => {
+      const { dispatch } = this.props
+      const { id } = this.$router.params
+      dispatch({
+        type: 'personalHomepage/effectsGetInfo',
+        payload: { id }
+      }).then(() => {
+        resolve()
+      })
     })
   }
 
@@ -261,6 +272,10 @@ class PersonalHomepage extends Taro.Component {
       </View>
     )
   }
+}
+
+PersonalHomepage.config = {
+  enablePullDownRefresh: true
 }
 
 export default connect(({ common, personalHomepage, loading }) => ({

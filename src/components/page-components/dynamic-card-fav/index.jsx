@@ -7,7 +7,7 @@ import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
 const DynamicCardFav = props => {
-  const { card, noBtn } = props
+  const { card, noBtn, handleInit } = props
 
   const [btnName, setBtnName] = useState(card.isFavorite ? '取消收藏' : '收藏')
   const [isFavorite, setIsFavorite] = useState(card.isFavorite)
@@ -30,6 +30,9 @@ const DynamicCardFav = props => {
         })
         setBtnName('取消收藏')
         setIsFavorite(true)
+        if(handleInit) {
+          handleInit()
+        }
       })
     } else {
       favoriteRemoveRequest({
@@ -41,6 +44,9 @@ const DynamicCardFav = props => {
         })
         setBtnName('收藏')
         setIsFavorite(false)
+        if(handleInit) {
+          handleInit()
+        }
       })
     }
   }
@@ -64,7 +70,8 @@ const DynamicCardFav = props => {
 
 DynamicCardFav.defaultProps = {
   card: {},
-  noBtn: false
+  noBtn: false,
+  handleInit: () => {}
 }
 
 export default DynamicCardFav

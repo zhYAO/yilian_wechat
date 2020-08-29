@@ -9,6 +9,7 @@ import CommentCard from '@components/page-components/comment-card'
 import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import SharePop from '@components/page-components/share-pop'
+import { stopPullDownRefresh } from '@crossplatform/apiservice/reflash'
 import './index.less'
 
 const Trends = props => {
@@ -33,7 +34,7 @@ const Trends = props => {
 
   usePullDownRefresh(() => {
     getInitData().then(() => {
-      Taro.stopPullDownRefresh()
+      stopPullDownRefresh()
     })
   })
 

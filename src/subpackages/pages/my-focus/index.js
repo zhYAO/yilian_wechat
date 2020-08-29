@@ -46,14 +46,14 @@ const MyFocus = props => {
         <AtTabsPane current={current} index={0}>
           <View>
             {users.map(item => {
-              return <FocusCard card={item} />
+              return <FocusCard handleInit={getList} card={item} />
             })}
           </View>
         </AtTabsPane>
         <AtTabsPane current={current} index={1}>
           <View>
             {companys.map(item => {
-              return <CompanyDetailCard card={item} />
+              return <CompanyDetailCard handleInit={getList} card={item} />
             })}
           </View>
         </AtTabsPane>

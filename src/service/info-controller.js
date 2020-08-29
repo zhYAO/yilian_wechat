@@ -64,13 +64,23 @@ export const videoDetailRequest = ({ id }) => {
   })
 }
 
-
 /**
  * 推荐关注
  */
-export const recommendAttentionRequest = (data) => {
+export const recommendAttentionRequest = data => {
   return Request({
     url: '/user/recommend',
+    method: 'GET',
+    data
+  })
+}
+
+/**
+ * 解码手机号数据
+ */
+export const encryptedPhoneRequest = data => {
+  return Request({
+    url: '/wx-mini-data/encrypted',
     method: 'GET',
     data
   })

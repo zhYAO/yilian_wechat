@@ -25,42 +25,106 @@ export default {
     jobList: [],
     videoList: [],
     comentCardList: [],
-    actionSheetOpen: false
+    actionSheetOpen: false,
+    isShareOpened: false,
+    hasNextPage: [true, true, true],
+    pageSize: [10, 10, 10],
+    page: [1, 1, 1]
   },
 
   effects: {
     *effectsPositionList({ payload }, { call, put, select }) {
-      const { jobList } = yield select(state => state.discover)
-      const { data } = yield call(discoverApi.positionList, { ...payload })
+      const { jobList, pageSize, page, hasNextPage } = yield select(state => state.discover)
+      const { isReset } = payload
+      const { data } = yield call(discoverApi.positionList, {
+        pageSize: payload.pageSize,
+        page: isReset ? 1 : payload.page + 1
+      })
       if (data) {
         yield put({
           type: 'updateState',
           payload: {
-            jobList: data
+            jobList: isReset ? data.records : jobList.concat(data.records),
+            page: [isReset ? 1 : page + 1, page[1], page[2]]
+          }
+        })
+        if (data.records.length < pageSize[0]) {
+          yield put({
+            type: 'updateState',
+            payload: {
+              hasNextPage: [false, hasNextPage[1], hasNextPage[2]]
+            }
+          })
+        }
+      } else {
+        yield put({
+          type: 'updateState',
+          payload: {
+            hasNextPage: [false, hasNextPage[1], hasNextPage[2]]
           }
         })
       }
     },
     *effectsVideoList({ payload }, { call, put, select }) {
-      const { videoList } = yield select(state => state.discover)
-      const { data } = yield call(discoverApi.videoList, { ...payload })
+      const { videoList, pageSize, page, hasNextPage } = yield select(state => state.discover)
+      const { isReset } = payload
+      const { data } = yield call(discoverApi.videoList, {
+        pageSize: payload.pageSize,
+        page: isReset ? 1 : payload.page + 1
+      })
       if (data) {
         yield put({
           type: 'updateState',
           payload: {
-            videoList: data
+            videoList: isReset ? data.records : videoList.concat(data.records),
+            page: [page[0], isReset ? 1 : page + 1, page[2]]
+          }
+        })
+        if (data.records.length < pageSize[1]) {
+          yield put({
+            type: 'updateState',
+            payload: {
+              hasNextPage: [hasNextPage[0], false, hasNextPage[2]]
+            }
+          })
+        }
+      } else {
+        yield put({
+          type: 'updateState',
+          payload: {
+            hasNextPage: [hasNextPage[0], false, hasNextPage[2]]
           }
         })
       }
     },
     *effectsActivityList({ payload }, { call, put, select }) {
-      const { comentCardList } = yield select(state => state.discover)
-      const { data } = yield call(discoverApi.activityList, { ...payload })
+      const { comentCardList, pageSize, page, hasNextPage } = yield select(state => state.discover)
+      const { isReset } = payload
+      const { data } = yield call(discoverApi.activityList, {
+        pageSize: payload.pageSize,
+        page: isReset ? 1 : payload.page + 1
+      })
       if (data) {
         yield put({
           type: 'updateState',
           payload: {
-            comentCardList: data
+            comentCardList: isReset ? data.records : comentCardList.concat(data.records),
+            page: [page[0], page[1], isReset ? 1 : page + 1]
+          }
+        })
+        if (data.records.length < pageSize[2]) {
+          yield put({
+            type: 'updateState',
+            payload: {
+              hasNextPage: [hasNextPage[0], hasNextPage[1], false]
+            }
+          })
+        }
+      } else {
+        yield put({
+          type: 'updateState',
+          payload: {
+            hasNextPage: [hasNextPage[0], hasNextPage[1], false]
           }
         })
       }

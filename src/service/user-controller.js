@@ -171,7 +171,7 @@ export const myTakepartRequest = data => {
 export const applyCompanyRequest = data => {
   return Request({
     url: '/user/bind-company',
-    method: 'GET',
+    method: 'POST',
     data
   })
 }

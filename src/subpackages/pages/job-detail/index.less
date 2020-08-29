@@ -56,6 +56,38 @@
     height: 14px;
     background: rgba(0, 0, 0, 0.05);
   }
+  &__resume {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    &__name {
+      width: 114px;
+      height: 27px;
+      font-size: 29px;
+      font-family: Source Han Sans CN;
+      font-weight: 400;
+      color: #f77d03;
+    }
+    &__options {
+      display: flex;
+      .options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 1px solid #F77E03;
+        margin-right: 20px;
+        font-size: 14px;
+        color: #F77E03;
+      }
+      .options--close {
+        border-color: #373739;
+        color: #373739;
+      }
+    }
+  }
   &__options {
     position: fixed;
     bottom: 0;

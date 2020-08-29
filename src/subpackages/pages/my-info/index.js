@@ -5,6 +5,7 @@ import { connect } from '@tarojs/redux'
 import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import NavigationBar from '@components/page-components/navigation-bar'
+import { getStorageSync } from '@crossplatform/apiservice/storage'
 import './index.less'
 
 const MyInfo = props => {
@@ -25,11 +26,11 @@ const MyInfo = props => {
     },
     loading,
     common: {
-      userInfo: { nickName, avatarUrl }
+      userInfo: { nickName, avatarUrl, openId }
     }
   } = props
 
-  const [isOpened, setIsOpened] = useState(false)
+  const [phoneOpened, setphoneOpened] = useState(false)
   const [genderIsOpen, setGenderIsOpen] = useState(false)
 
   useDidShow(() => {
@@ -57,7 +58,22 @@ const MyInfo = props => {
   }
 
   const handleOpen = () => {
-    setIsOpened(!isOpened)
+    setphoneOpened(!phoneOpened)
+  }
+
+  const handlePhoneNumber = e => {
+    if (e.detail.errMsg == 'getPhoneNumber:ok') {
+      dispatch({
+        type: 'myInfo/effectsEncryptedPhone',
+        payload: {
+          encryptedData: e.detail.encryptedData,
+          iv: e.detail.iv,
+          openid: openId || getStorageSync('openId')
+        }
+      }).then(() => {
+        getUserInfo()
+      })
+    }
   }
 
   const handleShowGender = () => {
@@ -78,7 +94,7 @@ const MyInfo = props => {
 
   return (
     <View className="container">
-      <NavigationBar title='我的资料' hasLeftIcon={true} />
+      <NavigationBar title="我的资料" hasLeftIcon={true} />
 
       <View className="container__header">
         <Image
@@ -113,7 +129,7 @@ const MyInfo = props => {
           title="绑定手机号(mvp助手用户名)"
           extraText={mobile}
           arrow="right"
-          onClick={() => handleJump('common-edit', `key=mobile&value=${mobile}`)}
+          onClick={() => handleOpen()}
         />
         <AtListItem
           title="e-link MVP助手密码"
@@ -158,16 +174,20 @@ const MyInfo = props => {
         />
       </View>
 
-      {/* <AtActionSheet isOpened={isOpened} onClose={handleOpen} onCancel={handleOpen}>
+      <AtActionSheet isOpened={phoneOpened} onClose={handleOpen} onCancel={handleOpen}>
         <AtActionSheetItem>
-          <Button openType="getPhoneNumber" onGetphonenumber="getPhoneNumber">
+          <Button
+            openType="getPhoneNumber"
+            onGetphonenumber="getPhoneNumber"
+            onGetphonenumber={handlePhoneNumber}
+          >
             获取微信绑定手机号
           </Button>
         </AtActionSheetItem>
         <AtActionSheetItem onClick={() => handleJump('common-edit', `key=mobile&value=${mobile}`)}>
           手动填写手机号
         </AtActionSheetItem>
-      </AtActionSheet> */}
+      </AtActionSheet>
 
       <AtActionSheet isOpened={genderIsOpen}>
         <AtActionSheetItem onClick={() => handleSelectGender(1)}>男</AtActionSheetItem>

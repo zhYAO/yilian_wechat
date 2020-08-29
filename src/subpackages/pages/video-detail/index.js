@@ -160,7 +160,12 @@ class videoDetail extends Taro.Component {
         <NavigationBar title={detail.name} hasLeftIcon={true} />
 
         <View className="container__video">
-          <Video className="container__video__item" src={detail.videoPath}></Video>
+          <Video
+            className="container__video__item"
+            src={detail.videoPath}
+            show-fullscreen-btn={detail.videoPath}
+            direction={0}
+          ></Video>
         </View>
 
         <CompanyDetailCard card={detail.company} />
@@ -183,7 +188,7 @@ class videoDetail extends Taro.Component {
           />
         </View>
 
-        <AtModal isOpened={isOpened} style={{display: isOpened ? 'unset' : 'none'}}>
+        <AtModal isOpened={isOpened} style={{ display: isOpened ? 'unset' : 'none' }}>
           <AtModalHeader>回复{replyName}</AtModalHeader>
           <AtModalContent>
             <AtInput

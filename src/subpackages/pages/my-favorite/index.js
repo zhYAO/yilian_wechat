@@ -45,7 +45,7 @@ const MyFavorite = props => {
             {positionList.map(item => {
               return (
                 <View key={item.id}>
-                  <PositionCardFav card={item} />
+                  <PositionCardFav handleInit={() => getList(true)} card={item} />
                 </View>
               )
             })}
@@ -55,7 +55,7 @@ const MyFavorite = props => {
           {dynamicList.map(item => {
             return (
               <View key={item.id}>
-                <DynamicCardFav card={item} />
+                <DynamicCardFav handleInit={() => getList(true)} card={item} />
               </View>
             )
           })}
@@ -65,7 +65,7 @@ const MyFavorite = props => {
             {productList.map(item => {
               return (
                 <View key={item.id}>
-                  <ProductCardFav card={item} />
+                  <ProductCardFav handleInit={() => getList(true)} card={item} />
                 </View>
               )
             })}

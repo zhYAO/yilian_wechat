@@ -1,4 +1,4 @@
-import Taro, { useDidShow, useState } from '@tarojs/taro'
+import Taro, { useDidShow, useState, useReachBottom } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -11,19 +11,45 @@ import './index.less'
 const Discover = props => {
   const {
     dispatch,
-    discover: { bannerList, current, tabList, jobList, videoList, comentCardList, actionSheetOpen }
+    discover: {
+      bannerList,
+      current,
+      tabList,
+      jobList,
+      videoList,
+      comentCardList,
+      actionSheetOpen,
+      isShareOpened,
+      hasNextPage,
+      pageSize,
+      page
+    }
   } = props
 
   useDidShow(() => {
     getData()
   }, [])
 
+  useReachBottom(() => {
+    switch (current) {
+      case 0:
+        getPositionList()
+        break
+      case 1:
+        getVideoList()
+        break
+      case 2:
+        getActivityList()
+        break
+    }
+  })
+
   const [itemActive, setItemActive] = useState({})
 
-  const getData = () => {
-    getPositionList()
-    getVideoList()
-    getActivityList()
+  const getData = async () => {
+    await getPositionList(true)
+    await getVideoList(true)
+    await getActivityList(true)
   }
 
   const handleClick = value => {
@@ -35,24 +61,60 @@ const Discover = props => {
     })
   }
 
-  const getPositionList = () => {
-    dispatch({
-      type: 'discover/effectsPositionList',
-      payload: {}
+  const getPositionList = (isReset = false) => {
+    return new Promise(resolve => {
+      if (hasNextPage[0] || isReset) {
+        dispatch({
+          type: 'discover/effectsPositionList',
+          payload: {
+            pageSize: pageSize[0],
+            page: page[0],
+            isReset
+          }
+        }).then(() => {
+          resolve()
+        })
+      } else {
+        resolve()
+      }
     })
   }
 
-  const getVideoList = () => {
-    dispatch({
-      type: 'discover/effectsVideoList',
-      payload: {}
+  const getVideoList = (isReset = false) => {
+    return new Promise(resolve => {
+      if (hasNextPage[1] || isReset) {
+        dispatch({
+          type: 'discover/effectsVideoList',
+          payload: {
+            pageSize: pageSize[1],
+            page: page[1],
+            isReset
+          }
+        }).then(() => {
+          resolve()
+        })
+      } else {
+        resolve()
+      }
     })
   }
 
-  const getActivityList = () => {
-    dispatch({
-      type: 'discover/effectsActivityList',
-      payload: {}
+  const getActivityList = (isReset = false) => {
+    return new Promise(resolve => {
+      if (hasNextPage[2] || isReset) {
+        dispatch({
+          type: 'discover/effectsActivityList',
+          payload: {
+            pageSize: pageSize[2],
+            page: page[2],
+            isReset
+          }
+        }).then(() => {
+          resolve()
+        })
+      } else {
+        resolve()
+      }
     })
   }
 

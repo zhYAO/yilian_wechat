@@ -23,7 +23,8 @@ const SearchPage = props => {
       searchData: { companys, dynamics, products, positions },
       current,
       tabList,
-      actionSheetOpen
+      actionSheetOpen,
+      isShareOpened
     },
     loading
   } = props

@@ -38,7 +38,7 @@ const MyFansPage = props => {
       <NavigationBar title="我的粉丝" hasLeftIcon={true} />
 
       {fansList.map(item => {
-        return <FocusCard key={item.id} card={item} />
+        return <FocusCard key={item.id} handleInit={() => getList(true)} card={item} />
       })}
     </ScrollView>
   )

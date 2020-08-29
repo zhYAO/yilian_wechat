@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 import { AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { showToast } from '@crossplatform/apiservice/toast'
+import { navigateBack } from '@crossplatform/apiservice/navigate'
 import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
@@ -105,8 +106,9 @@ class CommonEdit extends Taro.Component {
   }
 
   handleApplyCompany = id => {
+    const { dispatch } = this.props
     dispatch({
-      type: 'mine/effectsApplyCompany',
+      type: 'commonEdit/effectsApplyCompany',
       payload: {
         companyId: id
       }

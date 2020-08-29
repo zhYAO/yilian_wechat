@@ -261,13 +261,7 @@ class CompanyDetail extends Taro.Component {
         {/* tab */}
         <AtTabs current={current} tabList={tabList} onClick={this.handleClick}>
           <AtTabsPane current={current} index={0}>
-            <CompanyDetailInfo
-              companyDetail={companyDetail}
-              customerList={customerList}
-              handleAttentionClick={() => this.handleCompanyAttention(2, companyDetail.isAttention)}
-              handlePhoneCall={this.makePhoneCall}
-              isMine={isMine}
-            />
+            <CompanyDetailInfo companyDetail={companyDetail} customerList={customerList} />
           </AtTabsPane>
           <AtTabsPane current={current} index={1}>
             <View className="tab__item tab__video">
@@ -315,6 +309,26 @@ class CompanyDetail extends Taro.Component {
             )}
           </AtTabsPane>
         </AtTabs>
+
+        {!isMine && (
+          <View className="container__bottom">
+            <Image
+              className="container__bottom__img"
+              src={require('@static/images/common/share__active.png')}
+            />
+            <View className="container__bottom__btn">
+              <View className="btn" onClick={this.makePhoneCall}>
+                极速沟通
+              </View>
+              <View
+                className="btn"
+                onClick={() => this.handleCompanyAttention(2, companyDetail.isAttention)}
+              >
+                {companyDetail.isAttention ? '已关注' : '+ 关注'}
+              </View>
+            </View>
+          </View>
+        )}
 
         <AtActionSheet
           isOpened={actionSheetOpen}

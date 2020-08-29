@@ -1,5 +1,6 @@
 import * as myInfoApi from './service'
 import { modifyUserInfoRequest, userInfoRequest } from '@service/user-controller'
+import { encryptedPhoneRequest } from '@service/info-controller'
 
 export default {
   namespace: 'myInfo',
@@ -26,6 +27,17 @@ export default {
           type: 'updateState',
           payload: {
             userInfo: data
+          }
+        })
+      }
+    },
+    *effectsEncryptedPhone({ payload }, { call, put, select }) {
+      const { data } = yield call(encryptedPhoneRequest, { ...payload })
+      if (data) {
+        yield put({
+          type: 'effectsModify',
+          payload: {
+            mobile: data.phoneNumber
           }
         })
       }

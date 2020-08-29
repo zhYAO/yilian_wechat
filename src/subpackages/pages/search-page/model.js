@@ -19,7 +19,8 @@ export default {
     hotRecord: ['搜索词1', '搜索词1', '搜索词1'],
     searchData: {},
     isSearch: false,
-    actionSheetOpen: false
+    actionSheetOpen: false,
+    isShareOpened: false
   },
 
   effects: {

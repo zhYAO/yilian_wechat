@@ -43,3 +43,14 @@ export const companyListRequest = data => {
     data
   })
 }
+
+/**
+ * 职位申请
+ */
+export const companyApplyRequest = data => {
+  return Request({
+    url: `/company-position/apply`,
+    method: 'POST',
+    data
+  })
+}

@@ -34,11 +34,11 @@ export default {
         yield put({
           type: 'updateState',
           payload: {
-            comentCardList: isReset ? data : comentCardList.concat(data),
+            comentCardList: isReset ? data.records : comentCardList.concat(data.records),
             page: isReset ? 1 : page + 1
           }
         })
-        if (data.length < pageSize) {
+        if (data.records.length < pageSize) {
           yield put({
             type: 'updateState',
             payload: {
