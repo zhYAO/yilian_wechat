@@ -17,9 +17,8 @@ export default {
     bannerList: [
       {
         id: 1,
-        picUrl:
-          'https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180',
-        url: 'www.baidu.com'
+        picUrl: 'https://www.ilove01.cn/static/img/banner/banner-1.png',
+        url: ''
       }
     ],
     jobList: [],

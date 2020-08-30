@@ -35,6 +35,8 @@ const MyInfo = props => {
 
   useDidShow(() => {
     getUserInfo()
+    setphoneOpened(false)
+    setGenderIsOpen(false)
   })
 
   const getUserInfo = () => {
@@ -72,6 +74,7 @@ const MyInfo = props => {
         }
       }).then(() => {
         getUserInfo()
+        setphoneOpened(false)
       })
     }
   }

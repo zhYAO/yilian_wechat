@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Image, Video } from '@tarojs/components'
+import { View, Image, Video, RichText, Swiper, SwiperItem } from '@tarojs/components'
 import { AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import CustomNavigator from '@components/page-components/custom-navigator'
@@ -10,7 +10,9 @@ import './index.less'
 class ProductDetail extends Taro.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      isFullScreen: false
+    }
   }
 
   componentDidMount() {
@@ -151,23 +153,45 @@ class ProductDetail extends Taro.Component {
     })
   }
 
+  handleFullScreen() {
+    const { isFullScreen } = this.state
+    this.setState({
+      isFullScreen: !isFullScreen
+    })
+  }
+
   render() {
     const {
       productDetail: { detail, isOpened, replyName, content },
       loading
     } = this.props
+    const { isFullScreen } = this.state
 
     return (
       <View className="container">
-        <NavigationBar title={detail.name} hasLeftIcon={true} />
+        {!isFullScreen && <NavigationBar title={detail.name} hasLeftIcon={true} />}
 
         <View className="container__top">
-          <Video
-            className="container__top__banner"
-            src={detail.videoPath}
-            show-fullscreen-btn={detail.videoPath}
-            direction={0}
-          ></Video>
+          {/* banner */}
+          <Swiper className="banner" circular autoplay interval={3000}>
+            {detail.videoPath && (
+              <SwiperItem className="banner__item" key={item.id}>
+                <Video
+                  className="banner__video"
+                  src={detail.videoPath}
+                  direction={0}
+                  onFullscreenChange={this.handleFullScreen}
+                ></Video>
+              </SwiperItem>
+            )}
+            {detail.imgPaths.map(item => {
+              return (
+                <SwiperItem className="banner__item" key={item}>
+                  <Image className="banner__item__img" src={item} mode="aspectFill" />
+                </SwiperItem>
+              )
+            })}
+          </Swiper>
           <View className="container__top__detail">
             <View className="detail__left">
               <View className="detail__left__name">{detail.name}</View>
@@ -179,9 +203,7 @@ class ProductDetail extends Taro.Component {
 
         <CustomNavigator title="产品详情" />
         <View className="container__detail">
-          {detail.imgPaths.map(item => {
-            return <Image className="container__detail__img" src={item} mode="widthFix"></Image>
-          })}
+          <RichText space="nbsp" nodes={detail.productDescribe}></RichText>
         </View>
 
         <View className="container__gap"></View>

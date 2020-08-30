@@ -16,7 +16,7 @@ import './index.less'
 class CompanyDetail extends Taro.Component {
   constructor(props) {
     super(props)
-    this.data = {
+    this.state = {
       itemActive: {},
       isFullScreen: false
     }
@@ -324,10 +324,10 @@ class CompanyDetail extends Taro.Component {
 
         {!isMine && !isFullScreen && (
           <View className="container__bottom">
-            <Image
+            {/* <Image
               className="container__bottom__img"
               src={require('@static/images/common/share__active.png')}
-            />
+            /> */}
             <View className="container__bottom__btn">
               <View className="btn" onClick={this.makePhoneCall}>
                 极速沟通

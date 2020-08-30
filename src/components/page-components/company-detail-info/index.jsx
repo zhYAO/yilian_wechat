@@ -36,21 +36,22 @@ const CompanyDetailInfo = props => {
         </View>
       </View>
 
-      <View className="container__item">
-        <View className="container__item__title">
-          <View className="title__line"></View>
-          <View className="title__text">宣传视频</View>
+      {companyDetail.propagandaVideo && (
+        <View className="container__item">
+          <View className="container__item__title">
+            <View className="title__line"></View>
+            <View className="title__text">宣传视频</View>
+          </View>
+          <View className="container__item__video">
+            <Video
+              className="video"
+              src={companyDetail.propagandaVideo}
+              onFullscreenChange={handleFullScreen}
+              direction={0}
+            ></Video>
+          </View>
         </View>
-        <View className="container__item__video">
-          <Video
-            className="video"
-            src={companyDetail.propagandaVideo}
-            show-fullscreen-btn={companyDetail.propagandaVideo}
-            onFullscreenChange={handleFullScreen}
-            direction={0}
-          ></Video>
-        </View>
-      </View>
+      )}
 
       <View className="container__item">
         <View className="container__item__title">

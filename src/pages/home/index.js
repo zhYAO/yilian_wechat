@@ -1,5 +1,5 @@
 import Taro, { useDidShow, useReachBottom, useShareAppMessage } from '@tarojs/taro'
-import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
+import { View, Swiper, SwiperItem } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyPart from '@components/page-components/company-part'
 import RecommendPart from '@components/page-components/recommend-part'

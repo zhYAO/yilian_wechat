@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { navigateBack } from '@crossplatform/apiservice/navigate'
 import NavigationBar from '@components/page-components/navigation-bar'
+import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
 const IndustryLabel = props => {
@@ -47,6 +48,12 @@ const IndustryLabel = props => {
   }
 
   const handleChoose = item => {
+    if(chosedLabels.length > 2) {
+      showToast({
+        title: '最多允许选择3个'
+      })
+      return
+    }
     let arr = chosedLabels.concat([item])
     let obj = {}
     dispatch({

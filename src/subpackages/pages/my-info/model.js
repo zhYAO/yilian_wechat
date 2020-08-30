@@ -1,6 +1,7 @@
 import * as myInfoApi from './service'
 import { modifyUserInfoRequest, userInfoRequest } from '@service/user-controller'
 import { encryptedPhoneRequest } from '@service/info-controller'
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export default {
   namespace: 'myInfo',
@@ -32,8 +33,10 @@ export default {
       }
     },
     *effectsEncryptedPhone({ payload }, { call, put, select }) {
-      const { data } = yield call(encryptedPhoneRequest, { ...payload })
-      if (data) {
+      const { code, message } = yield call(encryptedPhoneRequest, { ...payload })
+      if (code === '0000') {
+        const data = JSON.parse(message) || {}
+        yield call(delay, 500);
         yield put({
           type: 'effectsModify',
           payload: {
