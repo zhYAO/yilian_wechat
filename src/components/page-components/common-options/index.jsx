@@ -1,5 +1,5 @@
 import Taro, { useState } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Image } from '@tarojs/components'
 import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import './index.less'
@@ -19,7 +19,7 @@ const CommonOptions = props => {
     isFavorite,
     comments = [],
     editComment,
-    defaultShowComment,
+    defaultShowComment
   } = props
 
   const [showComment, setShowComment] = useState(!!defaultShowComment)
@@ -33,6 +33,12 @@ const CommonOptions = props => {
       setShowComment(true)
       editComment({})
     }
+  }
+
+  const handleClick = id => {
+    navigateTo({
+      url: `${pagejumplist['personal-homepage'].path}?id=${id}`
+    })
   }
 
   return (
@@ -96,6 +102,12 @@ const CommonOptions = props => {
           {comments.map(item => (
             <View className="comments__item" key={item.id}>
               <View className="comments__item__content">
+                <Image
+                  className="content__img"
+                  src={item.commentUserImgpath}
+                  mode="aspectFit"
+                  onClick={() => handleClick(item.commentUserId)}
+                />
                 <View className="content__title">
                   <View
                     className="content__title__name"
@@ -107,10 +119,11 @@ const CommonOptions = props => {
                       })
                     }
                   >
-                    {item.commentUserName}：
+                    <View>{item.commentUserName}：</View>
+                    <View className="name__date">{item.createTime}</View>
                   </View>
+                  <View className="content__title__text">{item.content}</View>
                 </View>
-                <View className="content__text">{item.content}</View>
               </View>
               {item.subComments &&
                 item.subComments.length > 0 &&
@@ -119,6 +132,12 @@ const CommonOptions = props => {
                     className="comments__item__content comments__item__content--sub"
                     key={subItem.id}
                   >
+                    <Image
+                      className="content__img"
+                      src={subItem.commentUserImgpath}
+                      mode="aspectFit"
+                      onClick={() => handleClick(subItem.commentUserId)}
+                    />
                     <View className="content__title">
                       <View
                         className="content__title__name"
@@ -130,11 +149,11 @@ const CommonOptions = props => {
                           })
                         }
                       >
-                        {subItem.commentUserName}
+                        <View>{subItem.commentUserName}：</View>
+                        <View className="name__date">{subItem.createTime}</View>
                       </View>
-                      <View className="content__title__re">回复</View>
                       <View
-                        className="content__title__name"
+                        className="content__title__content"
                         onClick={() =>
                           editComment({
                             commentId: subItem.id,
@@ -143,10 +162,11 @@ const CommonOptions = props => {
                           })
                         }
                       >
-                        {subItem.replyUserName}：
+                        <View className="content__title__re">回复</View>
+                        <View className="content__title__replyName">{subItem.replyUserName}：</View>
+                        <View className="content__text">{subItem.content}</View>
                       </View>
                     </View>
-                    <View className="content__text">{subItem.content}</View>
                   </View>
                 ))}
             </View>

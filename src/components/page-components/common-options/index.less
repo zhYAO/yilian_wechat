@@ -32,21 +32,55 @@
     flex-direction: column;
     &__content {
       display: flex;
+      align-items: center;
       font-size: 16px;
       color: #000000;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      .content__img {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+        margin-right: 10px;
+      }
       .content__title {
         display: flex;
+        flex-direction: column;
+        flex: 1;
         &__name {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+          font-size: 24px;
           color: rgba(247, 126, 3, 1);
+          .name__date {
+            font-size: 20px;
+            color: #ccc;
+          }
         }
-        &__re {
+        &__text {
+          margin-top: 15px;
+          font-size: 24px;
           color: #000000;
         }
       }
     }
     &__content--sub {
-      padding-left: 20px;
+      .content__title__content {
+        display: flex;
+        margin-top: 15px;
+      }
+      .content__title__replyName {
+        font-size: 24px;
+        color: rgba(247, 126, 3, 1);
+      }
+      .content__title__re {
+        font-size: 24px;
+        color: #000000;
+      }
+      .content__text {
+        font-size: 24px;
+        color: #000000;
+      }
     }
   }
 }
