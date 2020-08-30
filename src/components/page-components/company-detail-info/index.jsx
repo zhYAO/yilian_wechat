@@ -1,9 +1,25 @@
 import Taro from '@tarojs/taro'
 import { View, Text, Video, Image } from '@tarojs/components'
+import { setClipboardData } from '@crossplatform/apiservice/clipboard'
 import './index.less'
 
 const CompanyDetailInfo = props => {
   const { companyDetail, customerList, handleFullScreen } = props
+
+  const handleFileName = (str = '') => {
+    const arr = str.split('/')
+    if (arr.length) {
+      return arr[arr.length - 1]
+    }
+    return ''
+  }
+
+  const handleCopyFile = () => {
+    setClipboardData({
+      data: companyDetail.documentation,
+      success(res) {}
+    })
+  }
 
   return (
     <View className="container">
@@ -75,7 +91,9 @@ const CompanyDetailInfo = props => {
           <View className="title__line"></View>
           <View className="title__text">公司介绍文档</View>
         </View>
-        <View className="container__item__file"></View>
+        <View className="container__item__file" onClick={handleCopyFile}>
+          {handleFileName(companyDetail.documentation)}
+        </View>
       </View>
     </View>
   )

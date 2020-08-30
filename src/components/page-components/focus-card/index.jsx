@@ -72,6 +72,7 @@ const FocusCard = props => {
             })}
         </View>
       </View>
+      <View className="space"></View>
       <View className="container__btn" onClick={handleAttention}>
         {btnName}
       </View>

@@ -10,7 +10,7 @@ const IndustryLabel = props => {
   const {
     dispatch,
     industryLabel: { industryLabels, chosedLabels },
-    mine: {
+    myInfo: {
       userInfo: { labels = [] }
     },
     loading
@@ -123,8 +123,8 @@ const IndustryLabel = props => {
   )
 }
 
-export default connect(({ mine, common, industryLabel, loading }) => ({
-  mine,
+export default connect(({ myInfo, common, industryLabel, loading }) => ({
+  myInfo,
   common,
   industryLabel,
   loading

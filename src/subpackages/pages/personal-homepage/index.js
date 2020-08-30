@@ -16,7 +16,7 @@ class PersonalHomepage extends Taro.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidShow() {
     this.getInfo()
   }
 
