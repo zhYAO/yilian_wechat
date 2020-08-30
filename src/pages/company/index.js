@@ -57,7 +57,7 @@ const Company = props => {
 
   return (
     <View className="container">
-      <NavigationBar title="ELink" />
+      <NavigationBar title="Enstar" />
 
       <CustomNavigator title="公司分类" extraText=">>排序" rightClick={rightClick} />
 

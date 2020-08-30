@@ -1,4 +1,4 @@
-import Taro, { useDidShow, useReachBottom } from '@tarojs/taro'
+import Taro, { useDidShow, useReachBottom, useShareAppMessage } from '@tarojs/taro'
 import { View, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import CompanyPart from '@components/page-components/company-part'
@@ -31,6 +31,13 @@ const Index = props => {
 
   useReachBottom(() => {
     getHotList()
+  })
+
+  useShareAppMessage(res => {
+    return {
+      title: 'Enstar盈企达',
+      path: 'pages/home/index'
+    }
   })
 
   const handleImgJump = url => {
@@ -114,6 +121,10 @@ const Index = props => {
       {/* <RecommendPart title={'推荐产品'} cardList={recommendCardList} /> */}
     </View>
   )
+}
+
+Index.config = {
+  enableShareAppMessage: true
 }
 export default connect(({ common, home }) => ({
   common,

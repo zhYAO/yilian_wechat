@@ -23,11 +23,11 @@ const AboutUs = props => {
           src={require('@static/images/common/logo.png')}
           mode="widthFix"
         />
-        <View className="container__content__name">易连（eLink）</View>
+        <View className="container__content__name">Enstar盈企达</View>
         <View className="container__content__version">v1.0</View>
 
         <View className="container__content__desc">
-          易连（eLink）是为用户提供企业营销的平台，专注于提升中小微企业的品牌影响力
+          Enstar盈企达是为用户提供企业营销的平台，专注于提升中小微企业的品牌影响力
         </View>
       </View>
 
