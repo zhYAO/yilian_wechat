@@ -17,11 +17,12 @@ class CompanyDetail extends Taro.Component {
   constructor(props) {
     super(props)
     this.data = {
-      itemActive: {}
+      itemActive: {},
+      isFullScreen: false
     }
   }
 
-  componentWillMount() {
+  componentDidShow() {
     this.getCompanyDetail()
   }
 
@@ -213,6 +214,13 @@ class CompanyDetail extends Taro.Component {
     })
   }
 
+  handleFullScreen() {
+    const { isFullScreen } = this.state
+    this.setState({
+      isFullScreen: !isFullScreen
+    })
+  }
+
   render() {
     const {
       companyDetail: {
@@ -229,11 +237,11 @@ class CompanyDetail extends Taro.Component {
       loading
     } = this.props
     const { isMine } = this.$router.params
-    const { itemActive } = this.state
+    const { itemActive, isFullScreen } = this.state
 
     return (
       <View className="container">
-        <NavigationBar title={companyDetail.name} hasLeftIcon={true} />
+        {!isFullScreen && <NavigationBar title={companyDetail.name} hasLeftIcon={true} />}
 
         <View className="container__user">
           <Image
@@ -254,14 +262,18 @@ class CompanyDetail extends Taro.Component {
                 ) : null
               })}
             </View>
-            <View className="info__area">{companyDetail.address}</View>
+            <View className="info__area">{`${companyDetail.address} ${companyDetail.registerTime}`}</View>
           </View>
         </View>
 
         {/* tab */}
         <AtTabs current={current} tabList={tabList} onClick={this.handleClick}>
           <AtTabsPane current={current} index={0}>
-            <CompanyDetailInfo companyDetail={companyDetail} customerList={customerList} />
+            <CompanyDetailInfo
+              companyDetail={companyDetail}
+              customerList={customerList}
+              handleFullScreen={this.handleFullScreen}
+            />
           </AtTabsPane>
           <AtTabsPane current={current} index={1}>
             <View className="tab__item tab__video">
@@ -310,7 +322,7 @@ class CompanyDetail extends Taro.Component {
           </AtTabsPane>
         </AtTabs>
 
-        {!isMine && (
+        {!isMine && !isFullScreen && (
           <View className="container__bottom">
             <Image
               className="container__bottom__img"

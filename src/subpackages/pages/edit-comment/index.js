@@ -251,7 +251,7 @@ class EditComment extends Taro.Component {
   render() {
     const {
       editComment: { detail, isOpened, replyName, content, isShareOpened, actionSheetOpen },
-      loading,
+      loading
     } = this.props
     return (
       <View className="container">
@@ -269,22 +269,24 @@ class EditComment extends Taro.Component {
           defaultShowComment={true}
         />
 
-        <AtModal isOpened={isOpened} style={{display: isOpened ? 'unset' : 'none'}}>
-          <AtModalHeader>回复{replyName}</AtModalHeader>
-          <AtModalContent>
-            <AtInput
-              name="value"
-              type="text"
-              placeholder={`回复${replyName}`}
-              value={content}
-              onChange={this.handleChange.bind(this)}
-            />
-          </AtModalContent>
-          <AtModalAction>
-            <Button onClick={this.handleHide.bind(this)}>取消</Button>
-            <Button onClick={this.handleConfirm.bind(this)}>确定</Button>
-          </AtModalAction>
-        </AtModal>
+        <View style={{ display: isOpened ? 'unset' : 'none' }}>
+          <AtModal isOpened={isOpened}>
+            <AtModalHeader>回复{replyName}</AtModalHeader>
+            <AtModalContent>
+              <AtInput
+                name="value"
+                type="text"
+                placeholder={`回复${replyName}`}
+                value={content}
+                onChange={this.handleChange.bind(this)}
+              />
+            </AtModalContent>
+            <AtModalAction>
+              <Button onClick={this.handleHide.bind(this)}>取消</Button>
+              <Button onClick={this.handleConfirm.bind(this)}>确定</Button>
+            </AtModalAction>
+          </AtModal>
+        </View>
 
         <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />
 

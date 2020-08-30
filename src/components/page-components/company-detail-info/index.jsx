@@ -3,7 +3,7 @@ import { View, Text, Video, Image } from '@tarojs/components'
 import './index.less'
 
 const CompanyDetailInfo = props => {
-  const { companyDetail, customerList } = props
+  const { companyDetail, customerList, handleFullScreen } = props
 
   return (
     <View className="container">
@@ -46,6 +46,7 @@ const CompanyDetailInfo = props => {
             className="video"
             src={companyDetail.propagandaVideo}
             show-fullscreen-btn={companyDetail.propagandaVideo}
+            onFullscreenChange={handleFullScreen}
             direction={0}
           ></Video>
         </View>
