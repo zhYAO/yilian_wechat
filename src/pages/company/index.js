@@ -65,7 +65,7 @@ const Company = props => {
       <CompanyCategory list={companyCategoryList} />
 
       <StickyWrap height={40} fixTop={40}>
-        <CustomNavigator title="所有公司" />
+        <CustomNavigator title="所有公司" type />
       </StickyWrap>
 
       {/* 所有公司 */}
