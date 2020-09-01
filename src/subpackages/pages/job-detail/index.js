@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Block } from '@tarojs/components'
+import { View, Block, RichText } from '@tarojs/components'
 import { AtModalHeader, AtModalContent, AtModalAction, AtModal, AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import CustomNavigator from '@components/page-components/custom-navigator'
@@ -251,10 +251,14 @@ class JobDetail extends Taro.Component {
         {!isQuickSend && (
           <Block>
             <CustomNavigator title="职位描述" />
-            <View className="container__desc">{detail.jobDescription}</View>
+            <View className="container__desc">
+              <RichText space="nbsp" nodes={detail.jobDescription}></RichText>
+            </View>
 
             <CustomNavigator title="任职要求" />
-            <View className="container__desc">{detail.jobRequirements}</View>
+            <View className="container__desc">
+              <RichText space="nbsp" nodes={detail.jobRequirements}></RichText>
+            </View>
 
             <View className="container__options">
               <View className="container__gap"></View>
