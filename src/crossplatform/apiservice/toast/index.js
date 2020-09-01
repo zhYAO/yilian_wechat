@@ -5,7 +5,7 @@
  * */
 import Taro from '@tarojs/taro'
 
-export const showToast = ({ mask = true, icon = 'none', duration = 1500, ...payload } = {}) => {
+export const showToast = ({ mask = true, icon = 'none', duration = 1000, ...payload } = {}) => {
   return Taro.showToast({
     icon,
     mask,

@@ -17,10 +17,10 @@ const Index = props => {
 
   useDidShow(() => {
     if (!token) {
-      wxLogin.doLogin().then(({ openId, token }) => {
+      wxLogin.doLogin().then((data) => {
         dispatch({
           type: 'common/effectsUpdate',
-          payload: { openId, token }
+          payload: { ...data }
         })
       })
     }

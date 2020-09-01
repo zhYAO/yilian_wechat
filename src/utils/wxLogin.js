@@ -17,11 +17,12 @@ const wxLogin = {
     login().then(({ code }) => {
       if (code) {
         wxLoginRequest({ code }).then(({ data = {} } = {}) => {
-          const { miniOpenid: openId, token } = data || {}
+          const { miniOpenid: openId, token, userId } = data || {}
           if (openId) {
             setStorageSync('openId', openId)
             setStorageSync('token', token)
-            resolve({ openId, token })
+            setStorageSync('userId', userId)
+            resolve({ openId, token, userId })
           } else {
             showToast({
               title: '网络走丢了'

@@ -22,6 +22,7 @@ export default {
     name: '',
     theme: '',
     imgPath: '',
+    id: '',
     isAttention: false,
     actionSheetOpen: false,
     isShareOpened: false

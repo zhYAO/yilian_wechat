@@ -6,6 +6,7 @@ import CommentCard from '@components/page-components/comment-card'
 import SharePop from '@components/page-components/share-pop'
 import NavigationBar from '@components/page-components/navigation-bar'
 import { stopPullDownRefresh } from '@crossplatform/apiservice/reflash'
+import { getStorageSync } from '@crossplatform/apiservice/storage'
 import './index.less'
 
 class PersonalHomepage extends Taro.Component {
@@ -56,9 +57,15 @@ class PersonalHomepage extends Taro.Component {
   }
 
   onShow = item => {
-    const { dispatch } = this.props
+    const {
+      dispatch,
+      common: { userId },
+      personalHomepage: { id }
+    } = this.props
     const { isMine } = this.$router.params
-    if (!isMine) {
+    const isMineVisit = isMine || userId === id || getStorageSync('userId') === id
+
+    if (!isMineVisit) {
       dispatch({
         type: 'personalHomepage/updateState',
         payload: {
@@ -179,8 +186,10 @@ class PersonalHomepage extends Taro.Component {
 
   render() {
     const {
+      common: { userId },
       personalHomepage: {
         userInfo: { avatarUrl, nickName },
+        id,
         dynamics,
         labels,
         companyName,
@@ -197,6 +206,8 @@ class PersonalHomepage extends Taro.Component {
     const { isMine } = this.$router.params
 
     const { itemActive } = this.state
+
+    const isMineVisit = isMine || userId === id || getStorageSync('userId') === id
 
     return (
       <View className="container">
@@ -239,7 +250,7 @@ class PersonalHomepage extends Taro.Component {
                     handleSharePopShow={this.handleSharePopShow}
                     handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
-                    isMine={isMine}
+                    isMine={isMineVisit}
                   />
                 </View>
               )
@@ -247,7 +258,7 @@ class PersonalHomepage extends Taro.Component {
           </View>
         </View>
 
-        {!isMine && (
+        {!isMineVisit && (
           <View className="container__bottom" onClick={this.handleAttention}>
             <View className="container__bottom__btn">{isAttention ? '已关注' : '+ 关注'}</View>
           </View>

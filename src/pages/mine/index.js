@@ -83,12 +83,12 @@ const Mine = props => {
         type: 'common/effectsUpdate',
         payload: { userInfo }
       })
-      wxLogin.doLogin().then(({ openId, token }) => {
+      wxLogin.doLogin().then(data => {
         dispatch({
           type: 'common/effectsUpdate',
-          payload: { openId, token }
+          payload: { ...data }
         })
-        if(!name) {
+        if (!name) {
           setUserInfo(userInfo)
         }
         setIsLogin(true)
