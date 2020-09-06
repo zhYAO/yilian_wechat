@@ -1,6 +1,6 @@
 import Taro, { useDidShow } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane } from 'taro-ui'
+import { View } from '@tarojs/components'
+import { AtTabs } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import FocusCard from '@components/page-components/focus-card'
 import CompanyDetailCard from '@components/page-components/company-detail-card'
@@ -42,22 +42,23 @@ const MyFocus = props => {
     <View className="container">
       <NavigationBar title="我的关注" hasLeftIcon={true} />
 
-      <AtTabs current={current} tabList={tabList} onClick={handleClick}>
-        <AtTabsPane current={current} index={0}>
-          <View>
-            {users.map(item => {
-              return <FocusCard handleInit={getList} card={item} />
-            })}
-          </View>
-        </AtTabsPane>
-        <AtTabsPane current={current} index={1}>
-          <View>
-            {companys.map(item => {
-              return <CompanyDetailCard handleInit={getList} card={item} />
-            })}
-          </View>
-        </AtTabsPane>
-      </AtTabs>
+      <AtTabs current={current} tabList={tabList} onClick={handleClick}></AtTabs>
+
+      {current === 0 && (
+        <View>
+          {users.map(item => {
+            return <FocusCard handleInit={getList} card={item} />
+          })}
+        </View>
+      )}
+
+      {current === 1 && (
+        <View>
+          {companys.map(item => {
+            return <CompanyDetailCard handleInit={getList} card={item} />
+          })}
+        </View>
+      )}
     </View>
   )
 }

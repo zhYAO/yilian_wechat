@@ -1,6 +1,6 @@
 import Taro, { useDidShow } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane } from 'taro-ui'
+import { View } from '@tarojs/components'
+import { AtTabs } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import ProductCardFav from '@components/page-components/product-card-fav'
 import PositionCardFav from '@components/page-components/position-card-fav'
@@ -12,7 +12,7 @@ const MyFavorite = props => {
   const {
     dispatch,
     myFavorite: { current, tabList, dynamicList = [], positionList = [], productList = [] },
-    loading,
+    loading
   } = props
 
   useDidShow(() => {
@@ -37,21 +37,23 @@ const MyFavorite = props => {
 
   return (
     <View className="container">
-      <NavigationBar title='我的收藏' hasLeftIcon={true} />
+      <NavigationBar title="我的收藏" hasLeftIcon={true} />
 
-      <AtTabs current={current} tabList={tabList} onClick={handleClick}>
-        <AtTabsPane current={current} index={0}>
-          <View>
-            {positionList.map(item => {
-              return (
-                <View key={item.id}>
-                  <PositionCardFav handleInit={() => getList(true)} card={item} />
-                </View>
-              )
-            })}
-          </View>
-        </AtTabsPane>
-        <AtTabsPane current={current} index={1}>
+      <AtTabs current={current} tabList={tabList} onClick={handleClick}></AtTabs>
+
+      {current === 0 && (
+        <View>
+          {positionList.map(item => {
+            return (
+              <View key={item.id}>
+                <PositionCardFav handleInit={() => getList(true)} card={item} />
+              </View>
+            )
+          })}
+        </View>
+      )}
+      {current === 1 && (
+        <View>
           {dynamicList.map(item => {
             return (
               <View key={item.id}>
@@ -59,19 +61,19 @@ const MyFavorite = props => {
               </View>
             )
           })}
-        </AtTabsPane>
-        <AtTabsPane current={current} index={2}>
-          <View>
-            {productList.map(item => {
-              return (
-                <View key={item.id}>
-                  <ProductCardFav handleInit={() => getList(true)} card={item} />
-                </View>
-              )
-            })}
-          </View>
-        </AtTabsPane>
-      </AtTabs>
+        </View>
+      )}
+      {current === 2 && (
+        <View>
+          {productList.map(item => {
+            return (
+              <View key={item.id}>
+                <ProductCardFav handleInit={() => getList(true)} card={item} />
+              </View>
+            )
+          })}
+        </View>
+      )}
     </View>
   )
 }

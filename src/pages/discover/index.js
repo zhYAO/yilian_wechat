@@ -1,6 +1,6 @@
 import Taro, { useDidShow, useState, useReachBottom } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtActionSheet, AtActionSheetItem } from 'taro-ui'
+import { AtTabs, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import SearchPart from '@components/page-components/search-part'
 import JobCard from '@components/page-components/job-card'
@@ -19,7 +19,6 @@ const Discover = props => {
       videoList,
       comentCardList,
       actionSheetOpen,
-      isShareOpened,
       hasNextPage,
       pageSize,
       page
@@ -213,24 +212,6 @@ const Discover = props => {
     })
   }
 
-  const handleSharePopShow = () => {
-    dispatch({
-      type: 'discover/updateState',
-      payload: {
-        isShareOpened: true
-      }
-    })
-  }
-
-  const handleSharePopClose = () => {
-    dispatch({
-      type: 'discover/updateState',
-      payload: {
-        isShareOpened: false
-      }
-    })
-  }
-
   return (
     <View className="container">
       {/* 头部搜索栏 */}
@@ -253,39 +234,40 @@ const Discover = props => {
       </Swiper>
 
       {/* tab */}
-      <AtTabs current={current} tabList={tabList} onClick={handleClick}>
-        <AtTabsPane current={current} index={0}>
-          <View className="tab__item">
-            {jobList.map(item => (
-              <JobCard key={item.id} card={item} />
-            ))}
-          </View>
-        </AtTabsPane>
-        <AtTabsPane current={current} index={1}>
-          <View className="tab__item tab__video">
-            {videoList.map(item => (
-              <View key={item.id} className="tab__item__card">
-                <VideoCard card={item} />
-              </View>
-            ))}
-          </View>
-        </AtTabsPane>
-        <AtTabsPane current={current} index={2}>
-          <View className="tab__item">
-            {comentCardList.map(item => (
-              <View key={item.id} className="tab__item__comment">
-                <CommentCard
-                  card={item}
-                  handleShowAction={() => onShow(item)}
-                  handleSharePopShow={handleSharePopShow}
-                  handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
-                  isFabulous={item.isFabulous}
-                />
-              </View>
-            ))}
-          </View>
-        </AtTabsPane>
-      </AtTabs>
+      <AtTabs current={current} tabList={tabList} onClick={handleClick}></AtTabs>
+
+      {current === 0 && (
+        <View className="tab__item">
+          {jobList.map(item => (
+            <JobCard key={item.id} card={item} />
+          ))}
+        </View>
+      )}
+
+      {current === 1 && (
+        <View className="tab__item tab__video">
+          {videoList.map(item => (
+            <View key={item.id} className="tab__item__card">
+              <VideoCard card={item} />
+            </View>
+          ))}
+        </View>
+      )}
+
+      {current === 2 && (
+        <View className="tab__item">
+          {comentCardList.map(item => (
+            <View key={item.id} className="tab__item__comment">
+              <CommentCard
+                card={item}
+                handleShowAction={() => onShow(item)}
+                handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
+                isFabulous={item.isFabulous}
+              />
+            </View>
+          ))}
+        </View>
+      )}
 
       <AtActionSheet
         isOpened={actionSheetOpen}
@@ -303,8 +285,6 @@ const Discover = props => {
         </AtActionSheetItem>
         {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
       </AtActionSheet>
-
-      <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} />
     </View>
   )
 }

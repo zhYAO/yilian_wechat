@@ -1,6 +1,6 @@
 import Taro, { useDidShow } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane } from 'taro-ui'
+import { View } from '@tarojs/components'
+import { AtTabs } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import ProductCardFav from '@components/page-components/product-card-fav'
 import CompanyCard from '@components/page-components/company-card'
@@ -37,21 +37,24 @@ const MyTakepart = props => {
 
   return (
     <View className="container">
-      <NavigationBar title='我参与的' hasLeftIcon={true} />
+      <NavigationBar title="我参与的" hasLeftIcon={true} />
 
-      <AtTabs current={current} tabList={tabList} onClick={handleClick}>
-        <AtTabsPane current={current} index={0}>
-          <View>
-            {companys.map(item => {
-              return (
-                <View key={item.id}>
-                  <CompanyCard card={item} noBtn={true} />
-                </View>
-              )
-            })}
-          </View>
-        </AtTabsPane>
-        <AtTabsPane current={current} index={1}>
+      <AtTabs current={current} tabList={tabList} onClick={handleClick}></AtTabs>
+
+      {current === 0 && (
+        <View>
+          {companys.map(item => {
+            return (
+              <View key={item.id}>
+                <CompanyCard card={item} noBtn={true} />
+              </View>
+            )
+          })}
+        </View>
+      )}
+
+      {current === 1 && (
+        <View>
           {productList.map(item => {
             return (
               <View key={item.id}>
@@ -59,8 +62,11 @@ const MyTakepart = props => {
               </View>
             )
           })}
-        </AtTabsPane>
-        <AtTabsPane current={current} index={2}>
+        </View>
+      )}
+
+      {current === 2 && (
+        <View>
           {dynamicList.map(item => {
             return (
               <View key={item.id}>
@@ -68,8 +74,8 @@ const MyTakepart = props => {
               </View>
             )
           })}
-        </AtTabsPane>
-      </AtTabs>
+        </View>
+      )}
     </View>
   )
 }

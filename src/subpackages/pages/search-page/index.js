@@ -8,7 +8,6 @@ import CompanyCard from '@components/page-components/company-card'
 import ProductCard from '@components/page-components/product-card'
 import CommentCard from '@components/page-components/comment-card'
 import JobCard from '@components/page-components/job-card'
-import SharePop from '@components/page-components/share-pop'
 import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
@@ -23,8 +22,7 @@ const SearchPage = props => {
       searchData: { companys, dynamics, products, positions },
       current,
       tabList,
-      actionSheetOpen,
-      isShareOpened
+      actionSheetOpen
     },
     loading
   } = props
@@ -189,24 +187,6 @@ const SearchPage = props => {
     })
   }
 
-  const handleSharePopShow = () => {
-    dispatch({
-      type: 'trends/updateState',
-      payload: {
-        isShareOpened: true
-      }
-    })
-  }
-
-  const handleSharePopClose = () => {
-    dispatch({
-      type: 'trends/updateState',
-      payload: {
-        isShareOpened: false
-      }
-    })
-  }
-
   return (
     <View className="container">
       <NavigationBar title="搜索" hasLeftIcon={true} />
@@ -250,51 +230,53 @@ const SearchPage = props => {
         </Block>
       )} */}
 
-      {isSearch && (
-        <AtTabs current={current} tabList={tabList} onClick={handleTabChange}>
-          <AtTabsPane current={current} index={0}>
-            {companys.map(item => (
-              <CompanyCard key={item.id} data={item} />
-            ))}
-          </AtTabsPane>
-          <AtTabsPane current={current} index={1}>
-            <View className="tab__item tab__video">
-              {products.map(item => (
-                <View
-                  key={item.id}
-                  className="tab__item__card"
-                  onClick={() => {
-                    jumpTo('product-detail', `?id=${item.id}`)
-                  }}
-                >
-                  <ProductCard card={item} />
-                </View>
-              ))}
+      {isSearch && <AtTabs current={current} tabList={tabList} onClick={handleTabChange}></AtTabs>}
+
+      {isSearch && current === 0 && (
+        <View>
+          {companys.map(item => (
+            <CompanyCard key={item.id} data={item} />
+          ))}
+        </View>
+      )}
+
+      {isSearch && current === 1 && (
+        <View className="tab__item tab__video">
+          {products.map(item => (
+            <View
+              key={item.id}
+              className="tab__item__card"
+              onClick={() => {
+                jumpTo('product-detail', `?id=${item.id}`)
+              }}
+            >
+              <ProductCard card={item} />
             </View>
-          </AtTabsPane>
-          <AtTabsPane current={current} index={2}>
-            <View className="tab__item">
-              {dynamics.map(item => (
-                <View key={item.id} className="tab__item__comment">
-                  <CommentCard
-                    card={item}
-                    handleShowAction={() => onShow(item)}
-                    handleSharePopShow={handleSharePopShow}
-                    handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
-                    isFabulous={item.isFabulous}
-                  />
-                </View>
-              ))}
+          ))}
+        </View>
+      )}
+
+      {isSearch && current === 2 && (
+        <View className="tab__item">
+          {dynamics.map(item => (
+            <View key={item.id} className="tab__item__comment">
+              <CommentCard
+                card={item}
+                handleShowAction={() => onShow(item)}
+                handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
+                isFabulous={item.isFabulous}
+              />
             </View>
-          </AtTabsPane>
-          <AtTabsPane current={current} index={3}>
-            <View className="tab__item">
-              {positions.map(item => (
-                <JobCard key={item.id} card={item} />
-              ))}
-            </View>
-          </AtTabsPane>
-        </AtTabs>
+          ))}
+        </View>
+      )}
+
+      {isSearch && current === 3 && (
+        <View className="tab__item">
+          {positions.map(item => (
+            <JobCard key={item.id} card={item} />
+          ))}
+        </View>
       )}
 
       <AtActionSheet
@@ -313,8 +295,6 @@ const SearchPage = props => {
         </AtActionSheetItem>
         {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
       </AtActionSheet>
-
-      <SharePop isOpened={isShareOpened} onClose={handleSharePopClose} />
     </View>
   )
 }

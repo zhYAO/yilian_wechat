@@ -25,6 +25,17 @@ class JobDetail extends Taro.Component {
     this.getDetail()
   }
 
+  onShareAppMessage() {
+    const { id } = this.$router.params
+    const {
+      jobDetail: { detail }
+    } = this.props
+    return {
+      title: detail.name,
+      path: `/subpackages/pages/job-detail/index?id=${id}`
+    }
+  }
+
   getDetail = () => {
     const { dispatch } = this.props
     const { id } = this.$router.params

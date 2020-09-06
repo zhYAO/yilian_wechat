@@ -19,6 +19,17 @@ class ProductDetail extends Taro.Component {
     this.getData()
   }
 
+  onShareAppMessage() {
+    const { id } = this.$router.params
+    const {
+      productDetail: { detail }
+    } = this.props
+    return {
+      title: detail.name,
+      path: `/subpackages/pages/product-detail/index?id=${id}`
+    }
+  }
+
   getData() {
     const { dispatch } = this.props
     const { id } = this.$router.params

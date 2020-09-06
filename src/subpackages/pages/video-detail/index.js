@@ -17,6 +17,17 @@ class videoDetail extends Taro.Component {
     this.getDetail()
   }
 
+  onShareAppMessage() {
+    const { id } = this.$router.params
+    const {
+      videoDetail: { detail }
+    } = this.props
+    return {
+      title: detail.name,
+      path: `/subpackages/pages/product-detail/index?id=${id}`
+    }
+  }
+
   getDetail = () => {
     const { dispatch } = this.props
     const { id } = this.$router.params

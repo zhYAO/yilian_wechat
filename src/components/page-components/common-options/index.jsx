@@ -2,6 +2,7 @@ import Taro, { useState } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
+import SharePop from '@components/page-components/share-pop'
 import './index.less'
 
 const CommonOptions = props => {
@@ -12,7 +13,6 @@ const CommonOptions = props => {
     zanNum,
     starNum,
     hasStar,
-    handleSharePopShow,
     handleZanClick,
     isFabulous,
     handleFavoriteClick,
@@ -23,6 +23,7 @@ const CommonOptions = props => {
   } = props
 
   const [showComment, setShowComment] = useState(!!defaultShowComment)
+  const [shareOpened, setShareOpened] = useState(false)
 
   const handleShowComment = () => {
     if (!editComment) {
@@ -41,17 +42,21 @@ const CommonOptions = props => {
     })
   }
 
+  const handleSharePopShow = () => {
+    setShareOpened(!shareOpened)
+  }
+
   return (
     <View>
       <View className="container">
-        {/* <View className="container__option" onClick={handleSharePopShow}>
+        <View className="container__option" onClick={handleSharePopShow}>
           <Image
             className="container__option__icon"
             src={require('@static/images/common/share.png')}
             mode="aspectFit"
           ></Image>
           <View className="container__option__text">转发 {shareNum}</View>
-        </View> */}
+        </View>
         <View className="container__option" onClick={handleShowComment}>
           <Image
             className="container__option__icon"
@@ -173,6 +178,8 @@ const CommonOptions = props => {
           ))}
         </View>
       )}
+
+      <SharePop isOpened={shareOpened} onClose={handleSharePopShow} />
     </View>
   )
 }

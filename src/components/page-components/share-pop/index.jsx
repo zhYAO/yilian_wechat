@@ -1,5 +1,5 @@
 import Taro, { useState } from '@tarojs/taro'
-import { View, Image } from '@tarojs/components'
+import { View, Image, Button } from '@tarojs/components'
 import { AtFloatLayout, AtTextarea } from 'taro-ui'
 import './index.less'
 
@@ -21,7 +21,9 @@ const SharePop = props => {
         <View className="container">
           <View className="container__title">
             <View className="container__title__text">转发动态</View>
-            <View className="container__title__share">立即转发</View>
+            <Button className="container__title__share" openType="share">
+              立即转发
+            </Button>
           </View>
           <View className="container__content">
             <AtTextarea
@@ -43,7 +45,7 @@ const SharePop = props => {
           </View>
 
           <View className="container__gap"></View>
-          <View className="container__cancel">取消</View>
+          <View className="container__cancel" onClick={handleClose}>取消</View>
         </View>
       </AtFloatLayout>
     </View>

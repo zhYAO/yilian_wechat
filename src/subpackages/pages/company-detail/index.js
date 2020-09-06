@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtActionSheet, AtActionSheetItem } from 'taro-ui'
+import { View, Block } from '@tarojs/components'
+import { AtTabs, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { navigateBack, navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
@@ -8,7 +8,6 @@ import JobCard from '@components/page-components/job-card'
 import ProductCard from '@components/page-components/product-card'
 import CommentCard from '@components/page-components/comment-card'
 import CompanyDetailInfo from '@components/page-components/company-detail-info'
-import SharePop from '@components/page-components/share-pop'
 import { makePhoneCall } from '@crossplatform/apiservice/makephonecall'
 import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
@@ -78,26 +77,6 @@ class CompanyDetail extends Taro.Component {
       type: 'companyDetail/updateState',
       payload: {
         actionSheetOpen: false
-      }
-    })
-  }
-
-  handleSharePopShow = () => {
-    const { dispatch } = this.props
-    dispatch({
-      type: 'companyDetail/updateState',
-      payload: {
-        isShareOpened: true
-      }
-    })
-  }
-
-  handleSharePopClose = () => {
-    const { dispatch } = this.props
-    dispatch({
-      type: 'companyDetail/updateState',
-      payload: {
-        isShareOpened: false
       }
     })
   }
@@ -208,8 +187,7 @@ class CompanyDetail extends Taro.Component {
         dynamicList: [],
         positionList: [],
         productList: [],
-        actionSheetOpen: false,
-        isShareOpened: false
+        actionSheetOpen: false
       }
     })
   }
@@ -231,8 +209,7 @@ class CompanyDetail extends Taro.Component {
         dynamicList,
         positionList,
         productList,
-        actionSheetOpen,
-        isShareOpened
+        actionSheetOpen
       },
       loading
     } = this.props
@@ -267,15 +244,18 @@ class CompanyDetail extends Taro.Component {
         </View>
 
         {/* tab */}
-        <AtTabs current={current} tabList={tabList} onClick={this.handleClick}>
-          <AtTabsPane current={current} index={0}>
-            <CompanyDetailInfo
-              companyDetail={companyDetail}
-              customerList={customerList}
-              handleFullScreen={this.handleFullScreen}
-            />
-          </AtTabsPane>
-          <AtTabsPane current={current} index={1}>
+        <AtTabs current={current} tabList={tabList} onClick={this.handleClick}></AtTabs>
+
+        {current === 0 && (
+          <CompanyDetailInfo
+            companyDetail={companyDetail}
+            customerList={customerList}
+            handleFullScreen={this.handleFullScreen}
+          />
+        )}
+
+        {current === 1 && (
+          <View className="tab__item">
             <View className="tab__item tab__video">
               {productList.map(item => (
                 <View
@@ -289,22 +269,25 @@ class CompanyDetail extends Taro.Component {
                 </View>
               ))}
             </View>
-          </AtTabsPane>
-          <AtTabsPane current={current} index={2}>
-            <View className="tab__item">
-              {positionList.map(item => (
-                <JobCard key={item.id} card={item} />
-              ))}
-            </View>
-          </AtTabsPane>
-          <AtTabsPane current={current} index={3}>
+          </View>
+        )}
+
+        {current === 2 && (
+          <View className="tab__item">
+            {positionList.map(item => (
+              <JobCard key={item.id} card={item} />
+            ))}
+          </View>
+        )}
+
+        {current === 3 && (
+          <Block>
             <View className="tab__item">
               {dynamicList.map(item => (
                 <View key={item.id} className="tab__item__comment">
                   <CommentCard
                     card={item}
                     handleShowAction={() => this.onShow(item)}
-                    handleSharePopShow={this.handleSharePopShow}
                     handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
                   />
@@ -319,8 +302,8 @@ class CompanyDetail extends Taro.Component {
                 <View className="tab__send__btn">发动态</View>
               </View>
             )}
-          </AtTabsPane>
-        </AtTabs>
+          </Block>
+        )}
 
         {!isMine && !isFullScreen && (
           <View className="container__bottom">
@@ -356,8 +339,6 @@ class CompanyDetail extends Taro.Component {
           </AtActionSheetItem>
           {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
         </AtActionSheet>
-
-        <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />
       </View>
     )
   }
