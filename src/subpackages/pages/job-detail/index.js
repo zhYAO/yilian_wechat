@@ -205,7 +205,7 @@ class JobDetail extends Taro.Component {
     } = this.props
     const { tempFilePaths } = this.state
     Taro.uploadFile({
-      url: 'https://www.ilove01.cn/e-link-api/company-position/apply',
+      url: `${getGlobalData('API_URL')}/company-position/apply`,
       filePath: tempFilePaths.path,
       name: 'file',
       header: {

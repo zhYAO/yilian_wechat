@@ -3,7 +3,7 @@ import { getSystemInfoSync } from '@crossplatform/apiservice/systemInfo'
 const { windowHeight, windowWidth, statusBarHeight } = getSystemInfoSync()
 const dpr = windowWidth / 750
 let globalData = {
-  env: 'gray', // daily gray online
+  env: 'daily', // daily online
   windowHeight,
   dpr,
   navBarPaddingTop: statusBarHeight,
@@ -69,3 +69,19 @@ export function getGlobalDeepIndex(key, name) {
     return []
   }
 }
+
+const environmentJudge = () => {
+  // 判断当前环境  daily gray online
+  const { env } = globalData
+  switch (env) {
+    case 'daily':
+      // 测试
+      globalData['API_URL'] = 'https://test.ilove01.cn/e-link-api'
+      break
+    case 'online':
+      // 正式
+      globalData['API_URL'] = 'https://www.ilove01.cn/e-link-api'
+      break
+  }
+}
+environmentJudge()

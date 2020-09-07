@@ -1,9 +1,10 @@
 import Taro from '@tarojs/taro'
 import { getStorageSync } from '@crossplatform/apiservice/storage'
 import { showToast } from '@crossplatform/apiservice/toast'
+import { getGlobalData } from '@configuration/globaldata'
 // import { noConsole } from '../config'
 
-const baseUrl = `https://www.ilove01.cn/e-link-api`
+const baseUrl = getGlobalData('API_URL')
 
 export default (options = { method: 'GET', data: {} }) => {
   // if (!noConsole) {

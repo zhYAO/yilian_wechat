@@ -1,7 +1,8 @@
 import Taro from '@tarojs/taro'
 import { showModal, showToast } from '@crossplatform/apiservice/toast'
+import { getGlobalData } from '@configuration/globaldata'
 
-const url = `https://www.ilove01.cn/e-link-api`
+const url = getGlobalData('API_URL')
 
 export const doUpload = (type = 'company') => {
   return new Promise(resolve => {
