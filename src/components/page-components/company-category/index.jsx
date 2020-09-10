@@ -21,7 +21,7 @@ const CompanyCategory = props => {
   return (
     <View className="container">
       {/* <View className="container__grid"> */}
-      <Swiper className="container__grid" circular>
+      <Swiper className="container__grid">
         {listLenthArr.length > 0 &&
           listLenthArr.map((itemArr, indexArr) => {
             const newList = list.slice(8 * indexArr, 8 * (indexArr + 1))

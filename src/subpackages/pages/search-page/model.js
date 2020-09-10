@@ -8,6 +8,7 @@ import {
   favoriteRemoveRequest
 } from '@service/user-controller'
 import { showToast } from '@crossplatform/apiservice/toast'
+import { setStorageSync } from '@crossplatform/apiservice/storage'
 
 export default {
   namespace: 'searchPage',
@@ -15,7 +16,7 @@ export default {
     current: 0,
     tabList: [{ title: '公司' }, { title: '产品' }, { title: '动态' }, { title: '职位' }],
     searchVal: '',
-    searchRecord: ['搜索词1', '搜索词1', '搜索词1', '搜索词1', '搜索词1'],
+    searchRecord: [],
     hotRecord: ['搜索词1', '搜索词1', '搜索词1'],
     searchData: {},
     isSearch: false,
@@ -25,14 +26,17 @@ export default {
 
   effects: {
     *effectsSearch({ payload }, { call, put, select }) {
-      const { searchVal } = yield select(state => state.searchPage)
+      const { searchVal, searchRecord } = yield select(state => state.searchPage)
       const { data } = yield call(searchpageApi.search, { name: searchVal })
       if (data) {
+        let history = new Set(searchRecord.push(searchVal))
+        setStorageSync('searchHistory', JSON.stringify(history))
         yield put({
           type: 'updateState',
           payload: {
             searchData: data,
-            isSearch: true
+            isSearch: true,
+            searchRecord: [...history]
           }
         })
       }

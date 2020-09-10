@@ -126,7 +126,7 @@ const Discover = props => {
           type: 5
         }
       }).then(() => {
-        getActivityList()
+        getData()
       })
     } else {
       dispatch({
@@ -136,7 +136,7 @@ const Discover = props => {
           type: 5
         }
       }).then(() => {
-        getActivityList()
+        getData()
       })
     }
   }
@@ -151,7 +151,7 @@ const Discover = props => {
           type: type === 'USER' ? 1 : 2
         }
       }).then(() => {
-        getActivityList()
+        getData()
       })
     } else {
       dispatch({
@@ -161,7 +161,7 @@ const Discover = props => {
           type: type === 'USER' ? 1 : 2
         }
       }).then(() => {
-        getActivityList()
+        getData()
       })
     }
     onCancel()
@@ -177,7 +177,7 @@ const Discover = props => {
           type: 5
         }
       }).then(() => {
-        getActivityList()
+        getData()
       })
     } else {
       dispatch({
@@ -187,7 +187,7 @@ const Discover = props => {
           type: 5
         }
       }).then(() => {
-        getActivityList()
+        getData()
       })
     }
     onCancel()

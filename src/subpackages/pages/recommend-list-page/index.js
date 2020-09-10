@@ -35,7 +35,7 @@ const RecommendListPage = props => {
 
   return (
     <View className="container">
-      <NavigationBar title="小易推荐" hasLeftIcon={true} />
+      <NavigationBar title="星推荐" hasLeftIcon={true} />
 
       {companyCardList.map(item => {
         return <CompanyCard key={item.id} data={item} />

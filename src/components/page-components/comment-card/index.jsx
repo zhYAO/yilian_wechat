@@ -29,11 +29,17 @@ const CommentCard = props => {
     }
   }
 
+  const goEditCommentPage = () => {
+    navigateTo({
+      url: `${pagejumplist['edit-comment'].path}?id=${card.id}`
+    })
+  }
+
   return (
     <View className="container">
       <View className="container__top">
         <Image className="container__top__img" src={card.imgPath} onClick={handleClick} />
-        <View className="container__top__content">
+        <View className="container__top__content" onClick={goEditCommentPage}>
           <View className="content__desc">
             <View className="content__name">{card.publisher}</View>
             <View className="content__date">{card.createTime}</View>

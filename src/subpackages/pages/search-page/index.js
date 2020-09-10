@@ -193,13 +193,14 @@ const SearchPage = props => {
 
       <AtSearchBar
         value={searchVal}
+        onConfirm={handleActionClick}
         onChange={handleChange}
         onActionClick={handleActionClick}
         onClear={handleClear}
         focus={true}
       />
 
-      {/* {!isSearch && (
+      {!isSearch && (
         <Block>
           <View className="container__record">
             <View className="container__record__top">
@@ -215,7 +216,7 @@ const SearchPage = props => {
             </View>
           </View>
 
-          <View className="container__record">
+          {/* <View className="container__record">
             <View className="container__record__top">
               <View className="top__title">热门搜索</View>
             </View>
@@ -226,9 +227,9 @@ const SearchPage = props => {
                 </View>
               ))}
             </View>
-          </View>
+          </View> */}
         </Block>
-      )} */}
+      )}
 
       {isSearch && <AtTabs current={current} tabList={tabList} onClick={handleTabChange}></AtTabs>}
 

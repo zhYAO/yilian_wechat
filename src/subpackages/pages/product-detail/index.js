@@ -217,10 +217,10 @@ class ProductDetail extends Taro.Component {
           <RichText space="nbsp" nodes={detail.productDescribe}></RichText>
         </View>
 
-        <View className="container__gap"></View>
 
         {/* 底部操作组件 */}
         <View className="container__options">
+          <View className="container__gap"></View>
           <CommonOptions
             hasStar={true}
             optionId={detail.id}

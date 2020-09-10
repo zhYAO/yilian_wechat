@@ -45,9 +45,14 @@ class JobDetail extends Taro.Component {
     })
   }
 
-  jumpTo = url => {
+  jumpToDetail = () => {
+    const {
+      jobDetail: {
+        detail: { company }
+      }
+    } = this.props
     navigateTo({
-      url: `${pagejumplist[url].path}`
+      url: `${pagejumplist['company-detail'].path}?id=${company.id}`
     })
   }
 
@@ -251,7 +256,7 @@ class JobDetail extends Taro.Component {
           </View>
         </View>
 
-        <View className="container__card">
+        <View className="container__card" onClick={this.jumpToDetail}>
           <Image className="container__card__img" src={detail.imgPath}></Image>
           <View className="container__card__content">
             <View className="content__name">{detail.company.name}</View>

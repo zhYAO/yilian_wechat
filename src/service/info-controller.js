@@ -12,7 +12,7 @@ export const bannerListRequest = data => {
 }
 
 /**
- * 小易推荐
+ * 星推荐
  */
 export const companyRecommendRequest = data => {
   return Request({

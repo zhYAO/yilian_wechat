@@ -129,13 +129,13 @@ const MyInfo = props => {
           onClick={() => handleJump('common-edit', `key=weChat&value=${weChat}`)}
         />
         <AtListItem
-          title="绑定手机号(mvp助手用户名)"
+          title="绑定手机号(助手用户名)"
           extraText={mobile}
           arrow="right"
           onClick={() => handleOpen()}
         />
         <AtListItem
-          title="e-link MVP助手密码"
+          title="e-link 助手密码"
           extraText=""
           arrow="right"
           onClick={() => handleJump('common-edit', `key=password`)}
@@ -160,9 +160,6 @@ const MyInfo = props => {
           arrow="right"
           onClick={() => handleJump('common-edit', `key=job&value=${job}`)}
         />
-      </View>
-
-      <View className="container__list">
         <AtListItem
           title="关注领域"
           arrow="right"

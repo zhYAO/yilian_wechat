@@ -15,12 +15,18 @@ const NavigationBar = props => {
 
   return (
     <View>
-      <View className="bar" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        <AtNavBar
-          onClickLeftIcon={handleBack}
-          title={title}
-          leftIconType={hasLeftIcon ? 'chevron-left' : ''}
-        />
+      <View
+        className="bar"
+        style={{
+          paddingTop: navBarPaddingTop + 'px',
+          backgroundImage: hasLeftIcon ? '' : 'linear-gradient(to left, #5271ff , #839aff)'
+        }}
+      >
+        {hasLeftIcon ? (
+          <AtNavBar onClickLeftIcon={handleBack} title={title} leftIconType="chevron-left" />
+        ) : (
+          <View className="bar__title">{title}</View>
+        )}
       </View>
       <View className="bar__empty" style={{ paddingTop: navBarPaddingTop + 'px' }}></View>
     </View>

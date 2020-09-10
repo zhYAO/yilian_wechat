@@ -19,7 +19,7 @@ const CompanyCard = props => {
         <Image className="card__img" src={data.logoPath} mode="aspectFill" />
         <View className="card__content">
           <Text className="card__content__name">{data.name}</Text>
-          <Text className="card__content__desc">{data.theme}</Text>
+          {data.theme && <Text className="card__content__desc">{data.theme}</Text>}
           <View className="card__content__cards">
             {data.labels.map((cardItem, index) => {
               return (

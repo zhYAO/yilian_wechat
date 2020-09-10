@@ -78,7 +78,7 @@ const CompanyDetailInfo = props => {
           {customerList.map((item, index) => {
             return index < 4 ? (
               <View className="card__item" key={item.id}>
-                <Image src={item.imgPath} alt="图片加载失败" className="card__item__img" />
+                <Image src={item.imgPath} alt="图片加载失败" className="card__item__img" mode="aspectFit" />
                 <Text className="card__item__name">{item.customerName}</Text>
               </View>
             ) : null

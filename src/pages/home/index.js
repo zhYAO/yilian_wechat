@@ -111,7 +111,7 @@ const Index = props => {
 
       {/* 推荐公司列表 */}
       {companyCardList.length > 0 && (
-        <CompanyPart title={'小易推荐'} extraText={'>>更多'} cardList={companyCardList} />
+        <CompanyPart title={'星推荐'} extraText={'>>更多'} cardList={companyCardList} />
       )}
 
       {/* 热门产品 */}

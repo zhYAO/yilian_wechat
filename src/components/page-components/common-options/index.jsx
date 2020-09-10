@@ -31,8 +31,10 @@ const CommonOptions = props => {
         url: `${pagejumplist['edit-comment'].path}?id=${optionId}`
       })
     } else {
-      setShowComment(true)
-      editComment({})
+      setShowComment(!showComment)
+      if (!showComment) {
+        editComment({})
+      }
     }
   }
 

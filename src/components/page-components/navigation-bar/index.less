@@ -6,31 +6,14 @@
   left: 0;
   width: 100%;
   height: @searchHeight;
-  // box-sizing: border-box;
   z-index: 999;
   background-color: #fff;
-  &__btn {
+  &__title {
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: center;
-    height: 70px;
-    margin-left: 8px;
-    background: #fff;
-    box-shadow: 0px 3px 9px 0px rgba(194, 194, 194, 0.51);
-    border-radius: 35px;
-    // 188px 是小程序按钮的宽度
-    margin-right: calc(188px + 24px);
-    margin-left: 24px;
-  }
-  &__icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 15px;
-  }
-  &__desc {
-    font-size: 29px;
-    color: rgba(188, 188, 188, 1);
+    line-height: @searchHeight;
+    color: #fff;
   }
 }
 
