@@ -1,4 +1,4 @@
-import Taro, { useEffect, useState } from '@tarojs/taro'
+import Taro, { useEffect, useState, useDidShow } from '@tarojs/taro'
 import { View, Block } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtSearchBar, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -9,6 +9,7 @@ import ProductCard from '@components/page-components/product-card'
 import CommentCard from '@components/page-components/comment-card'
 import JobCard from '@components/page-components/job-card'
 import NavigationBar from '@components/page-components/navigation-bar'
+import { getStorageSync, removeStorageSync } from '@crossplatform/apiservice/storage'
 import './index.less'
 
 const SearchPage = props => {
@@ -28,6 +29,19 @@ const SearchPage = props => {
   } = props
 
   const [itemActive, setItemActive] = useState({})
+
+  useDidShow(() => {
+    let history = getStorageSync('searchHistory')
+    if (history) {
+      const val = history.split('|')
+      dispatch({
+        type: 'searchPage/updateState',
+        payload: {
+          searchRecord: val
+        }
+      })
+    }
+  })
 
   useEffect(() => {
     dispatch({
@@ -187,6 +201,16 @@ const SearchPage = props => {
     })
   }
 
+  const clearSearchHistory = () => {
+    removeStorageSync('searchHistory')
+    dispatch({
+      type: 'searchPage/updateState',
+      payload: {
+        searchRecord: []
+      }
+    })
+  }
+
   return (
     <View className="container">
       <NavigationBar title="搜索" hasLeftIcon={true} />
@@ -205,7 +229,9 @@ const SearchPage = props => {
           <View className="container__record">
             <View className="container__record__top">
               <View className="top__title">最近搜索</View>
-              <View className="top__clear">清空记录</View>
+              <View className="top__clear" onClick={clearSearchHistory}>
+                清空记录
+              </View>
             </View>
             <View className="container__record__data">
               {searchRecord.map(item => (

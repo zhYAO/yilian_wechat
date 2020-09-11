@@ -6,11 +6,10 @@
   left: 0;
   display: flex;
   align-items: center;
-  width: calc(100% - 40px);
+  width: 100%;
   height: @searchHeight;
   z-index: 999;
   background-image: linear-gradient(to left, #5271ff , #839aff);
-  padding: 0 20px;
   &__btn {
     display: flex;
     flex: 1;
@@ -33,6 +32,9 @@
   &__desc {
     font-size: 29px;
     color: rgba(188, 188, 188, 1);
+  }
+  &__extra {
+    padding-left: 20px;
   }
 }
 

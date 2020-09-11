@@ -18,7 +18,7 @@ const SeachPart = props => {
   return (
     <View>
       <View className="search" style={{ paddingTop: navBarPaddingTop + 'px' }}>
-        {children}
+        <View className="search__extra">{children}</View>
         <View className="search__btn" onClick={handleClick}>
           <Image
             className="search__icon"
