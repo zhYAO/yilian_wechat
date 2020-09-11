@@ -1,2 +1,24 @@
 .container {
+  position: relative;
+  &__movable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    &__view {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &__list {
+    &__item {
+
+    }
+  }
+}
+
+.movable-row {
+  width: 100%;
+  box-shadow: #D9D9D9 0px 0px 20px;
 }

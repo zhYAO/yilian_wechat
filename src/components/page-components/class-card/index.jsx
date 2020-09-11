@@ -4,7 +4,7 @@ import { AtIcon } from 'taro-ui'
 import './index.less'
 
 const CommentCard = props => {
-  const { card, index, handleChangeSort } = props
+  const { card, index, onTouchStartCard, onTouchMoveCard, onTouchEndCard } = props
 
   return (
     <View className="container">
@@ -17,6 +17,14 @@ const CommentCard = props => {
       </View>
       <View className="container__options">
         <View
+          className="container__options__arrow"
+          onTouchStart={onTouchStartCard}
+          onTouchMove={onTouchMoveCard}
+          onTouchEnd={onTouchEndCard}
+        >
+          <AtIcon value="menu" size="30" color="#333"></AtIcon>
+        </View>
+        {/* <View
           className="container__options__arrow"
           onClick={() => {
             handleChangeSort(card.labelId, index, 'add')
@@ -31,7 +39,7 @@ const CommentCard = props => {
           }}
         >
           <AtIcon value="chevron-down" size="30" color="#333"></AtIcon>
-        </View>
+        </View> */}
       </View>
     </View>
   )

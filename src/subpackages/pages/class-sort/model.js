@@ -21,12 +21,12 @@ export default {
     *effectsChangeSort({ payload }, { call, put, select }) {
       const { data } = yield call(classSortApi.changeSort, { ...payload })
       if (data) {
-        yield put({
-          type: 'updateState',
-          payload: {
-            classList: data
-          }
-        })
+        // yield put({
+        //   type: 'updateState',
+        //   payload: {
+        //     classList: data
+        //   }
+        // })
       }
     }
   },
