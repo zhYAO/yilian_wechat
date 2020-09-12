@@ -9,7 +9,6 @@ const CommentCard = props => {
   const {
     card,
     handleShowAction,
-    handleSharePopShow,
     handleZanClick,
     isFabulous,
     editComment,
@@ -66,7 +65,6 @@ const CommentCard = props => {
         shareNum={card.forwardCount}
         commentNum={card.commentCount}
         zanNum={card.fabulousCount}
-        handleSharePopShow={handleSharePopShow}
         handleZanClick={handleZanClick}
         isFabulous={isFabulous}
         editComment={editComment}

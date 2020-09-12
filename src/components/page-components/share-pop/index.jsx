@@ -12,6 +12,8 @@ const SharePop = props => {
 
   const handleClose = () => {
     onClose()
+    setShareText('')
+    onTextChange('')
   }
 
   const handleChange = value => {
@@ -25,7 +27,7 @@ const SharePop = props => {
         <View className="container">
           <View className="container__title">
             <View className="container__title__text">转发动态</View>
-            <Button className="container__title__share" openType="share">
+            <Button className="container__title__share" openType="share" data-type={type}>
               立即转发
             </Button>
           </View>

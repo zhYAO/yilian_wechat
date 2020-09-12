@@ -4,6 +4,7 @@ import Index from './pages/home/index'
 import dva from './utils/dva'
 import models from './models/models'
 import { Provider } from '@tarojs/redux'
+import wxLogin from '@utils/wxLogin'
 import 'taro-ui/dist/style/index.scss'
 import './app.less'
 import './styles/base.less'
@@ -82,7 +83,21 @@ class App extends Component {
       }
     ]
   }
-  componentDidMount() {}
+  componentDidMount() {
+    // 处理登录逻辑
+    const { dispatch, getState } = store
+    const {
+      common: { token }
+    } = getState()
+    if (!token) {
+      wxLogin.doLogin().then(data => {
+        dispatch({
+          type: 'common/effectsUpdate',
+          payload: { ...data }
+        })
+      })
+    }
+  }
   componentDidShow() {}
   componentDidHide() {}
   componentDidCatchError() {}

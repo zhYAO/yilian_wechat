@@ -1,4 +1,4 @@
-import Taro, { useDidShow, useState, useReachBottom } from '@tarojs/taro'
+import Taro, { useDidShow, useState, useReachBottom, useShareAppMessage } from '@tarojs/taro'
 import { View, Swiper, SwiperItem } from '@tarojs/components'
 import { AtTabs, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -7,6 +7,8 @@ import JobCard from '@components/page-components/job-card'
 import VideoCard from '@components/page-components/video-card'
 import CommentCard from '@components/page-components/comment-card'
 import './index.less'
+
+let shareText = ''
 
 const Discover = props => {
   const {
@@ -40,6 +42,13 @@ const Discover = props => {
       case 2:
         getActivityList()
         break
+    }
+  })
+
+  useShareAppMessage(res => {
+    return {
+      title: shareText || itemActive.publisher,
+      path: `subpackages/pages/edit-comment/index?id=${itemActive.id}`
     }
   })
 
@@ -212,6 +221,10 @@ const Discover = props => {
     })
   }
 
+  const handleSharePopChange = val => {
+    shareText = val
+  }
+
   return (
     <View className="container">
       {/* 头部搜索栏 */}
@@ -263,6 +276,7 @@ const Discover = props => {
                 handleShowAction={() => onShow(item)}
                 handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
                 isFabulous={item.isFabulous}
+                onShareTextChange={handleSharePopChange}
               />
             </View>
           ))}

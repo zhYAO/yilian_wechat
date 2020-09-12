@@ -45,14 +45,26 @@ class PersonalHomepage extends Taro.Component {
     })
   }
 
-  onShareAppMessage() {
+  onShareAppMessage(e) {
+    const {
+      target: { dataset = {} }
+    } = e
     const { id } = this.$router.params
     const {
       personalHomepage: { name }
     } = this.props
-    return {
-      title: shareText || name,
-      path: `/subpackages/pages/personal-homepage/index?id=${id}`
+
+    if (dataset.type === 'PERSONAL') {
+      return {
+        title: name,
+        path: `/subpackages/pages/personal-homepage/index?id=${id}`
+      }
+    } else {
+      const { itemActive } = this.state
+      return {
+        title: shareText || name,
+        path: `subpackages/pages/edit-comment/index?id=${itemActive.id}`
+      }
     }
   }
 
@@ -264,10 +276,10 @@ class PersonalHomepage extends Taro.Component {
                   <CommentCard
                     card={item}
                     handleShowAction={() => this.onShow(item)}
-                    handleSharePopShow={this.handleSharePopShow}
                     handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
                     isMine={isMineVisit}
+                    onShareTextChange={this.handleSharePopChange}
                   />
                 </View>
               )
@@ -276,11 +288,13 @@ class PersonalHomepage extends Taro.Component {
         </View>
 
         <View className="container__bottom">
-          <Button className="container__bottom__btn btn" openType="share">
+          <Button className="container__bottom__btn btn" openType="share" data-type="PERSONAL">
             立即转发
           </Button>
           {!isMineVisit && (
-            <View className="container__bottom__btn" onClick={this.handleAttention}>{isAttention ? '已关注' : '+ 关注'}</View>
+            <View className="container__bottom__btn" onClick={this.handleAttention}>
+              {isAttention ? '已关注' : '+ 关注'}
+            </View>
           )}
         </View>
 
@@ -299,13 +313,6 @@ class PersonalHomepage extends Taro.Component {
           {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
         </AtActionSheet>
 
-        <SharePop
-          isOpened={isShareOpened}
-          onClose={this.handleSharePopClose}
-          onTextChange={this.handleSharePopChange}
-          type={'PERSONAL'}
-          detail={this.props.personalHomepage}
-        />
       </View>
     )
   }

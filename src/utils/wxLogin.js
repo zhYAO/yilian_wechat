@@ -1,15 +1,12 @@
 import { setStorageSync } from '@crossplatform/apiservice/storage'
 import { login } from '@crossplatform/apiservice/login'
 import { wxLoginRequest } from '@service/login-controller'
-// import { getSystemInfo } from '@crossplatform/apiservice/systemInfo'
-// import { getArchiveInfoRequest } from '../service/user-info-controller'
 import { showToast } from '@crossplatform/apiservice/toast'
 
 const wxLogin = {
   doLogin: () => {
     return new Promise(resolve => {
       // 登录逻辑
-      // wxLogin.setPhoneModal()
       wxLogin.goLoginFunc(resolve)
     })
   },

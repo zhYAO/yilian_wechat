@@ -230,7 +230,7 @@ const Trends = props => {
           if (index < 3) {
             return (
               <View key={item.id}>
-                <FocusCard card={item} handleInit={() => getList(true)} />
+                <FocusCard card={item} handleInit={() => getInitData()} />
               </View>
             )
           }

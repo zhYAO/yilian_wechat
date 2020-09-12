@@ -1,4 +1,4 @@
-import Taro, { useEffect, useState, useDidShow } from '@tarojs/taro'
+import Taro, { useEffect, useState, useDidShow, useShareAppMessage } from '@tarojs/taro'
 import { View, Block } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtSearchBar, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -11,6 +11,8 @@ import JobCard from '@components/page-components/job-card'
 import NavigationBar from '@components/page-components/navigation-bar'
 import { getStorageSync, removeStorageSync } from '@crossplatform/apiservice/storage'
 import './index.less'
+
+let shareText = ''
 
 const SearchPage = props => {
   const {
@@ -54,6 +56,13 @@ const SearchPage = props => {
       }
     })
   }, [])
+
+  useShareAppMessage(res => {
+    return {
+      title: shareText || itemActive.publisher,
+      path: `subpackages/pages/edit-comment/index?id=${itemActive.id}`
+    }
+  })
 
   const handleChange = val => {
     dispatch({
@@ -211,6 +220,10 @@ const SearchPage = props => {
     })
   }
 
+  const handleSharePopChange = val => {
+    shareText = val
+  }
+
   return (
     <View className="container">
       <NavigationBar title="搜索" hasLeftIcon={true} />
@@ -292,6 +305,7 @@ const SearchPage = props => {
                 handleShowAction={() => onShow(item)}
                 handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
                 isFabulous={item.isFabulous}
+                onShareTextChange={handleSharePopChange}
               />
             </View>
           ))}

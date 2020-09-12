@@ -36,14 +36,25 @@ class CompanyDetail extends Taro.Component {
     this.handleClearData()
   }
 
-  onShareAppMessage() {
+  onShareAppMessage(e) {
     const { id } = this.$router.params
     const {
       companyDetail: { companyDetail }
     } = this.props
-    return {
-      title: shareText || companyDetail.name,
-      path: `/subpackages/pages/company-detail/index?id=${id}`
+    const {
+      target: { dataset = {} }
+    } = e
+    if (dataset.type === 'COMAPNY') {
+      return {
+        title: shareText || companyDetail.name,
+        path: `/subpackages/pages/company-detail/index?id=${id}`
+      }
+    } else {
+      const { itemActive } = this.state
+      return {
+        title: shareText || itemActive.publisher,
+        path: `subpackages/pages/edit-comment/index?id=${itemActive.id}`
+      }
     }
   }
 
@@ -330,6 +341,7 @@ class CompanyDetail extends Taro.Component {
                     handleShowAction={() => this.onShow(item)}
                     handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
+                    onShareTextChange={this.handleSharePopChange}
                   />
                 </View>
               ))}

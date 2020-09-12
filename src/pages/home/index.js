@@ -11,19 +11,10 @@ import './index.less'
 const Index = props => {
   const {
     dispatch,
-    common: { token },
     home: { bannerList, companyCardList, hotList, pageSize, page, hasNextPage }
   } = props
 
   useDidShow(() => {
-    if (!token) {
-      wxLogin.doLogin().then((data) => {
-        dispatch({
-          type: 'common/effectsUpdate',
-          payload: { ...data }
-        })
-      })
-    }
     getBanner()
     getRecommend()
     getHotList()
