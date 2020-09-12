@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Text, Video, Image } from '@tarojs/components'
+import { View, Text, Video, Image, ScrollView } from '@tarojs/components'
 import { setClipboardData } from '@crossplatform/apiservice/clipboard'
 import './index.less'
 
@@ -74,16 +74,24 @@ const CompanyDetailInfo = props => {
           <View className="title__line"></View>
           <View className="title__text">公司客户</View>
         </View>
-        <View className="container__item__card">
-          {customerList.map((item, index) => {
-            return index < 4 ? (
-              <View className="card__item" key={item.id}>
-                <Image src={item.imgPath} alt="图片加载失败" className="card__item__img" mode="aspectFit" />
-                <Text className="card__item__name">{item.customerName}</Text>
-              </View>
-            ) : null
-          })}
-        </View>
+
+        <ScrollView className="container__item__scroll" scroll-x>
+          <View className="container__item__card" scroll-x>
+            {customerList.map((item, index) => {
+              return (
+                <View className="card__item" key={item.id}>
+                  <Image
+                    src={item.imgPath}
+                    alt="图片加载失败"
+                    className="card__item__img"
+                    mode="aspectFit"
+                  />
+                  <Text className="card__item__name">{item.customerName}</Text>
+                </View>
+              )
+            })}
+          </View>
+        </ScrollView>
       </View>
 
       <View className="container__item">

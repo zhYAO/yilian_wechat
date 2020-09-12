@@ -85,3 +85,14 @@ export const encryptedPhoneRequest = data => {
     data
   })
 }
+
+/**
+ * 分享计数
+ */
+export const shareTimesRequest = data => {
+  return Request({
+    url: '/user/forward-count',
+    method: 'POST',
+    data
+  })
+}

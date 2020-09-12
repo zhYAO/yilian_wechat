@@ -4,6 +4,7 @@ import { AtFloatLayout, AtTextarea } from 'taro-ui'
 import ProductCardFav from '@components/page-components/product-card-fav'
 import DynamicCardFav from '@components/page-components/dynamic-card-fav'
 import PositionCardFav from '@components/page-components/position-card-fav'
+import { shareTimesRequest } from '@service/info-controller'
 import './index.less'
 
 const SharePop = props => {
@@ -21,13 +22,46 @@ const SharePop = props => {
     onTextChange(value || '')
   }
 
+  const handleShare = () => {
+    // 1:公司 2：视频 3：职位 4：产品  5：动态
+    let params = {}
+    switch (type) {
+      case 'COMPANY':
+        params.type = 1
+        params.foreignId = detail.id
+        break
+      case 'VIDEO':
+        params.type = 2
+        params.foreignId = detail.id
+        break
+      case 'POSITION':
+        params.type = 3
+        params.foreignId = detail.id
+        break
+      case 'PRODUCT':
+        params.type = 4
+        params.foreignId = detail.id
+        break
+      case 'DYNAMIC':
+        params.type = 5
+        params.foreignId = detail.id
+        break
+    }
+    shareTimesRequest(params)
+  }
+
   return (
     <View style={{ display: isOpened ? 'unset' : 'none' }}>
       <AtFloatLayout isOpened={isOpened} onClose={handleClose}>
         <View className="container">
           <View className="container__title">
             <View className="container__title__text">转发动态</View>
-            <Button className="container__title__share" openType="share" data-type={type}>
+            <Button
+              className="container__title__share"
+              openType="share"
+              data-type={type}
+              onClick={handleShare}
+            >
               立即转发
             </Button>
           </View>
