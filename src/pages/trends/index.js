@@ -1,9 +1,11 @@
 import Taro, {
   useDidShow,
+  useDidHide,
   useState,
   useReachBottom,
   usePullDownRefresh,
-  useShareAppMessage
+  useShareAppMessage,
+  useTabItemTap
 } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtIcon, AtActionSheet, AtActionSheetItem } from 'taro-ui'
@@ -23,6 +25,7 @@ let cardDetail = {}
 
 const Trends = props => {
   const {
+    common: { userInfo },
     dispatch,
     trends: {
       focusCardsList,
@@ -36,10 +39,16 @@ const Trends = props => {
   } = props
 
   const [itemActive, setItemActive] = useState({})
+  const [isInTrendsPage, setIsInTrendsPage] = useState(false)
 
   useDidShow(() => {
+    setIsInTrendsPage(true)
     getInitData()
   }, [])
+
+  useDidHide(() => {
+    setIsInTrendsPage(false)
+  })
 
   usePullDownRefresh(() => {
     getInitData().then(() => {
@@ -55,6 +64,15 @@ const Trends = props => {
     return {
       title: shareText || cardDetail.content,
       path: `subpackages/pages/edit-comment/index?id=${cardDetail.id}`
+    }
+  })
+
+  useTabItemTap(item => {
+    // 再次点击trends 则跳转到发布动态页面
+    if (userInfo.nickName && isInTrendsPage) {
+      navigateTo({
+        url: pagejumplist['publish-dynamic'].path
+      })
     }
   })
 
@@ -220,7 +238,7 @@ const Trends = props => {
     <View className="container">
       {/* 头部搜索栏 */}
       <SearchPart>
-        <AtIcon value="add-circle" size="20" color="#333" onClick={handleClick}></AtIcon>
+        <AtIcon value="add-circle" size="20" color="#fff" onClick={handleClick}></AtIcon>
       </SearchPart>
 
       {/* 推荐关注 */}

@@ -29,30 +29,40 @@ class App extends Component {
       navigationBarTextStyle: 'black'
     },
     tabBar: {
-      custom: true,
-      color: '#000000',
-      selectedColor: '#000000',
-      backgroundColor: '#000000',
+      color: '#111111',
+      borderStyle: 'black',
+      selectedColor: '#6190e8',
+      backgroundColor: '#ffffff',
       list: [
         {
           pagePath: 'pages/home/index',
-          text: '首页'
+          text: '首页',
+          iconPath: './static/images/tabbar/tabs_home.png',
+          selectedIconPath: './static/images/tabbar/tabs_home_active.png'
         },
         {
           pagePath: 'pages/company/index',
-          text: '公司'
+          text: '公司',
+          iconPath: './static/images/tabbar/tabs_company.png',
+          selectedIconPath: './static/images/tabbar/tabs_company_active.png'
         },
         {
           pagePath: 'pages/trends/index',
-          text: '动态'
+          text: '动态',
+          iconPath: './static/images/tabbar/tabs_trends.png',
+          selectedIconPath: './static/images/tabbar/tabs_trends_active.png'
         },
         {
           pagePath: 'pages/discover/index',
-          text: '发现'
+          text: '发现',
+          iconPath: './static/images/tabbar/tabs_discover.png',
+          selectedIconPath: './static/images/tabbar/tabs_discover_active.png'
         },
         {
           pagePath: 'pages/mine/index',
-          text: '我的'
+          text: '我的',
+          iconPath: './static/images/tabbar/tabs_mine.png',
+          selectedIconPath: './static/images/tabbar/tabs_mine_active.png'
         }
       ]
     },
