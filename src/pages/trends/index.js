@@ -18,6 +18,7 @@ import { navigateTo } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import SharePop from '@components/page-components/share-pop'
 import { stopPullDownRefresh } from '@crossplatform/apiservice/reflash'
+import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
 let shareText = ''
@@ -42,8 +43,11 @@ const Trends = props => {
   const [isInTrendsPage, setIsInTrendsPage] = useState(false)
 
   useDidShow(() => {
-    setIsInTrendsPage(true)
     getInitData()
+    const timer = setTimeout(() => {
+      clearTimeout(timer)
+      setIsInTrendsPage(true)
+    }, 500)
   }, [])
 
   useDidHide(() => {

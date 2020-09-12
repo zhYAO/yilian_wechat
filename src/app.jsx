@@ -73,12 +73,8 @@ class App extends Component {
           'pages/search-page/index',
           'pages/my-info/index',
           'pages/recommend-list-page/index',
-          'pages/company-detail/index',
-          'pages/product-detail/index',
-          'pages/class-details/index',
           'pages/friend-list/index',
           'pages/personal-homepage/index',
-          'pages/job-detail/index',
           'pages/my-focus/index',
           'pages/class-sort/index',
           'pages/common-edit/index',
@@ -86,9 +82,18 @@ class App extends Component {
           'pages/my-favorite/index',
           'pages/publish-dynamic/index',
           'pages/edit-comment/index',
-          'pages/video-detail/index',
           'pages/my-fans-page/index',
           'pages/my-takepart/index'
+        ]
+      },
+      {
+        root: 'detailPackages',
+        pages: [
+          'pages/company-detail/index',
+          'pages/product-detail/index',
+          'pages/class-details/index',
+          'pages/job-detail/index',
+          'pages/video-detail/index'
         ]
       }
     ]
