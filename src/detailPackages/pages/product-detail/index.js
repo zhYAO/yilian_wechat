@@ -204,7 +204,7 @@ class ProductDetail extends Taro.Component {
             {detail.imgPaths.map(item => {
               return (
                 <SwiperItem className="banner__item" key={item}>
-                  <Image className="banner__item__img" src={item} mode="aspectFill" />
+                  <Image className="banner__item__img" src={item} mode="aspectFit" />
                 </SwiperItem>
               )
             })}
