@@ -10,7 +10,10 @@ import CommentCard from '@components/page-components/comment-card'
 import CompanyDetailInfo from '@components/page-components/company-detail-info'
 import { makePhoneCall } from '@crossplatform/apiservice/makephonecall'
 import NavigationBar from '@components/page-components/navigation-bar'
+import SharePop from '@components/page-components/share-pop'
 import './index.less'
+
+let shareText = ''
 
 class CompanyDetail extends Taro.Component {
   constructor(props) {
@@ -31,6 +34,17 @@ class CompanyDetail extends Taro.Component {
 
   componentWillUnmount() {
     this.handleClearData()
+  }
+
+  onShareAppMessage() {
+    const { id } = this.$router.params
+    const {
+      companyDetail: { companyDetail }
+    } = this.props
+    return {
+      title: shareText || companyDetail.name,
+      path: `/subpackages/pages/company-detail/index?id=${id}`
+    }
   }
 
   handleBack = () => {
@@ -187,7 +201,8 @@ class CompanyDetail extends Taro.Component {
         dynamicList: [],
         positionList: [],
         productList: [],
-        actionSheetOpen: false
+        actionSheetOpen: false,
+        isShareOpened: false
       }
     })
   }
@@ -197,6 +212,30 @@ class CompanyDetail extends Taro.Component {
     this.setState({
       isFullScreen: !isFullScreen
     })
+  }
+
+  handleSharePopClose = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'companyDetail/updateState',
+      payload: {
+        isShareOpened: false
+      }
+    })
+  }
+
+  handleSharePopShow = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'companyDetail/updateState',
+      payload: {
+        isShareOpened: true
+      }
+    })
+  }
+
+  handleSharePopChange = val => {
+    shareText = val
   }
 
   render() {
@@ -209,7 +248,8 @@ class CompanyDetail extends Taro.Component {
         dynamicList,
         positionList,
         productList,
-        actionSheetOpen
+        actionSheetOpen,
+        isShareOpened
       },
       loading
     } = this.props
@@ -307,10 +347,11 @@ class CompanyDetail extends Taro.Component {
 
         {!isMine && !isFullScreen && (
           <View className="container__bottom">
-            {/* <Image
+            <Image
               className="container__bottom__img"
               src={require('@static/images/common/share__active.png')}
-            /> */}
+              onClick={this.handleSharePopShow}
+            />
             <View className="container__bottom__btn">
               <View className="btn" onClick={this.makePhoneCall}>
                 极速沟通
@@ -339,6 +380,14 @@ class CompanyDetail extends Taro.Component {
           </AtActionSheetItem>
           {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
         </AtActionSheet>
+
+        <SharePop
+          isOpened={isShareOpened}
+          onClose={this.handleSharePopClose}
+          onTextChange={this.handleSharePopChange}
+          type={'COMPANY'}
+          detail={companyDetail}
+        />
       </View>
     )
   }

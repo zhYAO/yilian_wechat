@@ -9,6 +9,8 @@ import { stopPullDownRefresh } from '@crossplatform/apiservice/reflash'
 import { getStorageSync } from '@crossplatform/apiservice/storage'
 import './index.less'
 
+let shareText = ''
+
 class PersonalHomepage extends Taro.Component {
   constructor(props) {
     super(props)
@@ -41,6 +43,17 @@ class PersonalHomepage extends Taro.Component {
     this.getInfo().then(() => {
       stopPullDownRefresh()
     })
+  }
+
+  onShareAppMessage() {
+    const { id } = this.$router.params
+    const {
+      personalHomepage: { name }
+    } = this.props
+    return {
+      title: shareText || name,
+      path: `/subpackages/pages/personal-homepage/index?id=${id}`
+    }
   }
 
   getInfo = () => {
@@ -184,6 +197,10 @@ class PersonalHomepage extends Taro.Component {
     this.onCancel()
   }
 
+  handleSharePopChange = val => {
+    shareText = val
+  }
+
   render() {
     const {
       common: { userId },
@@ -258,11 +275,14 @@ class PersonalHomepage extends Taro.Component {
           </View>
         </View>
 
-        {!isMineVisit && (
-          <View className="container__bottom" onClick={this.handleAttention}>
-            <View className="container__bottom__btn">{isAttention ? '已关注' : '+ 关注'}</View>
-          </View>
-        )}
+        <View className="container__bottom">
+          <Button className="container__bottom__btn btn" openType="share">
+            立即转发
+          </Button>
+          {!isMineVisit && (
+            <View className="container__bottom__btn" onClick={this.handleAttention}>{isAttention ? '已关注' : '+ 关注'}</View>
+          )}
+        </View>
 
         <AtActionSheet
           isOpened={actionSheetOpen}
@@ -279,7 +299,13 @@ class PersonalHomepage extends Taro.Component {
           {/* <AtActionSheetItem>举报</AtActionSheetItem> */}
         </AtActionSheet>
 
-        <SharePop isOpened={isShareOpened} onClose={this.handleSharePopClose} />
+        <SharePop
+          isOpened={isShareOpened}
+          onClose={this.handleSharePopClose}
+          onTextChange={this.handleSharePopChange}
+          type={'PERSONAL'}
+          detail={this.props.personalHomepage}
+        />
       </View>
     )
   }

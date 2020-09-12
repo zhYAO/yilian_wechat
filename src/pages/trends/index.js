@@ -1,4 +1,10 @@
-import Taro, { useDidShow, useState, useReachBottom, usePullDownRefresh } from '@tarojs/taro'
+import Taro, {
+  useDidShow,
+  useState,
+  useReachBottom,
+  usePullDownRefresh,
+  useShareAppMessage
+} from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtIcon, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -11,6 +17,9 @@ import pagejumplist from '@configuration/pagejumplist.json'
 import SharePop from '@components/page-components/share-pop'
 import { stopPullDownRefresh } from '@crossplatform/apiservice/reflash'
 import './index.less'
+
+let shareText = ''
+let cardDetail = {}
 
 const Trends = props => {
   const {
@@ -40,6 +49,13 @@ const Trends = props => {
 
   useReachBottom(() => {
     getList()
+  })
+
+  useShareAppMessage(res => {
+    return {
+      title: shareText || cardDetail.content,
+      path: `subpackages/pages/edit-comment/index?id=${cardDetail.id}`
+    }
   })
 
   // 获取初始化数据
@@ -195,6 +211,11 @@ const Trends = props => {
     onCancel()
   }
 
+  const handleShareTextChange = (val, detail) => {
+    shareText = val
+    cardDetail = detail
+  }
+
   return (
     <View className="container">
       {/* 头部搜索栏 */}
@@ -228,6 +249,7 @@ const Trends = props => {
                 handleSharePopShow={handleSharePopShow}
                 handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
                 isFabulous={item.isFabulous}
+                onShareTextChange={handleShareTextChange}
               />
             </View>
           )

@@ -19,7 +19,10 @@ const CommonOptions = props => {
     isFavorite,
     comments = [],
     editComment,
-    defaultShowComment
+    defaultShowComment,
+    onTextChange,
+    type,
+    detail
   } = props
 
   const [showComment, setShowComment] = useState(!!defaultShowComment)
@@ -181,7 +184,13 @@ const CommonOptions = props => {
         </View>
       )}
 
-      <SharePop isOpened={shareOpened} onClose={handleSharePopShow} />
+      <SharePop
+        isOpened={shareOpened}
+        onClose={handleSharePopShow}
+        onTextChange={onTextChange}
+        type={type}
+        detail={detail}
+      />
     </View>
   )
 }

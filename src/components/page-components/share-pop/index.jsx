@@ -1,10 +1,13 @@
 import Taro, { useState } from '@tarojs/taro'
 import { View, Image, Button } from '@tarojs/components'
 import { AtFloatLayout, AtTextarea } from 'taro-ui'
+import ProductCardFav from '@components/page-components/product-card-fav'
+import DynamicCardFav from '@components/page-components/dynamic-card-fav'
+import PositionCardFav from '@components/page-components/position-card-fav'
 import './index.less'
 
 const SharePop = props => {
-  const { isOpened = false, onClose } = props
+  const { isOpened = false, onClose, onTextChange, type, detail } = props
   const [shareText, setShareText] = useState('')
 
   const handleClose = () => {
@@ -13,6 +16,7 @@ const SharePop = props => {
 
   const handleChange = value => {
     setShareText(value)
+    onTextChange(value || '')
   }
 
   return (
@@ -29,23 +33,43 @@ const SharePop = props => {
             <AtTextarea
               value={shareText}
               onChange={handleChange}
-              maxLength={200}
-              placeholder="热烈祝贺快仓发布新品，谈合作的小伙伴快到碗里来……"
+              maxLength={100}
+              placeholder="请填写分享说明"
             />
 
-            <View className="container__content__company">
-              <Image className="company__img"></Image>
-              <View className="company__content">
-                <View className="company__content__name">上海快仓智能科技有限公司</View>
-                <View className="company__content__desc">
-                  前程似锦，踏梦归来 快仓智能机器人为你保驾护航
+            {type === 'COMPANY' && (
+              <View className="container__content__company">
+                <Image className="company__img" src={detail.logoPath}></Image>
+                <View className="company__content">
+                  <View className="company__content__name">{detail.name}</View>
+                  <View className="company__content__desc">{detail.theme}</View>
                 </View>
               </View>
-            </View>
+            )}
+
+            {type === 'PRODUCT' && (
+              <View className="container__content__other">
+                <ProductCardFav card={detail} noBtn={true} />
+              </View>
+            )}
+
+            {type === 'DYNAMIC' && (
+              <View className="container__content__other">
+                <DynamicCardFav card={detail} noBtn={true} />
+              </View>
+            )}
+
+            {type === 'POSITION' && (
+              <View className="container__content__other">
+                <PositionCardFav card={detail} noBtn={true} />
+              </View>
+            )}
           </View>
 
           <View className="container__gap"></View>
-          <View className="container__cancel" onClick={handleClose}>取消</View>
+          <View className="container__cancel" onClick={handleClose}>
+            取消
+          </View>
         </View>
       </AtFloatLayout>
     </View>

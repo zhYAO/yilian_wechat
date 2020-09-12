@@ -14,7 +14,8 @@ const CommentCard = props => {
     isFabulous,
     editComment,
     defaultShowComment,
-    isMine
+    isMine,
+    onShareTextChange
   } = props
 
   const handleClick = () => {
@@ -33,6 +34,10 @@ const CommentCard = props => {
     navigateTo({
       url: `${pagejumplist['edit-comment'].path}?id=${card.id}`
     })
+  }
+
+  const handleSharePopChange = val => {
+    onShareTextChange(val, card)
   }
 
   return (
@@ -67,6 +72,9 @@ const CommentCard = props => {
         editComment={editComment}
         comments={card.comments}
         defaultShowComment={defaultShowComment}
+        onTextChange={handleSharePopChange}
+        type={'DYNAMIC'}
+        detail={card}
       />
     </View>
   )
@@ -78,7 +86,8 @@ CommentCard.defaultProps = {
   handleSharePopShow: () => {},
   handleZanClick: () => {},
   isFabulous: false,
-  editComment: null
+  editComment: null,
+  onShareTextChange: () => {}
 }
 
 export default CommentCard

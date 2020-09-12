@@ -11,6 +11,8 @@ import { getStorageSync } from '@crossplatform/apiservice/storage'
 import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
+let shareText = ''
+
 class JobDetail extends Taro.Component {
   constructor(props) {
     super(props)
@@ -31,7 +33,7 @@ class JobDetail extends Taro.Component {
       jobDetail: { detail }
     } = this.props
     return {
-      title: detail.name,
+      title: shareText || detail.name,
       path: `/subpackages/pages/job-detail/index?id=${id}`
     }
   }
@@ -235,6 +237,10 @@ class JobDetail extends Taro.Component {
     })
   }
 
+  handleSharePopChange = val => {
+    shareText = val
+  }
+
   render() {
     const {
       jobDetail: { detail, isOpened, replyName, content },
@@ -253,6 +259,7 @@ class JobDetail extends Taro.Component {
             <View className="sub__text">{detail.workplace}</View>
             <View className="sub__text">{detail.releaseTime}</View>
             <View className="sub__text">浏览{detail.lookCount}次</View>
+            <View className="sub__text">已申请{detail.lookCount}人</View>
           </View>
         </View>
 
@@ -291,6 +298,9 @@ class JobDetail extends Taro.Component {
                 isFavorite={detail.isFavorite}
                 editComment={this.editComment.bind(this)}
                 comments={detail.comments}
+                onTextChange={this.handleSharePopChange}
+                type={'POSITION'}
+                detail={detail}
               />
               <View className="container__options__btn" onClick={this.handleQuickSend}>
                 快速申请

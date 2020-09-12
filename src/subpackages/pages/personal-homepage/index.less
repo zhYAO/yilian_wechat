@@ -61,18 +61,22 @@
       padding: 16px 20px;
     }
     &__list {
-      padding: 0 40px;
+      padding: 0 40px 120px;
       .list__item {
         margin-top: 20px;
       }
     }
   }
   &__bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 22px;
+    padding: 22px 0;
     background-color: #fff;
+    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.3);
     &__btn {
       width: 208px;
       border: 1px solid rgba(247, 126, 3, 1);
@@ -81,6 +85,16 @@
       font-size: 21px;
       color: rgba(247, 126, 3, 1);
       text-align: center;
+      margin-left: 30px;
+      line-height: 1.5;
+    }
+    &__btn.btn {
+      background-color: transparent;
+      margin: 0;
+      line-height: 1.5;
+      &::after {
+        border: none;
+      }
     }
   }
 }

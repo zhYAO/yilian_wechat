@@ -7,7 +7,7 @@ import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
 const PositionCardFav = props => {
-  const { card,  handleInit } = props
+  const { card,  handleInit, noBtn } = props
 
   const [btnName, setBtnName] = useState(card.isFavorite ? '取消收藏' : '收藏')
   const [isFavorite, setIsFavorite] = useState(card.isFavorite)
@@ -59,9 +59,9 @@ const PositionCardFav = props => {
         <Text className="container__content__intro">{card.name}</Text>
         <Text className="container__content__intro">{card.companyName}</Text>
       </View>
-      <View className="container__btn" onClick={handleAttention}>
+      {!noBtn && <View className="container__btn" onClick={handleAttention}>
         {btnName}
-      </View>
+      </View>}
     </View>
   )
 }
