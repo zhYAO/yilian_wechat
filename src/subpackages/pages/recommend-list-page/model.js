@@ -26,7 +26,7 @@ export default {
             page: isReset ? 1 : page + 1
           }
         })
-        if (data.length < pageSize) {
+        if (data.records.length < pageSize) {
           yield put({
             type: 'updateState',
             payload: {
