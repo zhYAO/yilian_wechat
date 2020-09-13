@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro'
+import Taro, { hideLoading, showLoading } from '@tarojs/taro'
 import { View, Block } from '@tarojs/components'
 import { AtTabs, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -11,6 +11,7 @@ import CompanyDetailInfo from '@components/page-components/company-detail-info'
 import { makePhoneCall } from '@crossplatform/apiservice/makephonecall'
 import NavigationBar from '@components/page-components/navigation-bar'
 import SharePop from '@components/page-components/share-pop'
+import { getStorageSync } from '@crossplatform/apiservice/storage'
 import './index.less'
 
 let shareText = ''
@@ -20,12 +21,15 @@ class CompanyDetail extends Taro.Component {
     super(props)
     this.state = {
       itemActive: {},
-      isFullScreen: false
+      isFullScreen: false,
+      isMine: false
     }
   }
 
   componentDidShow() {
+    showLoading()
     this.getCompanyDetail()
+    this.judgeCompanyStatus()
   }
 
   componentDidHide() {
@@ -80,6 +84,8 @@ class CompanyDetail extends Taro.Component {
       payload: {
         id
       }
+    }).then(() => {
+      hideLoading()
     })
   }
 
@@ -249,6 +255,13 @@ class CompanyDetail extends Taro.Component {
     shareText = val
   }
 
+  judgeCompanyStatus = () => {
+    const identity = getStorageSync('identity')
+    this.setState({
+      isMine: identity === 'admin'
+    })
+  }
+
   render() {
     const {
       companyDetail: {
@@ -264,8 +277,7 @@ class CompanyDetail extends Taro.Component {
       },
       loading
     } = this.props
-    const { isMine } = this.$router.params
-    const { itemActive, isFullScreen } = this.state
+    const { itemActive, isFullScreen, isMine } = this.state
 
     return (
       <View className="container">
@@ -346,15 +358,22 @@ class CompanyDetail extends Taro.Component {
                 </View>
               ))}
             </View>
-            {isMine && (
-              <View
-                className="tab__send"
-                onClick={() => this.jumpTo('publish-dynamic', `?type=COMPANY`)}
-              >
-                <View className="tab__send__btn">发动态</View>
-              </View>
-            )}
           </Block>
+        )}
+
+        {isMine && !isFullScreen && (
+          <View className="container__bottom">
+            <Image
+              className="container__bottom__img"
+              src={require('@static/images/common/share__active.png')}
+              onClick={this.handleSharePopShow}
+            />
+            <View className="container__bottom__btn">
+              <View className="btn" onClick={() => this.jumpTo('publish-dynamic', `?type=COMPANY`)}>
+                发动态
+              </View>
+            </View>
+          </View>
         )}
 
         {!isMine && !isFullScreen && (

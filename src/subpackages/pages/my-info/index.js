@@ -21,7 +21,8 @@ const MyInfo = props => {
         companyName = '',
         job = '',
         theme = '',
-        labels = []
+        labels = [],
+        defMpPasswordView
       }
     },
     loading,
@@ -136,7 +137,7 @@ const MyInfo = props => {
         />
         <AtListItem
           title="e-link 助手密码"
-          extraText=""
+          extraText={defMpPasswordView}
           arrow="right"
           onClick={() => handleJump('common-edit', `key=password`)}
         />

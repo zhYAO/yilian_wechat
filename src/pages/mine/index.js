@@ -28,7 +28,8 @@ const Mine = props => {
         fansCount,
         companyId,
         id,
-        imgPath
+        imgPath,
+        identity
       }
     },
     loading
@@ -53,6 +54,12 @@ const Mine = props => {
     dispatch({
       type: 'mine/effectsUserInfo',
       payload: {}
+    }).then(() => {
+      setStorageSync('identity', identity)
+      dispatch({
+        type: 'common/effectsUpdate',
+        payload: { identity }
+      })
     })
   }
 

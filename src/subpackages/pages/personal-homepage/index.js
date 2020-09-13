@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro'
+import Taro, { hideLoading, showLoading } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { connect } from '@tarojs/redux'
@@ -20,7 +20,10 @@ class PersonalHomepage extends Taro.Component {
   }
 
   componentDidShow() {
-    this.getInfo()
+    showLoading()
+    this.getInfo().then(() => {
+      hideLoading()
+    })
   }
 
   componentWillUnmount() {
@@ -227,7 +230,9 @@ class PersonalHomepage extends Taro.Component {
         actionSheetOpen,
         isShareOpened,
         isAttention,
-        imgPath
+        imgPath,
+        job,
+        sex
       },
       loading
     } = this.props
@@ -251,7 +256,7 @@ class PersonalHomepage extends Taro.Component {
           <View className="container__user__info">
             <Image className="info__aventor" src={imgPath}></Image>
             <View className="info__name">{name || ''}</View>
-            <View className="info__score">{companyName}</View>
+            <View className="info__score">{`${companyName} · ${job}`}</View>
             <View className="info__labels">
               {labels.map((item, index) => {
                 if (index < 4) {
@@ -264,6 +269,7 @@ class PersonalHomepage extends Taro.Component {
               })}
             </View>
             <View className="info__intro">{theme}</View>
+            <View className="info__intro">{sex === 1 ? '男' : '女'}</View>
           </View>
         </View>
 

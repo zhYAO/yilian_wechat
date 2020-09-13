@@ -18,7 +18,8 @@ export default {
     //   : '',
     tabbarIndex: 0,
     navBarHeight: 44,
-    userInfo: getStorageSync('userInfo') || {}
+    userInfo: getStorageSync('userInfo') || {},
+    identity: 'member' // 用户对于公司的身份 member: 普通成员 admin: 管理员
   },
 
   effects: {
