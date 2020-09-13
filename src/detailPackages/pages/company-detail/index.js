@@ -27,7 +27,6 @@ class CompanyDetail extends Taro.Component {
   componentDidShow() {
     showLoading()
     this.getCompanyDetail()
-    this.judgeCompanyStatus()
   }
 
   componentDidHide() {
@@ -86,6 +85,7 @@ class CompanyDetail extends Taro.Component {
       }
     }).then(() => {
       hideLoading()
+      this.judgeCompanyStatus()
     })
   }
 
@@ -252,9 +252,14 @@ class CompanyDetail extends Taro.Component {
   }
 
   judgeCompanyStatus = () => {
-    const identity = getStorageSync('identity')
+    const {
+      companyDetail: {
+        companyDetail: { id }
+      }
+    } = this.props
+    const companyInfo = getStorageSync('companyInfo')
     this.setState({
-      isMine: identity === 'admin'
+      isMine: companyInfo.identity === 'admin' && companyInfo.id === id
     })
   }
 

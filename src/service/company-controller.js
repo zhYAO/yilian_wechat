@@ -54,3 +54,11 @@ export const companyApplyRequest = data => {
     data
   })
 }
+
+export const dynamicListRequest = (data) => {
+  return Request({
+    url: '/dynamic/list',
+    method: 'GET',
+    data,
+  });
+};

@@ -1,12 +1,13 @@
 import { getSystemInfoSync } from '@crossplatform/apiservice/systemInfo'
 
-const { windowHeight, windowWidth, statusBarHeight } = getSystemInfoSync()
+const { windowHeight, windowWidth, statusBarHeight, safeArea } = getSystemInfoSync()
 const dpr = windowWidth / 750
 let globalData = {
   env: 'daily', // daily online
   windowHeight,
   dpr,
   navBarPaddingTop: statusBarHeight,
+  isIphoneXPlus: safeArea.top > 20,
   blockWords: /微信|加微|V信|威信|QQ|VX|WX|企鹅|\+V|weixin|扣扣|保安|安保|模特|APP推广|医药|充场|撑场|试依|试衣|AP|App|信用卡|网拍|推广|摄影|主播|\d{6,}/i
 }
 

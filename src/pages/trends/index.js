@@ -25,7 +25,7 @@ const Trends = props => {
     common: { userInfo },
     dispatch,
     trends: {
-      focusCardsList,
+      focusCardsList = [],
       comentCardList,
       hasNextPage,
       pageSize,
@@ -242,7 +242,9 @@ const Trends = props => {
       </SearchPart>
 
       {/* 推荐关注 */}
-      <CustomNavigator title="推荐关注" extraText={'>>更多'} rightClick={handleClick} />
+      {focusCardsList.length > 0 && (
+        <CustomNavigator title="推荐关注" extraText={'>>更多'} rightClick={handleClick} />
+      )}
       <View>
         {focusCardsList.map((item, index) => {
           if (index < 3) {

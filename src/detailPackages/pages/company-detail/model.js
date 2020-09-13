@@ -7,6 +7,7 @@ import {
   favoriteRequest,
   favoriteRemoveRequest
 } from '@service/user-controller'
+import { dynamicListRequest } from '@service/company-controller'
 import { showToast } from '@crossplatform/apiservice/toast'
 
 export default {
@@ -26,8 +27,14 @@ export default {
   effects: {
     *effectsDetail({ payload }, { call, put }) {
       const { data } = yield call(companyDetailApi.detail, { ...payload })
+      const {
+        data: { records: dynamicList }
+      } = yield call(dynamicListRequest, {
+        type: 'COMPANY',
+        foreignId: payload.id
+      })
       if (data) {
-        const { companyDetail, customerList, dynamicList, positionList, productList } = data
+        const { companyDetail, customerList, positionList, productList } = data
         yield put({
           type: 'updateState',
           payload: {
