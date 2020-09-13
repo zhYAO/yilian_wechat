@@ -14,8 +14,6 @@ import SharePop from '@components/page-components/share-pop'
 import { getStorageSync } from '@crossplatform/apiservice/storage'
 import './index.less'
 
-let shareText = ''
-
 class CompanyDetail extends Taro.Component {
   constructor(props) {
     super(props)
@@ -40,24 +38,26 @@ class CompanyDetail extends Taro.Component {
     this.handleClearData()
   }
 
-  onShareAppMessage(e) {
+  onShareAppMessage(res) {
     const { id } = this.$router.params
     const {
       companyDetail: { companyDetail }
     } = this.props
     const {
-      target: { dataset = {} }
-    } = e
-    if (dataset.type === 'COMAPNY') {
+      target: {
+        dataset: { detail = {}, value = '', type }
+      }
+    } = res
+    if (type === 'COMAPNY') {
       return {
-        title: shareText || companyDetail.name,
-        path: `/subpackages/pages/company-detail/index?id=${id}`
+        title: value || companyDetail.name,
+        path: `/detailPackages/pages/company-detail/index?id=${id}`
       }
     } else {
       const { itemActive } = this.state
       return {
-        title: shareText || itemActive.publisher,
-        path: `subpackages/pages/edit-comment/index?id=${itemActive.id}`
+        title: value || itemActive.publisher,
+        path: `subpackages/pages/edit-comment/index?id=${detail.id}`
       }
     }
   }
@@ -251,10 +251,6 @@ class CompanyDetail extends Taro.Component {
     })
   }
 
-  handleSharePopChange = val => {
-    shareText = val
-  }
-
   judgeCompanyStatus = () => {
     const identity = getStorageSync('identity')
     this.setState({
@@ -353,7 +349,6 @@ class CompanyDetail extends Taro.Component {
                     handleShowAction={() => this.onShow(item)}
                     handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
-                    onShareTextChange={this.handleSharePopChange}
                   />
                 </View>
               ))}
@@ -415,7 +410,6 @@ class CompanyDetail extends Taro.Component {
         <SharePop
           isOpened={isShareOpened}
           onClose={this.handleSharePopClose}
-          onTextChange={this.handleSharePopChange}
           type={'COMPANY'}
           detail={companyDetail}
         />

@@ -1,4 +1,4 @@
-import Taro, { useState } from '@tarojs/taro'
+import Taro, { useState, useEffect } from '@tarojs/taro'
 import { View, Image, Button } from '@tarojs/components'
 import { AtFloatLayout, AtTextarea } from 'taro-ui'
 import ProductCardFav from '@components/page-components/product-card-fav'
@@ -8,18 +8,20 @@ import { shareTimesRequest } from '@service/info-controller'
 import './index.less'
 
 const SharePop = props => {
-  const { isOpened = false, onClose, onTextChange, type, detail } = props
+  const { isOpened = false, onClose, type, detail } = props
   const [shareText, setShareText] = useState('')
+
+  useEffect(() => {
+    setShareText('')
+  }, [useEffect])
 
   const handleClose = () => {
     onClose()
     setShareText('')
-    onTextChange('')
   }
 
   const handleChange = value => {
     setShareText(value)
-    onTextChange(value || '')
   }
 
   const handleShare = () => {
@@ -47,6 +49,7 @@ const SharePop = props => {
         params.foreignId = detail.id
         break
     }
+    onClose()
     shareTimesRequest(params)
   }
 
@@ -60,6 +63,8 @@ const SharePop = props => {
               className="container__title__share"
               openType="share"
               data-type={type}
+              data-detail={detail}
+              data-value={shareText}
               onClick={handleShare}
             >
               立即转发

@@ -14,7 +14,7 @@ export default {
         yield put({
           type: 'updateState',
           payload: {
-            userInfo: data
+            userInfo: { ...data }
           }
         })
       }

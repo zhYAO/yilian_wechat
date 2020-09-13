@@ -17,14 +17,16 @@ class videoDetail extends Taro.Component {
     this.getDetail()
   }
 
-  onShareAppMessage() {
+  onShareAppMessage(res) {
     const { id } = this.$router.params
     const {
-      videoDetail: { detail }
-    } = this.props
+      target: {
+        dataset: { value = '', detail = {} }
+      }
+    } = res
     return {
-      title: detail.name,
-      path: `/subpackages/pages/product-detail/index?id=${id}`
+      title: value || detail.name,
+      path: `/detailPackages/pages/video-detail/index?id=${id}`
     }
   }
 
@@ -196,6 +198,8 @@ class videoDetail extends Taro.Component {
             isFavorite={detail.isFavorite}
             editComment={this.editComment.bind(this)}
             comments={detail.comments}
+            type={'VIDOE'}
+            detail={detail}
           />
         </View>
 

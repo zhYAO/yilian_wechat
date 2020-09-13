@@ -20,7 +20,6 @@ const CommonOptions = props => {
     comments = [],
     editComment,
     defaultShowComment,
-    onTextChange,
     type,
     detail
   } = props
@@ -187,7 +186,6 @@ const CommonOptions = props => {
       <SharePop
         isOpened={shareOpened}
         onClose={handleSharePopShow}
-        onTextChange={onTextChange}
         type={type}
         detail={detail}
       />

@@ -20,9 +20,6 @@ import SharePop from '@components/page-components/share-pop'
 import { stopPullDownRefresh } from '@crossplatform/apiservice/reflash'
 import './index.less'
 
-let shareText = ''
-let cardDetail = {}
-
 const Trends = props => {
   const {
     common: { userInfo },
@@ -64,9 +61,14 @@ const Trends = props => {
   })
 
   useShareAppMessage(res => {
+    const {
+      target: {
+        dataset: { detail = {}, value = '' }
+      }
+    } = res
     return {
-      title: shareText || cardDetail.content,
-      path: `subpackages/pages/edit-comment/index?id=${cardDetail.id}`
+      title: value || detail.content,
+      path: `subpackages/pages/edit-comment/index?id=${detail.id}`
     }
   })
 
@@ -232,11 +234,6 @@ const Trends = props => {
     onCancel()
   }
 
-  const handleShareTextChange = (val, detail) => {
-    shareText = val
-    cardDetail = detail
-  }
-
   return (
     <View className="container">
       {/* 头部搜索栏 */}
@@ -270,7 +267,6 @@ const Trends = props => {
                 handleSharePopShow={handleSharePopShow}
                 handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
                 isFabulous={item.isFabulous}
-                onShareTextChange={handleShareTextChange}
               />
             </View>
           )

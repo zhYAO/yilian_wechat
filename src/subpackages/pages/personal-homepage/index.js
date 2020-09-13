@@ -9,8 +9,6 @@ import { stopPullDownRefresh } from '@crossplatform/apiservice/reflash'
 import { getStorageSync } from '@crossplatform/apiservice/storage'
 import './index.less'
 
-let shareText = ''
-
 class PersonalHomepage extends Taro.Component {
   constructor(props) {
     super(props)
@@ -48,25 +46,27 @@ class PersonalHomepage extends Taro.Component {
     })
   }
 
-  onShareAppMessage(e) {
-    const {
-      target: { dataset = {} }
-    } = e
+  onShareAppMessage(res) {
     const { id } = this.$router.params
     const {
       personalHomepage: { name }
     } = this.props
 
-    if (dataset.type === 'PERSONAL') {
+    const {
+      target: {
+        dataset: { detail = {}, value = '', type }
+      }
+    } = res
+
+    if (type === 'PERSONAL') {
       return {
         title: name,
         path: `/subpackages/pages/personal-homepage/index?id=${id}`
       }
     } else {
-      const { itemActive } = this.state
       return {
-        title: shareText || name,
-        path: `subpackages/pages/edit-comment/index?id=${itemActive.id}`
+        title: value || name,
+        path: `subpackages/pages/edit-comment/index?id=${detail.id}`
       }
     }
   }
@@ -212,10 +212,6 @@ class PersonalHomepage extends Taro.Component {
     this.onCancel()
   }
 
-  handleSharePopChange = val => {
-    shareText = val
-  }
-
   render() {
     const {
       common: { userId },
@@ -285,7 +281,6 @@ class PersonalHomepage extends Taro.Component {
                     handleZanClick={() => this.handleZanClick(item.id, item.isFabulous)}
                     isFabulous={item.isFabulous}
                     isMine={isMineVisit}
-                    onShareTextChange={this.handleSharePopChange}
                   />
                 </View>
               )

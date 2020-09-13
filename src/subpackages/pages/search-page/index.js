@@ -12,8 +12,6 @@ import NavigationBar from '@components/page-components/navigation-bar'
 import { getStorageSync, removeStorageSync } from '@crossplatform/apiservice/storage'
 import './index.less'
 
-let shareText = ''
-
 const SearchPage = props => {
   const {
     dispatch,
@@ -58,9 +56,14 @@ const SearchPage = props => {
   }, [])
 
   useShareAppMessage(res => {
+    const {
+      target: {
+        dataset: { detail = {}, value = '' }
+      }
+    } = res
     return {
-      title: shareText || itemActive.publisher,
-      path: `subpackages/pages/edit-comment/index?id=${itemActive.id}`
+      title: value || detail.publisher,
+      path: `subpackages/pages/edit-comment/index?id=${detail.id}`
     }
   })
 
@@ -220,10 +223,6 @@ const SearchPage = props => {
     })
   }
 
-  const handleSharePopChange = val => {
-    shareText = val
-  }
-
   return (
     <View className="container">
       <NavigationBar title="搜索" hasLeftIcon={true} />
@@ -305,7 +304,6 @@ const SearchPage = props => {
                 handleShowAction={() => onShow(item)}
                 handleZanClick={() => handleZanClick(item.id, item.isFabulous)}
                 isFabulous={item.isFabulous}
-                onShareTextChange={handleSharePopChange}
               />
             </View>
           ))}

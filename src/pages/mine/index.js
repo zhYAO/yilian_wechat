@@ -55,7 +55,7 @@ const Mine = props => {
       type: 'mine/effectsUserInfo',
       payload: {}
     }).then(() => {
-      setStorageSync('identity', identity)
+      setStorageSync('identity', props.mine.userInfo.identity)
       dispatch({
         type: 'common/effectsUpdate',
         payload: { identity }

@@ -7,8 +7,6 @@ import CommonOptions from '@components/page-components/common-options'
 import NavigationBar from '@components/page-components/navigation-bar'
 import './index.less'
 
-let shareText = ''
-
 class ProductDetail extends Taro.Component {
   constructor(props) {
     super(props)
@@ -21,14 +19,19 @@ class ProductDetail extends Taro.Component {
     this.getData()
   }
 
-  onShareAppMessage() {
+  onShareAppMessage(res) {
     const { id } = this.$router.params
     const {
       productDetail: { detail }
     } = this.props
+    const {
+      target: {
+        dataset: { value = '' }
+      }
+    } = res
     return {
-      title: shareText || detail.name,
-      path: `/subpackages/pages/product-detail/index?id=${id}`
+      title: value || detail.name,
+      path: `/detailPackages/pages/product-detail/index?id=${id}`
     }
   }
 
@@ -173,10 +176,6 @@ class ProductDetail extends Taro.Component {
     })
   }
 
-  handleSharePopChange = val => {
-    shareText = val
-  }
-
   render() {
     const {
       productDetail: { detail, isOpened, replyName, content },
@@ -240,7 +239,6 @@ class ProductDetail extends Taro.Component {
             isFavorite={detail.isFavorite}
             editComment={this.editComment.bind(this)}
             comments={detail.comments}
-            onTextChange={this.handleSharePopChange}
             type={'PRODUCT'}
             detail={detail}
           />

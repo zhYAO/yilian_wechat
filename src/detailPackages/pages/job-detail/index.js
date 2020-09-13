@@ -11,8 +11,6 @@ import { getStorageSync } from '@crossplatform/apiservice/storage'
 import { showToast } from '@crossplatform/apiservice/toast'
 import './index.less'
 
-let shareText = ''
-
 class JobDetail extends Taro.Component {
   constructor(props) {
     super(props)
@@ -27,14 +25,19 @@ class JobDetail extends Taro.Component {
     this.getDetail()
   }
 
-  onShareAppMessage() {
+  onShareAppMessage(res) {
     const { id } = this.$router.params
     const {
       jobDetail: { detail }
     } = this.props
+    const {
+      target: {
+        dataset: { value = '' }
+      }
+    } = res
     return {
-      title: shareText || detail.name,
-      path: `/subpackages/pages/job-detail/index?id=${id}`
+      title: value || detail.name,
+      path: `/detailPackages/pages/job-detail/index?id=${id}`
     }
   }
 
@@ -237,10 +240,6 @@ class JobDetail extends Taro.Component {
     })
   }
 
-  handleSharePopChange = val => {
-    shareText = val
-  }
-
   render() {
     const {
       jobDetail: { detail, isOpened, replyName, content },
@@ -298,7 +297,6 @@ class JobDetail extends Taro.Component {
                 isFavorite={detail.isFavorite}
                 editComment={this.editComment.bind(this)}
                 comments={detail.comments}
-                onTextChange={this.handleSharePopChange}
                 type={'POSITION'}
                 detail={detail}
               />
