@@ -11,7 +11,7 @@ import './index.less'
 const MyTakepart = props => {
   const {
     dispatch,
-    myTakepart: { current, tabList, dynamicList = [], companys = [], productList = [] },
+    myTakepart: { current, tabList, dynamicList = [], companys = [], products = [] },
     loading
   } = props
 
@@ -55,7 +55,7 @@ const MyTakepart = props => {
 
       {current === 1 && (
         <View>
-          {productList.map(item => {
+          {products.map(item => {
             return (
               <View key={item.id}>
                 <ProductCardFav card={item} noBtn={true} />

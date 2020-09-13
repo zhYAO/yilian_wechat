@@ -14,7 +14,7 @@ const DynamicCardFav = props => {
 
   const handleClick = () => {
     navigateTo({
-      url: `${pagejumplist['personal-homepage'].path}?id=${card.id}`
+      url: `${pagejumplist['personal-homepage'].path}?id=${card.foreignId}`
     })
   }
 

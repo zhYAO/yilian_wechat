@@ -47,10 +47,10 @@ class CompanyDetail extends Taro.Component {
         dataset: { detail = {}, value = '', type }
       }
     } = res
-    if (type === 'COMAPNY') {
+    if (type === 'COMPANY') {
       return {
         title: value || companyDetail.name,
-        path: `/detailPackages/pages/company-detail/index?id=${id}`
+        path: `detailPackages/pages/company-detail/index?id=${id}`
       }
     } else {
       const { itemActive } = this.state
