@@ -9,6 +9,7 @@ import { navigateTo, navigateBack } from '@crossplatform/apiservice/navigate'
 import pagejumplist from '@configuration/pagejumplist.json'
 import { getStorageSync } from '@crossplatform/apiservice/storage'
 import { showToast } from '@crossplatform/apiservice/toast'
+import { getGlobalData } from '@configuration/globaldata'
 import './index.less'
 
 class JobDetail extends Taro.Component {
@@ -17,7 +18,7 @@ class JobDetail extends Taro.Component {
     this.state = {
       isQuickSend: false,
       fileName: '',
-      tempFilePaths: {}
+      tempFilePaths: null
     }
   }
 
@@ -191,6 +192,13 @@ class JobDetail extends Taro.Component {
     })
   }
 
+  clearUploadFile() {
+    this.setState({
+      fileName: '',
+      tempFilePaths: null
+    })
+  }
+
   // 选择上传文件
   chooseMessageUpload() {
     const self = this
@@ -214,30 +222,36 @@ class JobDetail extends Taro.Component {
       common: { token }
     } = this.props
     const { tempFilePaths } = this.state
-    Taro.uploadFile({
-      url: `${getGlobalData('API_URL')}/company-position/apply`,
-      filePath: tempFilePaths.path,
-      name: 'file',
-      header: {
-        'Content-Type': 'multipart/form-data',
-        token: token || getStorageSync('token')
-      },
-      formData: {
-        positionId: detail.id
-      },
-      success(res) {
-        const data = JSON.parse(res.data)
-        if (data.code === '0000') {
-          showToast({
-            title: '发送成功'
-          })
-          const timer = setTimeout(() => {
-            clearTimeout(timer)
-            navigateBack()
-          }, 1000)
+    if(tempFilePaths) {
+      Taro.uploadFile({
+        url: `${getGlobalData('API_URL')}/company-position/apply`,
+        filePath: tempFilePaths.path,
+        name: 'file',
+        header: {
+          'Content-Type': 'multipart/form-data',
+          token: token || getStorageSync('token')
+        },
+        formData: {
+          positionId: detail.id
+        },
+        success(res) {
+          const data = JSON.parse(res.data)
+          if (data.code === '0000') {
+            showToast({
+              title: '发送成功'
+            })
+            const timer = setTimeout(() => {
+              clearTimeout(timer)
+              navigateBack()
+            }, 1000)
+          }
         }
-      }
-    })
+      })
+    } else {
+      showToast({
+        title: '请上传简历'
+      })
+    }
   }
 
   render() {
@@ -317,7 +331,7 @@ class JobDetail extends Taro.Component {
                 <View className="options" onClick={this.chooseMessageUpload.bind(this)}>
                   ＋
                 </View>
-                <View className="options options--close">×</View>
+                <View className="options options--close" onClick={this.clearUploadFile.bind(this)}>×</View>
               </View>
             </View>
             <View className="container__options">
