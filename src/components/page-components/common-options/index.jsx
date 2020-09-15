@@ -183,12 +183,7 @@ const CommonOptions = props => {
         </View>
       )}
 
-      <SharePop
-        isOpened={shareOpened}
-        onClose={handleSharePopShow}
-        type={type}
-        detail={detail}
-      />
+      <SharePop isOpened={shareOpened} onClose={handleSharePopShow} type={type} detail={detail} />
     </View>
   )
 }

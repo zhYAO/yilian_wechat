@@ -50,6 +50,7 @@ const SharePop = props => {
         break
     }
     onClose()
+    setShareText('')
     shareTimesRequest(params)
   }
 

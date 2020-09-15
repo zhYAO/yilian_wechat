@@ -258,8 +258,9 @@ class CompanyDetail extends Taro.Component {
       }
     } = this.props
     const companyInfo = getStorageSync('companyInfo')
+    const userInfo = getStorageSync('userInfo')
     this.setState({
-      isMine: companyInfo.identity === 'admin' && companyInfo.id === id
+      isMine: companyInfo.identity === 'admin' && companyInfo.id === id && userInfo.nickName
     })
   }
 

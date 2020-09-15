@@ -5,7 +5,10 @@ import { connect } from '@tarojs/redux'
 import CustomNavigator from '@components/page-components/custom-navigator'
 import CommonOptions from '@components/page-components/common-options'
 import NavigationBar from '@components/page-components/navigation-bar'
+import { getGlobalData } from '@configuration/globaldata'
 import './index.less'
+
+const { isFullScreen: isFullScreenBottom } = getGlobalData()
 
 class ProductDetail extends Taro.Component {
   constructor(props) {
@@ -222,9 +225,8 @@ class ProductDetail extends Taro.Component {
           <RichText space="nbsp" nodes={detail.productDescribe}></RichText>
         </View>
 
-
         {/* 底部操作组件 */}
-        <View className="container__options">
+        <View className="container__options" style={{ paddingBottom: isFullScreenBottom ? '20px' : '' }}>
           <View className="container__gap"></View>
           <CommonOptions
             hasStar={true}
