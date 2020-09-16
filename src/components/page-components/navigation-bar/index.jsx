@@ -1,7 +1,8 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { getGlobalData } from '@configuration/globaldata'
-import { navigateBack } from '@crossplatform/apiservice/navigate'
+import { navigateBack, switchTab } from '@crossplatform/apiservice/navigate'
+import pagejumplist from '@configuration/pagejumplist.json'
 import { AtNavBar } from 'taro-ui'
 import './index.less'
 
@@ -10,7 +11,13 @@ const NavigationBar = props => {
   const { navBarPaddingTop } = getGlobalData()
 
   const handleBack = () => {
-    navigateBack()
+    navigateBack({
+      fail: () => {
+        switchTab({
+          url: `${pagejumplist['home'].path}`
+        })
+      }
+    })
   }
 
   return (
