@@ -272,7 +272,7 @@ class JobDetail extends Taro.Component {
             <View className="sub__text">{detail.workplace}</View>
             <View className="sub__text">{detail.releaseTime}</View>
             <View className="sub__text">浏览{detail.lookCount}次</View>
-            <View className="sub__text">已申请{detail.sendcount || 0}人</View>
+            <View className="sub__text">已申请{detail.sendCount || 0}人</View>
           </View>
         </View>
 
