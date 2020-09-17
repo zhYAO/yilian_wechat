@@ -226,25 +226,30 @@ class ProductDetail extends Taro.Component {
         </View>
 
         {/* 底部操作组件 */}
-        <View className="container__options" style={{ paddingBottom: isFullScreenBottom ? '20px' : '' }}>
-          <View className="container__gap"></View>
-          <CommonOptions
-            hasStar={true}
-            optionId={detail.id}
-            shareNum={detail.forwardCount}
-            commentNum={detail.commentCount}
-            starNum={detail.favoriteCount}
-            zanNum={detail.fabulousCount}
-            handleZanClick={() => this.handleZanClick(detail.id, detail.isFabulous)}
-            isFabulous={detail.isFabulous}
-            handleFavoriteClick={() => this.handleFavoriteClick(detail.id, detail.isFavorite)}
-            isFavorite={detail.isFavorite}
-            editComment={this.editComment.bind(this)}
-            comments={detail.comments}
-            type={'PRODUCT'}
-            detail={detail}
-          />
-        </View>
+        {!isFullScreen && (
+          <View
+            className="container__options"
+            style={{ paddingBottom: isFullScreenBottom ? '20px' : '' }}
+          >
+            <View className="container__gap"></View>
+            <CommonOptions
+              hasStar={true}
+              optionId={detail.id}
+              shareNum={detail.forwardCount}
+              commentNum={detail.commentCount}
+              starNum={detail.favoriteCount}
+              zanNum={detail.fabulousCount}
+              handleZanClick={() => this.handleZanClick(detail.id, detail.isFabulous)}
+              isFabulous={detail.isFabulous}
+              handleFavoriteClick={() => this.handleFavoriteClick(detail.id, detail.isFavorite)}
+              isFavorite={detail.isFavorite}
+              editComment={this.editComment.bind(this)}
+              comments={detail.comments}
+              type={'PRODUCT'}
+              detail={detail}
+            />
+          </View>
+        )}
 
         <View style={{ display: isOpened ? 'unset' : 'none' }}>
           <AtModal isOpened={isOpened}>

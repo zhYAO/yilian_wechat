@@ -5,12 +5,17 @@ import { connect } from '@tarojs/redux'
 import CommonOptions from '@components/page-components/common-options'
 import CompanyDetailCard from '@components/page-components/company-detail-card'
 import NavigationBar from '@components/page-components/navigation-bar'
+import { getGlobalData } from '@configuration/globaldata'
 import './index.less'
+
+const { isFullScreen: isFullScreenBottom } = getGlobalData()
 
 class videoDetail extends Taro.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      isFullScreen: false
+    }
   }
 
   componentDidMount() {
@@ -36,6 +41,13 @@ class videoDetail extends Taro.Component {
     dispatch({
       type: 'videoDetail/effectsVideoDetail',
       payload: { id }
+    })
+  }
+
+  handleFullScreen() {
+    const { isFullScreen } = this.state
+    this.setState({
+      isFullScreen: !isFullScreen
     })
   }
 
@@ -168,15 +180,19 @@ class videoDetail extends Taro.Component {
       videoDetail: { detail, isOpened, replyName, content },
       loading
     } = this.props
+
+    const { isFullScreen } = this.state
+
     return (
       <View className="container">
-        <NavigationBar title={detail.name} hasLeftIcon={true} />
+        {!isFullScreen && <NavigationBar title={detail.foreignName} hasLeftIcon={true} />}
 
         <View className="container__video">
           <Video
             className="container__video__item"
             src={detail.videoPath}
             show-fullscreen-btn={detail.videoPath}
+            onFullscreenChange={this.handleFullScreen}
             direction={0}
           ></Video>
         </View>
@@ -184,24 +200,30 @@ class videoDetail extends Taro.Component {
         <CompanyDetailCard card={detail.company} />
 
         {/* 底部操作组件 */}
-        <View className="container__options">
-          <CommonOptions
-            optionId={detail.id}
-            shareNum={detail.forwardCount}
-            commentNum={detail.commentCount}
-            zanNum={detail.fabulousCount}
-            starNum={detail.favoriteCount}
-            hasStar
-            handleZanClick={() => this.handleZanClick(detail.id, detail.isFabulous)}
-            isFabulous={detail.isFabulous}
-            handleFavoriteClick={() => this.handleFavoriteClick(detail.id, detail.isFavorite)}
-            isFavorite={detail.isFavorite}
-            editComment={this.editComment.bind(this)}
-            comments={detail.comments}
-            type={'VIDOE'}
-            detail={detail}
-          />
-        </View>
+        {!isFullScreen && (
+          <View
+            className="container__options"
+            style={{ paddingBottom: isFullScreenBottom ? '20px' : '' }}
+          >
+            <View className="container__gap"></View>
+            <CommonOptions
+              optionId={detail.id}
+              shareNum={detail.forwardCount}
+              commentNum={detail.commentCount}
+              zanNum={detail.fabulousCount}
+              starNum={detail.favoriteCount}
+              hasStar
+              handleZanClick={() => this.handleZanClick(detail.id, detail.isFabulous)}
+              isFabulous={detail.isFabulous}
+              handleFavoriteClick={() => this.handleFavoriteClick(detail.id, detail.isFavorite)}
+              isFavorite={detail.isFavorite}
+              editComment={this.editComment.bind(this)}
+              comments={detail.comments}
+              type={'VIDOE'}
+              detail={detail}
+            />
+          </View>
+        )}
 
         <View style={{ display: isOpened ? 'unset' : 'none' }}>
           <AtModal isOpened={isOpened}>
