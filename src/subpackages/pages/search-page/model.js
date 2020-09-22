@@ -27,15 +27,18 @@ export default {
   effects: {
     *effectsSearch({ payload }, { call, put, select }) {
       const { searchVal, searchRecord = [] } = yield select(state => state.searchPage)
-      const { data } = yield call(searchpageApi.search, { name: searchVal })
+      const { data } = yield call(searchpageApi.search, { name: payload.val || searchVal })
       if (data) {
         let newArr = [...searchRecord]
-        newArr.push(searchVal.trim())
+        if(searchVal) {
+          newArr.push(searchVal.trim())
+        }
         const history = new Set(newArr)
         setStorageSync('searchHistory', [...history].join('|'))
         yield put({
           type: 'updateState',
           payload: {
+            searchVal: payload.val || searchVal,
             searchData: data,
             isSearch: true,
             searchRecord: [...history]

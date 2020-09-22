@@ -95,10 +95,9 @@ const SearchPage = props => {
 
   const handleRecordClick = val => {
     dispatch({
-      type: 'searchPage/updateState',
+      type: 'searchPage/effectsSearch',
       payload: {
-        searchVal: val,
-        isSearch: true
+        val
       }
     })
   }

@@ -197,7 +197,7 @@ class videoDetail extends Taro.Component {
           ></Video>
         </View>
 
-        <CompanyDetailCard card={detail.company} />
+        <CompanyDetailCard card={detail.company} handleInit={() => this.getDetail()} />
 
         {/* 底部操作组件 */}
         {!isFullScreen && (
