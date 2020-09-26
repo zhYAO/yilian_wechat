@@ -13,6 +13,8 @@ const CommonOptions = props => {
     zanNum,
     starNum,
     hasStar,
+    // 工作详情的特殊样式
+    specType = false,
     handleZanClick,
     isFabulous,
     handleFavoriteClick,
@@ -52,7 +54,7 @@ const CommonOptions = props => {
 
   return (
     <View>
-      <View className="container">
+      <View className={`container ${specType ? 'container-spec' : ''}`}>
         <View className="container__option" onClick={handleSharePopShow}>
           <Image
             className="container__option__icon"
@@ -61,7 +63,7 @@ const CommonOptions = props => {
           ></Image>
           <View className="container__option__text">转发 {shareNum}</View>
         </View>
-        <View className="container__option" onClick={handleShowComment}>
+        {!specType && <View className="container__option" onClick={handleShowComment}>
           <Image
             className="container__option__icon"
             src={
@@ -74,7 +76,7 @@ const CommonOptions = props => {
           <View className={`container__option__text ${showComment ? 'text__active' : ''}`}>
             评论 {commentNum}
           </View>
-        </View>
+        </View>}
         {hasStar && (
           <View className="container__option" onClick={handleFavoriteClick}>
             <Image
@@ -91,7 +93,7 @@ const CommonOptions = props => {
             </View>
           </View>
         )}
-        <View className="container__option" onClick={handleZanClick}>
+        {!specType && <View className="container__option" onClick={handleZanClick}>
           <Image
             className="container__option__icon"
             src={
@@ -104,7 +106,7 @@ const CommonOptions = props => {
           <View className={`container__option__text ${isFabulous ? 'text__active' : ''}`}>
             赞 {zanNum}
           </View>
-        </View>
+        </View>}
       </View>
       {showComment && comments.length > 0 && (
         <View className="comments">

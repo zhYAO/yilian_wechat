@@ -298,24 +298,27 @@ class JobDetail extends Taro.Component {
 
             <View className="container__options">
               <View className="container__gap"></View>
-              <CommonOptions
-                optionId={detail.id}
-                shareNum={detail.forwardCount}
-                commentNum={detail.commentCount}
-                zanNum={detail.fabulousCount}
-                starNum={detail.favoriteCount}
-                hasStar
-                handleZanClick={() => this.handleZanClick(detail.id, detail.isFabulous)}
-                isFabulous={detail.isFabulous}
-                handleFavoriteClick={() => this.handleFavoriteClick(detail.id, detail.isFavorite)}
-                isFavorite={detail.isFavorite}
-                editComment={this.editComment.bind(this)}
-                comments={detail.comments}
-                type={'POSITION'}
-                detail={detail}
-              />
-              <View className="container__options__btn" onClick={this.handleQuickSend}>
-                快速申请
+              <View className="container__options__bottom">
+                <CommonOptions
+                  optionId={detail.id}
+                  shareNum={detail.forwardCount}
+                  commentNum={detail.commentCount}
+                  zanNum={detail.fabulousCount}
+                  starNum={detail.favoriteCount}
+                  hasStar
+                  specType
+                  handleZanClick={() => this.handleZanClick(detail.id, detail.isFabulous)}
+                  isFabulous={detail.isFabulous}
+                  handleFavoriteClick={() => this.handleFavoriteClick(detail.id, detail.isFavorite)}
+                  isFavorite={detail.isFavorite}
+                  editComment={this.editComment.bind(this)}
+                  comments={detail.comments}
+                  type={'POSITION'}
+                  detail={detail}
+                />
+                <View className="container__options__btn" onClick={this.handleQuickSend}>
+                  快速申请
+                </View>
               </View>
             </View>
           </Block>

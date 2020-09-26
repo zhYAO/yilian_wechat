@@ -10,6 +10,7 @@ import './index.less'
 const SharePop = props => {
   const { isOpened = false, onClose, type, detail } = props
   const [shareText, setShareText] = useState('')
+  const [textFocus, setTextFocus] = useState(false)
 
   useEffect(() => {
     setShareText('')
@@ -54,10 +55,18 @@ const SharePop = props => {
     shareTimesRequest(params)
   }
 
+  const handleTextFocus = () => {
+    setTextFocus(true)
+  }
+
+  const handleTextBlur = () => {
+    setTextFocus(false)
+  }
+
   return (
     <View style={{ display: isOpened ? 'unset' : 'none' }}>
       <AtFloatLayout isOpened={isOpened} onClose={handleClose}>
-        <View className="container">
+        <View className={`container ${textFocus ? 'inputMarBot' : ''}`}>
           <View className="container__title">
             <View className="container__title__text">转发动态</View>
             <Button
@@ -77,6 +86,8 @@ const SharePop = props => {
               onChange={handleChange}
               maxLength={100}
               placeholder="请填写分享说明"
+              onFocus={handleTextFocus}
+              onBlur={handleTextBlur}
             />
 
             {type === 'COMPANY' && (
